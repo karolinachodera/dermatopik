@@ -30,12 +30,39 @@ function Scorad({ id, description }) {
     );
   });
 
+  function Inputs({ symptom }) {
+    const values = [
+      "brak",
+      "słabo nasilony",
+      "średnio nasilony",
+      "mocno nasilony",
+    ];
+    const inputs = values.map((value, index) => {
+      return (
+        <>
+          <label for={index}>{value}</label>
+          <input id={index} name={symptom} value={index} type="radio"></input>;
+        </>
+      );
+    });
+    return inputs;
+  }
+
+  const inputs2 = inputsInfo.map((input) => {
+    return (
+      <fieldset>
+        <legend>{input[1]}</legend>
+        <Inputs symptom={input[0]} />
+      </fieldset>
+    );
+  });
+
   return (
     <>
       <section>
         <h2>Ocena SCORAD</h2>
         <h3>Intensywność objawów</h3>
-        {inputs}
+        {inputs2}
       </section>
     </>
   );
