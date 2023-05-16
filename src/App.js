@@ -5,9 +5,7 @@ function App() {
   return (
     <>
       <h1>Dziennik Obserwacji Skóry</h1>
-      <form>
-        <Scorad id="erythema" description="Rumień" />
-      </form>
+      <Scorad />
     </>
   );
 }
