@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-function Symptoms({ id, description }) {
-  const [scoradPoints, setScoradPoints] = useState(0);
+function Symptoms() {
+  const [sectionAPoints, setSectionAPoints] = useState(Array(6).fill(null));
   const inputsInfo = [
     ["erythema", "Rumień"],
     ["edema", "Obrzęk"],
@@ -11,57 +11,63 @@ function Symptoms({ id, description }) {
     ["dryness", "Suchość (na obszarach niezajętych zmianami zapalnymi"],
   ];
 
-  function handleChange() {}
-
-  const inputs = inputsInfo.map((input) => {
-    return (
-      <>
-        <label for={input[0]}>{input[1]}</label>
-        <input
-          type="range"
-          id={input[0]}
-          min="0"
-          max="3"
-          name={input[0]}
-          range="1"
-          onChange={handleChange}
-        ></input>
-      </>
-    );
-  });
-
-  function Inputs({ symptom }) {
+  function Inputs({ symptom, fieldsetIndex }) {
     const values = [
       "brak",
       "słabo nasilony",
       "średnio nasilony",
       "mocno nasilony",
     ];
+
+    const handleChange = (e) => {
+      const selectedValue = e.target.value;
+      setSectionAPoints((prevPoints) => {
+        const newPoints = [...prevPoints];
+        newPoints[fieldsetIndex] = selectedValue;
+        return newPoints;
+      });
+    };
+
     const inputs = values.map((value, index) => {
+      const isChecked = index.toString() === sectionAPoints[fieldsetIndex];
       return (
         <>
-          <label for={index}>{value}</label>
-          <input id={index} name={symptom} value={index} type="radio"></input>;
+          <label htmlFor={`${symptom}-${index}`} key={`label-${index}`}>
+            {value}
+          </label>
+          <input
+            id={`${symptom}-${index}`}
+            key={`${symptom}-${index}`}
+            name={symptom}
+            value={index}
+            type="radio"
+            checked={isChecked}
+            onChange={handleChange}
+          />
         </>
       );
     });
+
     return inputs;
   }
 
-  const inputs2 = inputsInfo.map((input) => {
-    return (
-      <fieldset>
-        <legend>{input[1]}</legend>
-        <Inputs symptom={input[0]} />
-      </fieldset>
-    );
-  });
+  function Fieldset() {
+    const fieldset = inputsInfo.map((input, index) => {
+      return (
+        <fieldset name={input[0]} data-index={index} key={input[0]}>
+          <legend>{input[1]}</legend>
+          <Inputs symptom={input[0]} fieldsetIndex={index} />
+        </fieldset>
+      );
+    });
+    return fieldset;
+  }
 
   return (
     <>
       <section>
         <h3>Intensywność objawów</h3>
-        {inputs2}
+        <Fieldset />
       </section>
     </>
   );
