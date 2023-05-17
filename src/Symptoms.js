@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-function Symptoms() {
-  const [sectionAPoints, setSectionAPoints] = useState(Array(6).fill(null));
+function Symptoms({ countResult }) {
+  const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
+
   const inputsInfo = [
     ["erythema", "Rumień"],
     ["edema", "Obrzęk"],
@@ -20,16 +21,17 @@ function Symptoms() {
     ];
 
     const handleChange = (e) => {
-      const selectedValue = e.target.value;
-      setSectionAPoints((prevPoints) => {
+      const selectedValue = Number(e.target.value);
+      setSectionBPoints((prevPoints) => {
         const newPoints = [...prevPoints];
         newPoints[fieldsetIndex] = selectedValue;
+        countResult(newPoints);
         return newPoints;
       });
     };
 
     const inputs = values.map((value, index) => {
-      const isChecked = index.toString() === sectionAPoints[fieldsetIndex];
+      const isChecked = index === sectionBPoints[fieldsetIndex];
       return (
         <>
           <label htmlFor={`${symptom}-${index}`} key={`label-${index}`}>
