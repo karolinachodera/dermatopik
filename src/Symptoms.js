@@ -20,12 +20,19 @@ function Symptoms({ countResult }) {
       "mocno nasilony",
     ];
 
+    function countSum(points) {
+      const sum = points.reduce((total, point) => {
+        return total + point;
+      }, 0);
+      countResult(sum);
+    }
+
     const handleChange = (e) => {
       const selectedValue = Number(e.target.value);
       setSectionBPoints((prevPoints) => {
         const newPoints = [...prevPoints];
         newPoints[fieldsetIndex] = selectedValue;
-        countResult(newPoints);
+        countSum(newPoints);
         return newPoints;
       });
     };

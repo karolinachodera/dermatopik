@@ -7,40 +7,48 @@ import FormNav from "./FormNav";
 
 function Scorad() {
   const [part, setPart] = useState(1);
-
-  //here I get sums of points from 3 parts (child components - Symptoms, BodyParts, SleepAndItch ) of scorad evaluation
-  const [pointsSums, setPointsSums] = useState([Array(3).fill(0)]);
-
-  //here I have result ofSCORAD
+  const [partsSums, setPartsSums] = useState(Array(3).fill(0));
   const [scoradResult, setScoradResult] = useState(0);
 
-  // function countScoradResult() {
-  //     const partAResult = sumA / 5;
-  //     const partBResult = (7 * sumB) / 2;
-  //     const partCResult = sumC;
-  //     const result = partAResult + partBResult + partCResult;
+  function updatePartsSums(i, result) {
+    setPartsSums((prevSums) => {
+      const nextSums = [...prevSums];
+      nextSums[i] = result;
+      return nextSums;
+    });
+  }
 
-  //     setScoradResult(() => result);
-  // }
-  const [symptomsResult, setSymptomsResult] = useState(0);
+  function countPartAResult(sumA) {
+    const result = sumA / 5;
+    updatePartsSums(0, result);
+  }
 
-  function countSymptomsResult(newPoints) {
-    console.log(newPoints);
-    const sum = newPoints.reduce((points, symptom) => {
-      return points + symptom;
+  function countPartBResult(sumB) {
+    const result = (7 * sumB) / 2;
+    updatePartsSums(1, result);
+  }
+
+  function countPartCResult(sumC) {
+    const result = sumC;
+    updatePartsSums(2, result);
+  }
+
+  function countScorad() {
+    const scoradResult = partsSums.reduce((total, partSum) => {
+      return total + partSum;
     }, 0);
-    const result = (7 * sum) / 2;
-    setSymptomsResult(result);
+    setScoradResult(scoradResult);
   }
 
   function handleFormNavButtonClick(e) {
     e.preventDefault();
+    countScorad();
     if (e.target.value === "prev") {
       setPart(part - 1);
     } else if (e.target.value === "next") {
-      //   if (part === 1) {
-      //     setSectionA();
-      //   }
+      if (part === 2) {
+        //countPartBResult;
+      }
       setPart(part + 1);
     }
   }
@@ -49,7 +57,7 @@ function Scorad() {
     if (part === 1) {
       return <BodyParts />;
     } else if (part === 2) {
-      return <Symptoms countResult={countSymptomsResult} />;
+      return <Symptoms countResult={countPartBResult} />;
     } else if (part === 3) {
       return <SleepAndItch />;
     } else {
@@ -61,7 +69,7 @@ function Scorad() {
     <>
       <h2>Ocena SCORAD</h2>
       <form>
-        <h3>Wynik SCORAD: {symptomsResult}</h3>
+        <h3>Wynik SCORAD: {scoradResult}</h3>
         {setPartComponent()}
         <FormNav clickFormNavButton={handleFormNavButtonClick} part={part} />
       </form>
