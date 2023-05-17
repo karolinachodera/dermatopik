@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import BodyParts from "./BodyParts";
 import Symptoms from "./Symptoms";
+import SleepAndItch from "./SleepAndItch";
 import FormNav from "./FormNav";
 
 function Scorad() {
@@ -44,12 +45,24 @@ function Scorad() {
     }
   }
 
+  function setPartComponent() {
+    if (part === 1) {
+      return <BodyParts />;
+    } else if (part === 2) {
+      return <Symptoms countResult={countSymptomsResult} />;
+    } else if (part === 3) {
+      return <SleepAndItch />;
+    } else {
+      return <p>Ciąg dalszy nastąpi</p>;
+    }
+  }
+
   return (
     <>
       <h2>Ocena SCORAD</h2>
       <form>
         <h3>Wynik SCORAD: {symptomsResult}</h3>
-        <Symptoms countResult={countSymptomsResult} />
+        {setPartComponent()}
         <FormNav clickFormNavButton={handleFormNavButtonClick} part={part} />
       </form>
     </>
