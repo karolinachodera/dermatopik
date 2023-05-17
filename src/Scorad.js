@@ -1,12 +1,13 @@
 import { useState } from "react";
 
+import BodyParts from "./BodyParts";
 import Symptoms from "./Symptoms";
 import FormNav from "./FormNav";
 
 function Scorad() {
   const [part, setPart] = useState(1);
 
-  //here I get sums of points from 3 parts (child components - Symptoms, BodyPart, SleepAndItching ) of scorad evaluation
+  //here I get sums of points from 3 parts (child components - Symptoms, BodyParts, SleepAndItch ) of scorad evaluation
   const [pointsSums, setPointsSums] = useState([Array(3).fill(0)]);
 
   //here I have result ofSCORAD
