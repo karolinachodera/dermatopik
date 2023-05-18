@@ -71,7 +71,11 @@ function Scorad() {
       <form>
         <h3>Wynik SCORAD: {scoradResult}</h3>
         {setPartComponent()}
-        <FormNav clickFormNavButton={handleFormNavButtonClick} part={part} />
+        <section>
+          <NavButton handleClick={handleNavClick} direction={"prev"} />
+          <p>{part}/3</p>
+          <NavButton handleClick={handleNavClick} direction={"next"} />
+        </section>
       </form>
     </>
   );
