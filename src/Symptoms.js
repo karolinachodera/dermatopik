@@ -1,8 +1,4 @@
-import { useState } from "react";
-
-function Symptoms({ countResult }) {
-  const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
-
+function Symptoms({ handleChange, sectionBPoints }) {
   const inputsInfo = [
     ["erythema", "Rumień"],
     ["edema", "Obrzęk"],
@@ -12,30 +8,13 @@ function Symptoms({ countResult }) {
     ["dryness", "Suchość (na obszarach niezajętych zmianami zapalnymi"],
   ];
 
-  function Inputs({ symptom, fieldsetIndex }) {
+  function Inputs({ symptom, fieldsetIndex, handleChange, sectionBPoints }) {
     const values = [
       "brak",
       "słabo nasilony",
       "średnio nasilony",
       "mocno nasilony",
     ];
-
-    function countSum(points) {
-      const sum = points.reduce((total, point) => {
-        return total + point;
-      }, 0);
-      countResult(sum);
-    }
-
-    const handleChange = (e) => {
-      const selectedValue = Number(e.target.value);
-      setSectionBPoints((prevPoints) => {
-        const newPoints = [...prevPoints];
-        newPoints[fieldsetIndex] = selectedValue;
-        countSum(newPoints);
-        return newPoints;
-      });
-    };
 
     const inputs = values.map((value, index) => {
       const isChecked = index === sectionBPoints[fieldsetIndex];
@@ -51,7 +30,7 @@ function Symptoms({ countResult }) {
             value={index}
             type="radio"
             checked={isChecked}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e, fieldsetIndex)}
           />
         </>
       );
@@ -60,12 +39,17 @@ function Symptoms({ countResult }) {
     return inputs;
   }
 
-  function Fieldset() {
+  function Fieldset({ handleChange, sectionBPoints }) {
     const fieldset = inputsInfo.map((input, index) => {
       return (
         <fieldset name={input[0]} data-index={index} key={input[0]}>
           <legend>{input[1]}</legend>
-          <Inputs symptom={input[0]} fieldsetIndex={index} />
+          <Inputs
+            symptom={input[0]}
+            fieldsetIndex={index}
+            handleChange={handleChange}
+            sectionBPoints={sectionBPoints}
+          />
         </fieldset>
       );
     });
@@ -76,7 +60,7 @@ function Symptoms({ countResult }) {
     <>
       <section>
         <h3>Intensywność objawów</h3>
-        <Fieldset />
+        <Fieldset handleChange={handleChange} sectionBPoints={sectionBPoints} />
       </section>
     </>
   );
