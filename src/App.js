@@ -1,4 +1,3 @@
-import "./App.css";
 import Scorad from "./Scorad";
 
 function App() {
