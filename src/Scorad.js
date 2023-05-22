@@ -10,6 +10,7 @@ function Scorad() {
   const [partsSums, setPartsSums] = useState(Array(3).fill(0));
   const [scoradResult, setScoradResult] = useState(0);
   const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
+  const [sectionCPoints, setSectionCPoints] = useState(Array(2).fill(0));
 
   function handleSumUpdate(sum, i) {
     setPartsSums((prevSums) => {
@@ -19,12 +20,11 @@ function Scorad() {
     });
   }
 
-  function countPartBSum(bPoints) {
-    const sum = bPoints.reduce((total, points) => {
+  function countPartSum(points) {
+    const sum = points.reduce((total, points) => {
       return total + points;
     }, 0);
-    console.log(sum);
-    handleSumUpdate(sum, 1);
+    handleSumUpdate(sum, part - 1);
   }
 
   function countScorad() {
@@ -32,31 +32,49 @@ function Scorad() {
     setScoradResult(result);
   }
 
+  function updateSectionPoints(prevPoints, selectedValue, fieldsetIndex) {
+    const newPoints = [...prevPoints];
+    newPoints[fieldsetIndex] = selectedValue;
+    countPartSum(newPoints);
+    return newPoints;
+  }
+
+  function handleInputChange(e, fieldsetIndex) {
+    const selectedValue = Number(e.target.value);
+    if (part === 2) {
+      const newPoints = updateSectionPoints(
+        sectionBPoints,
+        selectedValue,
+        fieldsetIndex
+      );
+      setSectionBPoints(newPoints);
+    } else if (part === 3) {
+      const newPoints = updateSectionPoints(
+        sectionCPoints,
+        selectedValue,
+        fieldsetIndex
+      );
+      setSectionCPoints(newPoints);
+    }
+  }
+
   function setPartComponent() {
     if (part === 1) {
       return <BodyParts />;
     } else if (part === 2) {
       return (
-        <Symptoms
-          handleChange={handleInputChange}
-          sectionBPoints={sectionBPoints}
-        />
+        <Symptoms handleChange={handleInputChange} points={sectionBPoints} />
       );
     } else if (part === 3) {
-      return <SleepAndItch />;
+      return (
+        <SleepAndItch
+          handleChange={handleInputChange}
+          points={sectionCPoints}
+        />
+      );
     } else {
       return <p>Ciąg dalszy nastąpi</p>;
     }
-  }
-  function handleInputChange(e, fieldsetIndex) {
-    const selectedValue = Number(e.target.value);
-    setSectionBPoints((prevPoints) => {
-      const newPoints = [...prevPoints];
-      newPoints[fieldsetIndex] = selectedValue;
-      console.log(newPoints);
-      countPartBSum(newPoints);
-      return newPoints;
-    });
   }
 
   function handleNavClick(e) {

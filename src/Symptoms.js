@@ -1,4 +1,4 @@
-function Symptoms({ handleChange, sectionBPoints }) {
+function Symptoms({ handleChange, points }) {
   const inputsInfo = [
     ["erythema", "Rumień"],
     ["edema", "Obrzęk"],
@@ -8,7 +8,7 @@ function Symptoms({ handleChange, sectionBPoints }) {
     ["dryness", "Suchość (na obszarach niezajętych zmianami zapalnymi"],
   ];
 
-  function Inputs({ symptom, fieldsetIndex, handleChange, sectionBPoints }) {
+  function Inputs({ symptom, fieldsetIndex }) {
     const values = [
       "brak",
       "słabo nasilony",
@@ -17,7 +17,7 @@ function Symptoms({ handleChange, sectionBPoints }) {
     ];
 
     const inputs = values.map((value, index) => {
-      const isChecked = index === sectionBPoints[fieldsetIndex];
+      const isChecked = index === points[fieldsetIndex];
       return (
         <>
           <label htmlFor={`${symptom}-${index}`} key={`label-${index}`}>
@@ -39,7 +39,7 @@ function Symptoms({ handleChange, sectionBPoints }) {
     return inputs;
   }
 
-  function Fieldset({ handleChange, sectionBPoints }) {
+  function Fieldset() {
     const fieldset = inputsInfo.map((input, index) => {
       return (
         <fieldset name={input[0]} data-index={index} key={input[0]}>
@@ -48,7 +48,7 @@ function Symptoms({ handleChange, sectionBPoints }) {
             symptom={input[0]}
             fieldsetIndex={index}
             handleChange={handleChange}
-            sectionBPoints={sectionBPoints}
+            points={points}
           />
         </fieldset>
       );
@@ -60,7 +60,7 @@ function Symptoms({ handleChange, sectionBPoints }) {
     <>
       <section>
         <h3>Intensywność objawów</h3>
-        <Fieldset handleChange={handleChange} sectionBPoints={sectionBPoints} />
+        <Fieldset handleChange={handleChange} points={points} />
       </section>
     </>
   );
