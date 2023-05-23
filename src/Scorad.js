@@ -9,6 +9,7 @@ function Scorad() {
   const [part, setPart] = useState(1);
   const [partsSums, setPartsSums] = useState(Array(3).fill(0));
   const [scoradResult, setScoradResult] = useState(0);
+  const [sectionAPoints, setSectionAPoints] = useState(Array(13).fill(0));
   const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
   const [sectionCPoints, setSectionCPoints] = useState(Array(2).fill(0));
 
@@ -40,8 +41,15 @@ function Scorad() {
   }
 
   function handleInputChange(e, fieldsetIndex) {
-    const selectedValue = Number(e.target.value);
-    if (part === 2) {
+    const selectedValue = Number(e.target.value || e.target.dataset.value);
+    if (part === 1) {
+      const newPoints = updateSectionPoints(
+        sectionAPoints,
+        selectedValue,
+        fieldsetIndex
+      );
+      setSectionAPoints(newPoints);
+    } else if (part === 2) {
       const newPoints = updateSectionPoints(
         sectionBPoints,
         selectedValue,
@@ -60,7 +68,9 @@ function Scorad() {
 
   function setPartComponent() {
     if (part === 1) {
-      return <BodyParts />;
+      return (
+        <BodyParts handleChange={handleInputChange} points={sectionAPoints} />
+      );
     } else if (part === 2) {
       return (
         <Symptoms handleChange={handleInputChange} points={sectionBPoints} />
