@@ -38,7 +38,15 @@ function SleepAndItch({ handleChange, points }) {
       />
     );
   });
-  return sliders;
+  return (
+    <section>
+      <h2>Część C: świąd i zaburzenia snu</h2>
+      <p>
+        Zaznacz na skali nasilenie poszczególnych objawów w skali od 0 do 10
+      </p>
+      {sliders}
+    </section>
+  );
 }
 
 export default SleepAndItch;

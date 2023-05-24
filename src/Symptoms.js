@@ -59,7 +59,8 @@ function Symptoms({ handleChange, points }) {
   return (
     <>
       <section>
-        <h3>Intensywność objawów</h3>
+        <h2>Część B: Intensywność objawów</h2>
+        <p>Oceń intensywność poszczególnych objawów</p>
         <Fieldset handleChange={handleChange} points={points} />
       </section>
     </>
