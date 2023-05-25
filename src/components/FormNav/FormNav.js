@@ -1,4 +1,4 @@
-import NavButton from "./NavButton";
+import NavButton from "../NavButton/NavButton";
 
 function FormNav({ handleClick, part }) {
   if (part === 1) {

@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import BodyParts from "./BodyParts";
-import Symptoms from "./Symptoms";
-import SleepAndItch from "./SleepAndItch";
-import Result from "./Result";
-import FormNav from "./FormNav";
+import BodyParts from "../BodyParts/BodyParts";
+import Symptoms from "../Symptoms/Symptoms";
+import SleepAndItch from "../SleepAndItch/SleepAndItch";
+import Result from "../Result/Result";
+import FormNav from "../FormNav/FormNav";
 
 function Scorad() {
   const [part, setPart] = useState(1);
