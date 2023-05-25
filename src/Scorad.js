@@ -4,6 +4,7 @@ import BodyParts from "./BodyParts";
 import Symptoms from "./Symptoms";
 import SleepAndItch from "./SleepAndItch";
 import Result from "./Result";
+import FormNav from "./FormNav";
 
 function Scorad() {
   const [part, setPart] = useState(1);
@@ -105,13 +106,8 @@ function Scorad() {
     <>
       <h2>Ocena SCORAD</h2>
       <form>
-        <h3>Wynik SCORAD: {scoradResult}</h3>
         {setPartComponent()}
-        <section>
-          <NavButton handleClick={handleNavClick} direction={"prev"} />
-          <p>{part}/3</p>
-          <NavButton handleClick={handleNavClick} direction={"next"} />
-        </section>
+        <FormNav handleClick={handleNavClick} part={part} />
       </form>
     </>
   );

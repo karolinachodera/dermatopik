@@ -1,54 +1,28 @@
-function FormNav({ clickFormNavButton, part }) {
+import NavButton from "./NavButton";
+
+function FormNav({ handleClick, part }) {
   if (part === 1) {
     return (
       <section>
-        <p>{part}/3</p>
-        <button onClick={clickFormNavButton} value="next">
-          Dalej
-        </button>
+        <p>1/3</p>
+        <NavButton handleClick={handleClick} direction={"next"} />
       </section>
     );
-  } else if (part === 3) {
+  } else if (part !== 1 && part < 4) {
     return (
       <section>
-        <button onClick={clickFormNavButton} value="prev">
-          Wstecz
-        </button>
+        <NavButton handleClick={handleClick} direction={"prev"} />
         <p>{part}/3</p>
+        <NavButton handleClick={handleClick} direction={"next"} />
       </section>
     );
-  } else {
+  } else if (part === 4) {
     return (
       <section>
-        <button onClick={clickFormNavButton} value="prev">
-          Wstecz
-        </button>
-        <p>{part}/3</p>
-        <button onClick={clickFormNavButton} value="next">
-          Dalej
-        </button>
+        <NavButton handleClick={handleClick} direction={"prev"} />
       </section>
     );
   }
-  //   return (
-  //     <section>
-  //       <button
-  //         className={part === 1 ? "unclickable" : "clickable"}
-  //         onClick={clickFormNavButton}
-  //         value="prev"
-  //       >
-  //         Wstecz
-  //       </button>
-  //       <p>{part}/3</p>
-  //       <button
-  //         className={part === 3 ? "unclickable" : "clickable"}
-  //         onClick={clickFormNavButton}
-  //         value="next"
-  //       >
-  //         Dalej
-  //       </button>
-  //     </section>
-  //   );
 }
 
 export default FormNav;
