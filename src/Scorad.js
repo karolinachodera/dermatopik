@@ -3,7 +3,7 @@ import { useState } from "react";
 import BodyParts from "./BodyParts";
 import Symptoms from "./Symptoms";
 import SleepAndItch from "./SleepAndItch";
-import NavButton from "./NavButton";
+import Result from "./Result";
 
 function Scorad() {
   const [part, setPart] = useState(1);
@@ -83,7 +83,7 @@ function Scorad() {
         />
       );
     } else {
-      return <p>Ciąg dalszy nastąpi</p>;
+      return <Result scoradResult={scoradResult} />;
     }
   }
 
