@@ -89,11 +89,14 @@ function Scorad() {
 
   function handleNavClick(e) {
     e.preventDefault();
-    countScorad();
+
     if (e.target.value === "prev") {
       setPart(part - 1);
     } else if (e.target.value === "next") {
       setPart(part + 1);
+    }
+    if (part === 3) {
+      countScorad();
     }
     setPartComponent();
   }
