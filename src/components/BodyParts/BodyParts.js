@@ -41,7 +41,7 @@ function BodyParts({ handleChange, points }) {
     <section>
       <h2>Część A: Powierzchnia skóry zajęta przez AZS</h2>
       <p>Zaznacz obszary objęte zmianami atopowymi</p>
-      <section class="body-legend">
+      <section className="body-legend">
         <div className="legend unaffected"></div>
         <p>Obszar wolny od zmian skórnych</p>
         <div className="legend affected"></div>
