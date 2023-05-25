@@ -1,3 +1,5 @@
+import Slider from "../Slider/Slider";
+
 function SleepAndItch({ handleChange, points }) {
   const rangeData = [
     [
@@ -10,23 +12,6 @@ function SleepAndItch({ handleChange, points }) {
     ],
   ];
 
-  function Slider({ symptom, description, fieldsetIndex }) {
-    return (
-      <fieldset>
-        <label htmlFor={symptom}>{description}</label>
-        <input
-          id={symptom}
-          type="range"
-          min="0"
-          max="10"
-          name={symptom}
-          value={points[fieldsetIndex]}
-          onChange={(e) => handleChange(e, fieldsetIndex)}
-        ></input>
-        <output htmlFor={symptom}>{points[fieldsetIndex]}</output>
-      </fieldset>
-    );
-  }
   const sliders = rangeData.map((symptom, index) => {
     return (
       <Slider
@@ -35,6 +20,7 @@ function SleepAndItch({ handleChange, points }) {
         key={symptom}
         handleChange={handleChange}
         fieldsetIndex={index}
+        points={points}
       />
     );
   });
