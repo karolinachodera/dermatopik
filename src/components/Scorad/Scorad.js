@@ -71,33 +71,6 @@ function Scorad() {
     setSectionCPoints(newPoints);
   }
 
-  function setPartComponent() {
-    if (step === 1) {
-      return (
-        <BodyParts
-          handleChange={handleInputChangeInSectionA}
-          points={sectionAPoints}
-        />
-      );
-    } else if (step === 2) {
-      return (
-        <Symptoms
-          handleChange={handleInputChangeInSectionB}
-          points={sectionBPoints}
-        />
-      );
-    } else if (step === 3) {
-      return (
-        <SleepAndItch
-          handleChange={handleInputChangeInSectionC}
-          points={sectionCPoints}
-        />
-      );
-    } else {
-      return <Result scoradResult={scoradResult} />;
-    }
-  }
-
   function handleNavClick(e) {
     e.preventDefault();
 
@@ -109,14 +82,32 @@ function Scorad() {
     if (step === 3) {
       countScorad();
     }
-    setPartComponent();
   }
 
   return (
     <>
       <h2>Ocena SCORAD</h2>
       <form>
-        {setPartComponent()}
+        {step === 1 && (
+          <BodyParts
+            handleChange={handleInputChangeInSectionA}
+            points={sectionAPoints}
+          />
+        )}
+        {step === 2 && (
+          <Symptoms
+            handleChange={handleInputChangeInSectionB}
+            points={sectionBPoints}
+          />
+        )}
+        {step === 3 && (
+          <SleepAndItch
+            handleChange={handleInputChangeInSectionC}
+            points={sectionCPoints}
+          />
+        )}
+        {step === 4 && <Result scoradResult={scoradResult} />}
+
         <FormNav handleClick={handleNavClick} step={step} />
       </form>
     </>
