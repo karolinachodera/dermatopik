@@ -1,0 +1,13 @@
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+section.main {
+    border: 1px solid green;
+}
+
+section.main:first-child {
+    grid-column: 1 / 3;
+}
