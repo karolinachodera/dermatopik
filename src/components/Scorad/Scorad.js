@@ -41,45 +41,55 @@ function Scorad() {
     return newPoints;
   }
 
-  function handleInputChange(e, fieldsetIndex) {
+  function handleInputChangeInSectionA(e, fieldsetIndex) {
     const selectedValue = Number(e.target.value || e.target.dataset.value);
-    if (step === 1) {
-      const newPoints = updateSectionPoints(
-        sectionAPoints,
-        selectedValue,
-        fieldsetIndex
-      );
-      setSectionAPoints(newPoints);
-    } else if (step === 2) {
-      const newPoints = updateSectionPoints(
-        sectionBPoints,
-        selectedValue,
-        fieldsetIndex
-      );
-      setSectionBPoints(newPoints);
-    } else if (step === 3) {
-      const newPoints = updateSectionPoints(
-        sectionCPoints,
-        selectedValue,
-        fieldsetIndex
-      );
-      setSectionCPoints(newPoints);
-    }
+    const newPoints = updateSectionPoints(
+      sectionAPoints,
+      selectedValue,
+      fieldsetIndex
+    );
+    setSectionAPoints(newPoints);
+  }
+
+  function handleInputChangeInSectionB(e, fieldsetIndex) {
+    const selectedValue = Number(e.target.value || e.target.dataset.value);
+    const newPoints = updateSectionPoints(
+      sectionBPoints,
+      selectedValue,
+      fieldsetIndex
+    );
+    setSectionBPoints(newPoints);
+  }
+
+  function handleInputChangeInSectionC(e, fieldsetIndex) {
+    const selectedValue = Number(e.target.value || e.target.dataset.value);
+    const newPoints = updateSectionPoints(
+      sectionCPoints,
+      selectedValue,
+      fieldsetIndex
+    );
+    setSectionCPoints(newPoints);
   }
 
   function setPartComponent() {
     if (step === 1) {
       return (
-        <BodyParts handleChange={handleInputChange} points={sectionAPoints} />
+        <BodyParts
+          handleChange={handleInputChangeInSectionA}
+          points={sectionAPoints}
+        />
       );
     } else if (step === 2) {
       return (
-        <Symptoms handleChange={handleInputChange} points={sectionBPoints} />
+        <Symptoms
+          handleChange={handleInputChangeInSectionB}
+          points={sectionBPoints}
+        />
       );
     } else if (step === 3) {
       return (
         <SleepAndItch
-          handleChange={handleInputChange}
+          handleChange={handleInputChangeInSectionC}
           points={sectionCPoints}
         />
       );
