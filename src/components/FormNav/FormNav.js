@@ -1,28 +1,13 @@
 import NavButton from "../NavButton/NavButton";
 
-function FormNav({ handleClick, part }) {
-  if (part === 1) {
-    return (
-      <section>
-        <p>1/3</p>
-        <NavButton handleClick={handleClick} direction={"next"} />
-      </section>
-    );
-  } else if (part !== 1 && part < 4) {
-    return (
-      <section>
-        <NavButton handleClick={handleClick} direction={"prev"} />
-        <p>{part}/3</p>
-        <NavButton handleClick={handleClick} direction={"next"} />
-      </section>
-    );
-  } else if (part === 4) {
-    return (
-      <section>
-        <NavButton handleClick={handleClick} direction={"prev"} />
-      </section>
-    );
-  }
+function FormNav({ handleClick, step }) {
+  return (
+    <section>
+      {step > 1 && <NavButton handleClick={handleClick} direction={"prev"} />}
+      <p>{step}/3</p>
+      {step < 4 && <NavButton handleClick={handleClick} direction={"next"} />}
+    </section>
+  );
 }
 
 export default FormNav;

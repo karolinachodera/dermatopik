@@ -7,7 +7,7 @@ import Result from "../Result/Result";
 import FormNav from "../FormNav/FormNav";
 
 function Scorad() {
-  const [part, setPart] = useState(1);
+  const [step, setStep] = useState(1);
   const [partsSums, setPartsSums] = useState(Array(3).fill(0));
   const [scoradResult, setScoradResult] = useState(0);
   const [sectionAPoints, setSectionAPoints] = useState(Array(13).fill(0));
@@ -26,7 +26,7 @@ function Scorad() {
     const sum = points.reduce((total, points) => {
       return total + points;
     }, 0);
-    handleSumUpdate(sum, part - 1);
+    handleSumUpdate(sum, step - 1);
   }
 
   function countScorad() {
@@ -43,21 +43,21 @@ function Scorad() {
 
   function handleInputChange(e, fieldsetIndex) {
     const selectedValue = Number(e.target.value || e.target.dataset.value);
-    if (part === 1) {
+    if (step === 1) {
       const newPoints = updateSectionPoints(
         sectionAPoints,
         selectedValue,
         fieldsetIndex
       );
       setSectionAPoints(newPoints);
-    } else if (part === 2) {
+    } else if (step === 2) {
       const newPoints = updateSectionPoints(
         sectionBPoints,
         selectedValue,
         fieldsetIndex
       );
       setSectionBPoints(newPoints);
-    } else if (part === 3) {
+    } else if (step === 3) {
       const newPoints = updateSectionPoints(
         sectionCPoints,
         selectedValue,
@@ -68,15 +68,15 @@ function Scorad() {
   }
 
   function setPartComponent() {
-    if (part === 1) {
+    if (step === 1) {
       return (
         <BodyParts handleChange={handleInputChange} points={sectionAPoints} />
       );
-    } else if (part === 2) {
+    } else if (step === 2) {
       return (
         <Symptoms handleChange={handleInputChange} points={sectionBPoints} />
       );
-    } else if (part === 3) {
+    } else if (step === 3) {
       return (
         <SleepAndItch
           handleChange={handleInputChange}
@@ -92,11 +92,11 @@ function Scorad() {
     e.preventDefault();
 
     if (e.target.value === "prev") {
-      setPart(part - 1);
+      setStep(step - 1);
     } else if (e.target.value === "next") {
-      setPart(part + 1);
+      setStep(step + 1);
     }
-    if (part === 3) {
+    if (step === 3) {
       countScorad();
     }
     setPartComponent();
@@ -107,7 +107,7 @@ function Scorad() {
       <h2>Ocena SCORAD</h2>
       <form>
         {setPartComponent()}
-        <FormNav handleClick={handleNavClick} part={part} />
+        <FormNav handleClick={handleNavClick} step={step} />
       </form>
     </>
   );
