@@ -131,7 +131,7 @@
         56.8%);
 }
 
-.left-leg-back {
+.back.left-leg {
 clip-path: polygon(25.1% 48%,
             50% 48%,
             50% 57.4%,
@@ -142,7 +142,7 @@ clip-path: polygon(25.1% 48%,
             31.28% 70.5%);
 }
 
-.right-leg-back {
+.back.right-leg {
 clip-path: polygon(50% 48%,
             74.4% 48%,
             68.72% 70.4%,

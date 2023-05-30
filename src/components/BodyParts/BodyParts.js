@@ -2,23 +2,56 @@ import "./BodyParts.css";
 import Areas from "../Areas/Areas";
 
 function BodyParts({ handleChange, points }) {
-  const frontParts = [
-    ["head", 4.5],
-    ["corpus", 18],
-    ["left-arm", 4.5],
-    ["right-arm", 4.5],
-    ["crotch", 1],
-    ["left-leg", 9],
-    ["right-leg", 9],
-  ];
-
-  const backParts = [
-    ["head", 4.5],
-    ["corpus", 18],
-    ["left-arm", 4.5],
-    ["right-arm", 4.5],
-    ["left-leg-back", 9],
-    ["right-leg-back", 9],
+  const bodyPartsData = [
+    {
+      bodyPartName: "head",
+      bodyPartProportion: 4.5,
+      id: 0,
+      frontSide: true,
+      backSide: true,
+    },
+    {
+      bodyPartName: "corpus",
+      bodyPartProportion: 18,
+      id: 1,
+      frontSide: true,
+      backSide: true,
+    },
+    {
+      bodyPartName: "left-arm",
+      bodyPartProportion: 4.5,
+      id: 2,
+      frontSide: true,
+      backSide: true,
+    },
+    {
+      bodyPartName: "right-arm",
+      bodyPartProportion: 4.5,
+      id: 3,
+      frontSide: true,
+      backSide: true,
+    },
+    {
+      bodyPartName: "crotch",
+      bodyPartProportion: 1,
+      id: 4,
+      frontSide: true,
+      backSide: false,
+    },
+    {
+      bodyPartName: "left-leg",
+      bodyPartProportion: 9,
+      id: 5,
+      frontSide: true,
+      backSide: true,
+    },
+    {
+      bodyPartName: "right-leg",
+      bodyPartProportion: 9,
+      id: 6,
+      frontSide: true,
+      backSide: true,
+    },
   ];
 
   return (
@@ -34,7 +67,7 @@ function BodyParts({ handleChange, points }) {
       <div className="front-body">
         <h3>Przód ciała</h3>
         <Areas
-          parts={frontParts}
+          bodyParts={bodyPartsData.filter((part) => part.frontSide)}
           points={points}
           side={"front"}
           handleChange={handleChange}
@@ -43,7 +76,7 @@ function BodyParts({ handleChange, points }) {
       <div className="back-body">
         <h3>Tył ciała</h3>
         <Areas
-          parts={backParts}
+          bodyParts={bodyPartsData.filter((part) => part.backSide)}
           points={points}
           side={"back"}
           handleChange={handleChange}
