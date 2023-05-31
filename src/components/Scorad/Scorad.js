@@ -6,6 +6,8 @@ import SleepAndItch from "../SleepAndItch/SleepAndItch";
 import Result from "../Result/Result";
 import FormNav from "../FormNav/FormNav";
 
+import { bodyPartsData } from "../../constants/formInputs";
+
 function Scorad() {
   const [step, setStep] = useState(1);
   const [partsSums, setPartsSums] = useState(Array(3).fill(0));
@@ -13,6 +15,8 @@ function Scorad() {
   const [sectionAPoints, setSectionAPoints] = useState(Array(13).fill(0));
   const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
   const [sectionCPoints, setSectionCPoints] = useState(Array(2).fill(0));
+
+  const [bodyPartsInputs, setBodyPartsInputs] = useState(bodyPartsData);
 
   function handleSumUpdate(sum, i) {
     setPartsSums((prevSums) => {
@@ -41,14 +45,24 @@ function Scorad() {
     return newPoints;
   }
 
-  function handleInputChangeInSectionA(e, fieldsetIndex) {
-    const selectedValue = Number(e.target.value || e.target.dataset.value);
-    const newPoints = updateSectionPoints(
-      sectionAPoints,
-      selectedValue,
-      fieldsetIndex
-    );
-    setSectionAPoints(newPoints);
+  function handleInputChangeInSectionA(part, side) {
+    const id = part.id;
+    if (side === "front") {
+      part.isFrontChecked = !part.isFrontChecked;
+    } else if (side === "back") {
+      part.isBackChecked = !part.isBackChecked;
+    }
+    const newBodyPartsInputs = [...bodyPartsInputs];
+    newBodyPartsInputs[id] = part;
+    setBodyPartsInputs(newBodyPartsInputs);
+
+    // const selectedValue = Number(e.target.value || e.target.dataset.value);
+    // const newPoints = updateSectionPoints(
+    //   sectionAPoints,
+    //   selectedValue,
+    //   fieldsetIndex
+    // );
+    // setSectionAPoints(newPoints);
   }
 
   function handleInputChangeInSectionB(e, fieldsetIndex) {
@@ -91,7 +105,7 @@ function Scorad() {
         {step === 1 && (
           <BodyParts
             handleChange={handleInputChangeInSectionA}
-            points={sectionAPoints}
+            inputs={bodyPartsInputs}
           />
         )}
         {step === 2 && (
