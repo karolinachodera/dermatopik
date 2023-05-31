@@ -9,6 +9,8 @@ function BodyParts({ handleChange, points }) {
       id: 0,
       frontSide: true,
       backSide: true,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
     {
       bodyPartName: "corpus",
@@ -16,6 +18,8 @@ function BodyParts({ handleChange, points }) {
       id: 1,
       frontSide: true,
       backSide: true,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
     {
       bodyPartName: "left-arm",
@@ -23,6 +27,8 @@ function BodyParts({ handleChange, points }) {
       id: 2,
       frontSide: true,
       backSide: true,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
     {
       bodyPartName: "right-arm",
@@ -30,6 +36,8 @@ function BodyParts({ handleChange, points }) {
       id: 3,
       frontSide: true,
       backSide: true,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
     {
       bodyPartName: "crotch",
@@ -37,6 +45,8 @@ function BodyParts({ handleChange, points }) {
       id: 4,
       frontSide: true,
       backSide: false,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
     {
       bodyPartName: "left-leg",
@@ -44,6 +54,8 @@ function BodyParts({ handleChange, points }) {
       id: 5,
       frontSide: true,
       backSide: true,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
     {
       bodyPartName: "right-leg",
@@ -51,8 +63,24 @@ function BodyParts({ handleChange, points }) {
       id: 6,
       frontSide: true,
       backSide: true,
+      isFrontChecked: false,
+      isBackChecked: false,
     },
   ];
+
+  function handleClick(e, fieldsetIndex, side) {
+    handleChange(e, fieldsetIndex);
+    console.log(fieldsetIndex);
+    console.log(bodyPartsData[fieldsetIndex].isFrontChecked);
+    if (side === "front") {
+      bodyPartsData[fieldsetIndex].isFrontChecked =
+        !bodyPartsData[fieldsetIndex].isFrontChecked;
+      console.log(bodyPartsData[fieldsetIndex].isFrontChecked);
+    } else if (side === "back") {
+      bodyPartsData[fieldsetIndex].isBackChecked =
+        !bodyPartsData[fieldsetIndex].isBackChecked;
+    }
+  }
 
   return (
     <section>
@@ -70,7 +98,7 @@ function BodyParts({ handleChange, points }) {
           bodyParts={bodyPartsData.filter((part) => part.frontSide)}
           points={points}
           side={"front"}
-          handleChange={handleChange}
+          handleChange={handleClick}
         />
       </div>
       <div className="back-body">
@@ -79,7 +107,7 @@ function BodyParts({ handleChange, points }) {
           bodyParts={bodyPartsData.filter((part) => part.backSide)}
           points={points}
           side={"back"}
-          handleChange={handleChange}
+          handleChange={handleClick}
         />
       </div>
     </section>
