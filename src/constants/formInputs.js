@@ -68,17 +68,20 @@ export const symptoms = [
   {
     name: "erythema",
     polishLabel: "Rumień",
+    points: 0,
   },
-  { name: "edema", polishLabel: "Obrzęk" },
-  { name: "oozing-crusting", polishLabel: "Wysięki i strupki" },
-  { name: "lichenification", polishLabel: "Zgrubienie skóry" },
+  { name: "edema", polishLabel: "Obrzęk", points: 0 },
+  { name: "oozing-crusting", polishLabel: "Wysięki i strupki", points: 0 },
+  { name: "lichenification", polishLabel: "Zgrubienie skóry", points: 0 },
   {
     name: "scratch-marks",
     polishLabel: "Przeczosy (uszkodzenia od drapania)",
+    points: 0,
   },
   {
     name: "dryness",
     polishLabel: "Suchość (na obszarach niezajętych zmianami zapalnymi",
+    points: 0,
   },
 ];
 
