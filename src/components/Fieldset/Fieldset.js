@@ -1,12 +1,12 @@
 import SymptomInputs from "../SymptomInputs/SymptomInputs";
 
-function Fieldset({ inputsInfo, handleChange, points }) {
-  const fieldset = inputsInfo.map((input, index) => {
+function Fieldset({ symptoms, handleChange, points }) {
+  const fieldset = symptoms.map((symptom, index) => {
     return (
-      <fieldset name={input[0]} data-index={index} key={input[0]}>
-        <legend>{input[1]}</legend>
+      <fieldset name={symptom.name} data-index={index} key={symptom.name}>
+        <legend>{symptom.polishLabel}</legend>
         <SymptomInputs
-          symptom={input[0]}
+          symptomName={symptom.name}
           fieldsetIndex={index}
           handleChange={handleChange}
           points={points}

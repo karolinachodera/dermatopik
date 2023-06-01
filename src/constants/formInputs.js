@@ -63,3 +63,21 @@ export const bodyPartsData = [
     isBackChecked: false,
   },
 ];
+
+export const symptoms = [
+  {
+    name: "erythema",
+    polishLabel: "Rumień",
+  },
+  { name: "edema", polishLabel: "Obrzęk" },
+  { name: "oozing-crusting", polishLabel: "Wysięki i strupki" },
+  { name: "lichenification", polishLabel: "Zgrubienie skóry" },
+  {
+    name: "scratch-marks",
+    polishLabel: "Przeczosy (uszkodzenia od drapania)",
+  },
+  {
+    name: "dryness",
+    polishLabel: "Suchość (na obszarach niezajętych zmianami zapalnymi",
+  },
+];

@@ -1,4 +1,4 @@
-function SymptomInputs({ symptom, fieldsetIndex, points, handleChange }) {
+function SymptomInputs({ symptomName, fieldsetIndex, points, handleChange }) {
   const values = [
     "brak",
     "słabo nasilony",
@@ -9,20 +9,17 @@ function SymptomInputs({ symptom, fieldsetIndex, points, handleChange }) {
   const inputs = values.map((value, index) => {
     const isChecked = index === points[fieldsetIndex];
     return (
-      <>
-        <label htmlFor={`${symptom}-${index}`} key={`label-${index}`}>
-          {value}
-        </label>
+      <span key={`label-${index}`}>
+        <label htmlFor={`${symptomName}-${index}`}>{value}</label>
         <input
-          id={`${symptom}-${index}`}
-          key={`${symptom}-${index}`}
-          name={symptom}
+          id={`${symptomName}-${index}`}
+          name={symptomName}
           value={index}
           type="radio"
           checked={isChecked}
           onChange={(e) => handleChange(e, fieldsetIndex)}
         />
-      </>
+      </span>
     );
   });
 
