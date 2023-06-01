@@ -6,8 +6,7 @@ import SleepAndItch from "../SleepAndItch/SleepAndItch";
 import Result from "../Result/Result";
 import FormNav from "../FormNav/FormNav";
 
-import { bodyPartsData } from "../../constants/formInputs";
-import { symptoms } from "../../constants/formInputs";
+import { bodyPartsData, symptoms, rangeData } from "../../constants/formInputs";
 
 function Scorad() {
   const [step, setStep] = useState(1);
@@ -120,6 +119,7 @@ function Scorad() {
           <SleepAndItch
             handleChange={handleInputChangeInSectionC}
             points={sectionCPoints}
+            rangeData={rangeData}
           />
         )}
         {step === 4 && <Result scoradResult={scoradResult} />}

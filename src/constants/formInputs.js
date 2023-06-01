@@ -81,3 +81,16 @@ export const symptoms = [
     polishLabel: "Suchość (na obszarach niezajętych zmianami zapalnymi",
   },
 ];
+
+export const rangeData = [
+  {
+    symptomName: "itch",
+    rangeDescription:
+      "Nasielenie świądu w skali od 0 (brak świądu) do 10 (mocno nasilony)",
+  },
+  {
+    symptomName: "sleep",
+    rangeDescription:
+      "Zaburzenia snu w skali od 0 (brak zaburzeń snu) do 10 (całkowita bezsenność)",
+  },
+];
