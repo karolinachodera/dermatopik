@@ -16,7 +16,7 @@ function Scorad() {
   const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
   const [sectionCPoints, setSectionCPoints] = useState(Array(2).fill(0));
 
-  const [bodyPartsInputs, setBodyPartsInputs] = useState(bodyPartsData);
+  const [bodyPartsInputs, setBodyPartsInputs] = useState([...bodyPartsData]);
 
   function handleSumUpdate(sum, i) {
     setPartsSums((prevSums) => {
@@ -47,13 +47,22 @@ function Scorad() {
 
   function handleInputChangeInSectionA(part, side) {
     const id = part.id;
+    let updatedPart;
+
     if (side === "front") {
-      part.isFrontChecked = !part.isFrontChecked;
+      updatedPart = {
+        ...part,
+        isFrontChecked: !part.isFrontChecked,
+      };
     } else if (side === "back") {
-      part.isBackChecked = !part.isBackChecked;
+      updatedPart = {
+        ...part,
+        isBackChecked: !part.isBackChecked,
+      };
     }
+
     const newBodyPartsInputs = [...bodyPartsInputs];
-    newBodyPartsInputs[id] = part;
+    newBodyPartsInputs[id] = updatedPart;
     setBodyPartsInputs(newBodyPartsInputs);
 
     // const selectedValue = Number(e.target.value || e.target.dataset.value);
