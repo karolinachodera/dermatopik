@@ -15,38 +15,27 @@ import {
 
 function Scorad() {
   const [step, setStep] = useState(1);
-  const [partsSums, setPartsSums] = useState(Array(3).fill(0));
   const [scoradResult, setScoradResult] = useState(0);
 
   const [bodyPartsInputs, setBodyPartsInputs] = useState([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState([...symptoms]);
   const [sleepAndItchInputs, setSleepAndItchInputs] = useState([...rangeData]);
 
-  function handleSumUpdate(sum, i) {
-    setPartsSums((prevSums) => {
-      const nextSums = [...prevSums];
-      nextSums[i] = sum;
-      return nextSums;
-    });
-  }
-
-  function countPartSum(points) {
-    const sum = points.reduce((total, points) => {
-      return total + points;
-    }, 0);
-    handleSumUpdate(sum, step - 1);
-  }
-
   function countScorad() {
-    const result = partsSums[0] / 5 + (7 * partsSums[1]) / 2 + partsSums[2];
+    let bodyPartsSum = 0;
+    let symptomsSum = 0;
+    let sleepAndItchSum = 0;
+    bodyPartsInputs.forEach((input) => {
+      if (input.isFrontChecked) {
+        bodyPartsSum += input.bodyPartProportion;
+      } else if (input.isBackChecked) {
+        bodyPartsSum += input.bodyPartProportion;
+      }
+    });
+    symptomsInputs.forEach((input) => (symptomsSum += input.points));
+    sleepAndItchInputs.forEach((input) => (sleepAndItchSum += input.points));
+    const result = bodyPartsSum / 5 + (7 * symptomsSum) / 2 + sleepAndItchSum;
     setScoradResult(result);
-  }
-
-  function updateSectionPoints(prevPoints, selectedValue, fieldsetIndex) {
-    const newPoints = [...prevPoints];
-    newPoints[fieldsetIndex] = selectedValue;
-    countPartSum(newPoints);
-    return newPoints;
   }
 
   function handleInputChangeInSectionA(part, side) {
@@ -64,18 +53,9 @@ function Scorad() {
         isBackChecked: !part.isBackChecked,
       };
     }
-
     const newBodyPartsInputs = [...bodyPartsInputs];
     newBodyPartsInputs[id] = updatedPart;
     setBodyPartsInputs(newBodyPartsInputs);
-
-    // const selectedValue = Number(e.target.value || e.target.dataset.value);
-    // const newPoints = updateSectionPoints(
-    //   sectionAPoints,
-    //   selectedValue,
-    //   fieldsetIndex
-    // );
-    // setSectionAPoints(newPoints);
   }
 
   function handleInputChangeInSectionB(e, symptom) {
@@ -86,18 +66,9 @@ function Scorad() {
       ...symptom,
       points: Number(e.target.value),
     };
-
     const newSymptomInputs = [...symptomsInputs];
     newSymptomInputs[id] = updatedSymptom;
     setSymptomsInputs(newSymptomInputs);
-
-    // const selectedValue = Number(e.target.value || e.target.dataset.value);
-    // const newPoints = updateSectionPoints(
-    //   sectionBPoints,
-    //   selectedValue,
-    //   fieldsetIndex
-    // );
-    // setSectionBPoints(newPoints);
   }
 
   function handleInputChangeInSectionC(e, symptom) {
@@ -109,14 +80,6 @@ function Scorad() {
     const newSleepAndItchInputs = [...sleepAndItchInputs];
     newSleepAndItchInputs[id] = updatedRange;
     setSleepAndItchInputs(newSleepAndItchInputs);
-
-    // const selectedValue = Number(e.target.value || e.target.dataset.value);
-    // const newPoints = updateSectionPoints(
-    //   sectionCPoints,
-    //   selectedValue,
-    //   fieldsetIndex
-    // );
-    // setSectionCPoints(newPoints);
   }
 
   function setPartComponent() {
