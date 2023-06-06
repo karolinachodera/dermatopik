@@ -1,22 +1,14 @@
-import Fieldset from "../Fieldset/Fieldset";
+import SymptomsForm from "../Fieldset/SymptomsForm";
 
-function Symptoms({ symptoms, handleChange, points }) {
-  function handleCheck(e, symptom, fieldsetIndex) {
-    if (e.target.checked) {
-      console.log(e.target);
-      symptom.points = e.target.value;
-      console.log(symptom);
-    }
-    handleChange(e, fieldsetIndex);
-  }
+function Symptoms({ symptoms, handleChange, values }) {
   return (
     <section>
       <h2>Część B: Intensywność objawów</h2>
       <p>Oceń intensywność poszczególnych objawów</p>
-      <Fieldset
-        handleChange={handleCheck}
-        points={points}
+      <SymptomsForm
+        handleChange={handleChange}
         symptoms={symptoms}
+        values={values}
       />
     </section>
   );

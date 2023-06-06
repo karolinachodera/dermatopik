@@ -1,15 +1,14 @@
 import SymptomInputs from "../SymptomInputs/SymptomInputs";
 
-function Fieldset({ symptoms, handleChange, points }) {
+function SymptomsForm({ symptoms, handleChange, values }) {
   const fieldset = symptoms.map((symptom, index) => {
     return (
       <fieldset name={symptom.name} data-index={index} key={symptom.name}>
         <legend>{symptom.polishLabel}</legend>
         <SymptomInputs
           symptom={symptom}
-          fieldsetIndex={index}
           handleChange={handleChange}
-          points={points}
+          values={values}
         />
       </fieldset>
     );
@@ -17,4 +16,4 @@ function Fieldset({ symptoms, handleChange, points }) {
   return fieldset;
 }
 
-export default Fieldset;
+export default SymptomsForm;

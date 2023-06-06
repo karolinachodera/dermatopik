@@ -6,7 +6,12 @@ import SleepAndItch from "../SleepAndItch/SleepAndItch";
 import Result from "../Result/Result";
 import FormNav from "../FormNav/FormNav";
 
-import { bodyPartsData, symptoms, rangeData } from "../../constants/formInputs";
+import {
+  bodyPartsData,
+  symptoms,
+  symptomsValues,
+  rangeData,
+} from "../../constants/formInputs";
 
 function Scorad() {
   const [step, setStep] = useState(1);
@@ -17,6 +22,7 @@ function Scorad() {
   const [sectionCPoints, setSectionCPoints] = useState(Array(2).fill(0));
 
   const [bodyPartsInputs, setBodyPartsInputs] = useState([...bodyPartsData]);
+  const [symptomsInputs, setSymptomsInputs] = useState([...symptoms]);
 
   function handleSumUpdate(sum, i) {
     setPartsSums((prevSums) => {
@@ -74,14 +80,29 @@ function Scorad() {
     // setSectionAPoints(newPoints);
   }
 
-  function handleInputChangeInSectionB(e, fieldsetIndex) {
-    const selectedValue = Number(e.target.value || e.target.dataset.value);
-    const newPoints = updateSectionPoints(
-      sectionBPoints,
-      selectedValue,
-      fieldsetIndex
-    );
-    setSectionBPoints(newPoints);
+  function handleInputChangeInSectionB(e, symptom, index) {
+    console.log(e.target.value);
+    const id = symptom.id;
+    let updatedSymptom;
+
+    updatedSymptom = {
+      ...symptom,
+      points: Number(e.target.value),
+    };
+
+    const newSymptomInputs = [...symptomsInputs];
+
+    newSymptomInputs[id - 1] = updatedSymptom;
+    setSymptomsInputs(newSymptomInputs);
+    console.log(symptomsInputs);
+
+    // const selectedValue = Number(e.target.value || e.target.dataset.value);
+    // const newPoints = updateSectionPoints(
+    //   sectionBPoints,
+    //   selectedValue,
+    //   fieldsetIndex
+    // );
+    // setSectionBPoints(newPoints);
   }
 
   function handleInputChangeInSectionC(e, fieldsetIndex) {
@@ -106,8 +127,8 @@ function Scorad() {
       return (
         <Symptoms
           handleChange={handleInputChangeInSectionB}
-          points={sectionBPoints}
-          symptoms={symptoms}
+          symptoms={symptomsInputs}
+          values={symptomsValues}
         />
       );
     } else if (step === 3) {
