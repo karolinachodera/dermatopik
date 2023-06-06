@@ -17,12 +17,10 @@ function Scorad() {
   const [step, setStep] = useState(1);
   const [partsSums, setPartsSums] = useState(Array(3).fill(0));
   const [scoradResult, setScoradResult] = useState(0);
-  const [sectionAPoints, setSectionAPoints] = useState(Array(13).fill(0));
-  const [sectionBPoints, setSectionBPoints] = useState(Array(6).fill(0));
-  const [sectionCPoints, setSectionCPoints] = useState(Array(2).fill(0));
 
   const [bodyPartsInputs, setBodyPartsInputs] = useState([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState([...symptoms]);
+  const [sleepAndItchInputs, setSleepAndItchInputs] = useState([...rangeData]);
 
   function handleSumUpdate(sum, i) {
     setPartsSums((prevSums) => {
@@ -80,8 +78,7 @@ function Scorad() {
     // setSectionAPoints(newPoints);
   }
 
-  function handleInputChangeInSectionB(e, symptom, index) {
-    console.log(e.target.value);
+  function handleInputChangeInSectionB(e, symptom) {
     const id = symptom.id;
     let updatedSymptom;
 
@@ -91,10 +88,8 @@ function Scorad() {
     };
 
     const newSymptomInputs = [...symptomsInputs];
-
-    newSymptomInputs[id - 1] = updatedSymptom;
+    newSymptomInputs[id] = updatedSymptom;
     setSymptomsInputs(newSymptomInputs);
-    console.log(symptomsInputs);
 
     // const selectedValue = Number(e.target.value || e.target.dataset.value);
     // const newPoints = updateSectionPoints(
@@ -105,14 +100,23 @@ function Scorad() {
     // setSectionBPoints(newPoints);
   }
 
-  function handleInputChangeInSectionC(e, fieldsetIndex) {
-    const selectedValue = Number(e.target.value || e.target.dataset.value);
-    const newPoints = updateSectionPoints(
-      sectionCPoints,
-      selectedValue,
-      fieldsetIndex
-    );
-    setSectionCPoints(newPoints);
+  function handleInputChangeInSectionC(e, symptom) {
+    const id = symptom.id;
+    let updatedRange = {
+      ...symptom,
+      points: Number(e.target.value),
+    };
+    const newSleepAndItchInputs = [...sleepAndItchInputs];
+    newSleepAndItchInputs[id] = updatedRange;
+    setSleepAndItchInputs(newSleepAndItchInputs);
+
+    // const selectedValue = Number(e.target.value || e.target.dataset.value);
+    // const newPoints = updateSectionPoints(
+    //   sectionCPoints,
+    //   selectedValue,
+    //   fieldsetIndex
+    // );
+    // setSectionCPoints(newPoints);
   }
 
   function setPartComponent() {
@@ -135,8 +139,7 @@ function Scorad() {
       return (
         <SleepAndItch
           handleChange={handleInputChangeInSectionC}
-          points={sectionCPoints}
-          rangeData={rangeData}
+          rangeData={sleepAndItchInputs}
         />
       );
     } else {

@@ -69,32 +69,32 @@ export const symptoms = [
     name: "erythema",
     polishLabel: "Rumień",
     points: 0,
-    id: 1,
+    id: 0,
   },
-  { name: "edema", polishLabel: "Obrzęk", points: 0, id: 2 },
+  { name: "edema", polishLabel: "Obrzęk", points: 0, id: 1 },
   {
     name: "oozing-crusting",
     polishLabel: "Wysięki i strupki",
     points: 0,
-    id: 3,
+    id: 2,
   },
   {
     name: "lichenification",
     polishLabel: "Zgrubienie skóry",
     points: 0,
-    id: 4,
+    id: 3,
   },
   {
     name: "scratch-marks",
     polishLabel: "Przeczosy (uszkodzenia od drapania)",
     points: 0,
-    id: 5,
+    id: 4,
   },
   {
     name: "dryness",
     polishLabel: "Suchość (na obszarach niezajętych zmianami zapalnymi",
     points: 0,
-    id: 6,
+    id: 5,
   },
 ];
 
@@ -111,11 +111,13 @@ export const rangeData = [
     rangeDescription:
       "Nasielenie świądu w skali od 0 (brak świądu) do 10 (mocno nasilony)",
     points: 0,
+    id: 0,
   },
   {
     symptomName: "sleep",
     rangeDescription:
       "Zaburzenia snu w skali od 0 (brak zaburzeń snu) do 10 (całkowita bezsenność)",
     points: 0,
+    id: 1,
   },
 ];

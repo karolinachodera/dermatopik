@@ -1,15 +1,12 @@
-import Slider from "../Slider/Slider";
+import SleepAndItchSlider from "../SleepAndItchSlider/SleepAndItchSlider";
 
-function SleepAndItch({ rangeData, handleChange, points }) {
-  const sliders = rangeData.map((symptom, index) => {
+function SleepAndItch({ rangeData, handleChange }) {
+  const sliders = rangeData.map((symptom) => {
     return (
-      <Slider
-        symptom={symptom.symptomName}
-        description={symptom.rangeDescription}
+      <SleepAndItchSlider
+        symptom={symptom}
         key={symptom.symptomName}
         handleChange={handleChange}
-        fieldsetIndex={index}
-        points={points}
       />
     );
   });
