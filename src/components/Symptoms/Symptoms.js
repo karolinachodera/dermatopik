@@ -1,4 +1,4 @@
-import SymptomsForm from "../Fieldset/SymptomsForm";
+import SymptomsForm from "../SymptomsForm/SymptomsForm";
 
 function Symptoms({ symptoms, handleChange, values }) {
   return (
