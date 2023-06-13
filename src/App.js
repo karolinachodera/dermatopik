@@ -1,5 +1,4 @@
-import "./App.css";
-import Scorad from "./Scorad";
+import Scorad from "./components/Scorad/Scorad";
 
 function App() {
   return (
