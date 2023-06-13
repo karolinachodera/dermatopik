@@ -1,5 +1,5 @@
 import "./App.css";
-import Scorad from "./Scorad";
+import Scorad from "./components/Scorad/Scorad";
 import Dashboard from "./components/Dashboard/Dashboard";
 
 function App() {
