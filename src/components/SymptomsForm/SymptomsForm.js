@@ -1,3 +1,5 @@
+import "./SymptomsForm.css";
+
 import SymptomInputs from "../SymptomInputs/SymptomInputs";
 
 function SymptomsForm({ symptoms, handleChange, values }) {
