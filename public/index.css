@@ -1,0 +1,15 @@
+:root {
+    --nude: #FFD3BE;
+    --dark-nude: #FBAD87;
+    --green: #C2CF8C;
+    --dark-green: #92A873;
+    --yellow: #FFBD59;
+}
+
+* {
+    font-family: "Montserrat", "Lato", "Verdana", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
