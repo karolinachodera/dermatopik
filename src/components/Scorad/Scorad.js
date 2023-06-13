@@ -39,7 +39,6 @@ function Scorad() {
   }
 
   function handleInputChangeInSectionA(part, side) {
-    const id = part.id;
     let updatedPart;
 
     if (side === "front") {
@@ -54,12 +53,11 @@ function Scorad() {
       };
     }
     const newBodyPartsInputs = [...bodyPartsInputs];
-    newBodyPartsInputs[id] = updatedPart;
+    newBodyPartsInputs[part.id] = updatedPart;
     setBodyPartsInputs(newBodyPartsInputs);
   }
 
   function handleInputChangeInSectionB(e, symptom) {
-    const id = symptom.id;
     let updatedSymptom;
 
     updatedSymptom = {
@@ -67,18 +65,17 @@ function Scorad() {
       points: Number(e.target.value),
     };
     const newSymptomInputs = [...symptomsInputs];
-    newSymptomInputs[id] = updatedSymptom;
+    newSymptomInputs[symptom.id] = updatedSymptom;
     setSymptomsInputs(newSymptomInputs);
   }
 
   function handleInputChangeInSectionC(e, symptom) {
-    const id = symptom.id;
     let updatedRange = {
       ...symptom,
       points: Number(e.target.value),
     };
     const newSleepAndItchInputs = [...sleepAndItchInputs];
-    newSleepAndItchInputs[id] = updatedRange;
+    newSleepAndItchInputs[symptom.id] = updatedRange;
     setSleepAndItchInputs(newSleepAndItchInputs);
   }
 
