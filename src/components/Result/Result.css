@@ -1,0 +1,8 @@
+section.result {
+    border: 2px solid var(--green);
+    padding: 30px;
+}
+
+.result h2 {
+    margin-top: 10px;
+}
