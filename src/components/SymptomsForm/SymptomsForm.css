@@ -1,8 +1,15 @@
-#scorad fieldset {
+fieldset {
     border-color: var(--green);
     border-style: solid;
     margin: 25px 0;
     padding: 20px;
+}
+
+fieldset.symptom {
     display: flex;
     justify-content: space-around;
 }
+
+/* input[type='radio'] {
+    accent-color: var(--dark-nude);
+} */

@@ -1,6 +1,8 @@
+import "./SleepAndItchSlider.css";
+
 function SleepAndItchSlider({ symptom, handleChange }) {
   return (
-    <fieldset>
+    <fieldset className="sleep-and-itch">
       <label htmlFor={symptom.symptomName}>{symptom.rangeDescription}</label>
       <input
         id={symptom.symptomName}
