@@ -5,18 +5,18 @@ section.form-nav {
 }
 
 .form-nav p {
-    grid-column: 2 / 2;
+    grid-column: 2 / 3;
     margin: auto;
 }
 
 button[value="prev"] {
-    grid-column: 1 / 1;
+    grid-column: 1 / 2;
     margin-right: 10px;
     margin-left: auto;
 }
 
 button[value="next"] {
-    grid-column: 3 / 3;
+    grid-column: 3 / 4;
     margin-left: 10px;
 }
 button {
