@@ -2,6 +2,7 @@ input[type="range"] {
     width: 100%;
     padding: 20px 0;
     -webkit-appearance: none;
+    appearance: none;
     grid-column: 1 / 2;
 }
 
