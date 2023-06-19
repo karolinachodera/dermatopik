@@ -1,9 +1,26 @@
-function Section({ header, handleClick }) {
-  return (
-    <section className={`${header} main`}>
-      <h2>{header}</h2>
+import { AddingForm } from "../AddingForm/AddingForm";
 
-      <button onClick={handleClick}>Dodaj</button>
+function Section({
+  children,
+  header,
+  width,
+  addingFormInputs,
+  handleInputChange,
+  handleSubmit,
+  listItem,
+}) {
+  return (
+    <section className={`${header} ${width} main`}>
+      <h2>{header}</h2>
+      {children}
+      {addingFormInputs && (
+        <AddingForm
+          inputs={addingFormInputs}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+          listItem={listItem}
+        />
+      )}
     </section>
   );
 }

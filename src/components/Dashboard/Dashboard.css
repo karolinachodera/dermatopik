@@ -8,6 +8,6 @@ section.main {
     border: 1px solid green;
 }
 
-section.main:first-child {
+section.main.full-width{
     grid-column: 1 / 3;
 }

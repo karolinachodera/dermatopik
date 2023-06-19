@@ -6,11 +6,16 @@ import Section from "../Section/Section";
 
 import "./Dashboard.css";
 
+import { addingFormData } from "../../constants/dashboardInputs";
+
 function Dashboard() {
   const [todayScorad, setTodayScorad] = useState(null);
   const [displayForm, setDisplayForm] = useState(false);
-  const [displayAddingForm, setDisplayAddingForm] = useState(false);
   const [drugs, setDrugs] = useState([]);
+  const [cares, setCares] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [listItem, setListItem] = useState({});
 
   function handleButtonClick(e) {
     if (e.target.name === "scorad") {
@@ -18,29 +23,50 @@ function Dashboard() {
     }
   }
 
-  function handleInputAdding() {}
-
-  function AddingForm({ header }) {
-    if (displayAddingForm === true) {
-      return (
-        <form>
-          <h3>Dodaj {header}</h3>
-          <label for="drug-name">Podaj nazwę leku</label>
-          <input id="drug-name" type="text" value=""></input>
-          <label for="frequency">Ilość dawek dziennie</label>
-          <input id="frequency" type="number"></input>
-          <button onClick={handleInputAdding}>Dodaj</button>
-        </form>
-      );
-    } else {
-      return;
-    }
+  function handleInputChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    setListItem((values) => ({ ...values, [name]: value }));
   }
 
-  function handleDisplayAddingForm(e) {
+  function handleDrugAdding(e) {
     e.preventDefault();
-    let header = e.target.name;
-    setDisplayAddingForm(true);
+    let newDrugs = [...drugs];
+    newDrugs.push(listItem);
+    console.log(newDrugs);
+    setDrugs(newDrugs);
+    setListItem({});
+    e.target.reset();
+  }
+
+  function handleCareAdding(e) {
+    e.preventDefault();
+    let newCares = [...cares];
+    newCares.push(listItem);
+    console.log(newCares);
+    setCares(newCares);
+    setListItem({});
+    e.target.reset();
+  }
+
+  function handleEventAdding(e) {
+    e.preventDefault();
+    let newEvents = [...events];
+    newEvents.push(listItem);
+    console.log(newEvents);
+    setEvents(newEvents);
+    setListItem({});
+    e.target.reset();
+  }
+
+  function handleNoteAdding(e) {
+    e.preventDefault();
+    let newNotes = [...notes];
+    newNotes.push(listItem);
+    console.log(newNotes);
+    setNotes(newNotes);
+    setListItem({});
+    e.target.reset();
   }
 
   function ScoradSection() {
@@ -61,15 +87,39 @@ function Dashboard() {
 
   return (
     <main>
-      <section className="main">
-        <h2>SCORAD</h2>
-        {ScoradSection()}
-      </section>
-      <Section header="Leki" handleClick={handleDisplayAddingForm} />
-      <AddingForm header="Leki" />
-      <Section header="Pielęgnacja" handleClick={handleDisplayAddingForm} />
-      <Section header="Zdarzenia" handleClick={handleDisplayAddingForm} />
-      <Section header="Notatki" />
+      <Section
+        width="full-width"
+        children={<ScoradSection />}
+        header="SCORAD"
+      />
+      <Section
+        header="Leki"
+        addingFormInputs={[addingFormData[0], addingFormData[4]]}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleDrugAdding}
+        listItem={listItem}
+      />
+      <Section
+        header="Pielęgnacja"
+        addingFormInputs={[addingFormData[1], addingFormData[4]]}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleCareAdding}
+        listItem={listItem}
+      />
+      <Section
+        header="Zdarzenia"
+        addingFormInputs={[addingFormData[2]]}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleEventAdding}
+        listItem={listItem}
+      />
+      <Section
+        header="Notatki"
+        addingFormInputs={addingFormData[3]}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleNoteAdding}
+        listItem={listItem}
+      />
     </main>
   );
 }
