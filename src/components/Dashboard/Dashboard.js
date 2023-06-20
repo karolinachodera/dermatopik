@@ -24,9 +24,16 @@ function Dashboard() {
   }
 
   function handleInputChange(e) {
+    // if (
+    //   !listItem.hasOwnProperty(e.target.name) &&
+    //   e.target.name !== "frequency"
+    // ) {
+    //   setListItem({});
+    // }
     const name = e.target.name;
     const value = e.target.value;
     setListItem((values) => ({ ...values, [name]: value }));
+    console.log(listItem);
   }
 
   function handleDrugAdding(e) {
