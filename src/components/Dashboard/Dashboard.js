@@ -3,6 +3,7 @@ import { useState } from "react";
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
 import Section from "../Section/Section";
+import { List } from "../List/List";
 
 import "./Dashboard.css";
 
@@ -101,6 +102,7 @@ function Dashboard() {
         <ScoradSection />
       </Section>
       <Section header="Leki">
+        <List elements={drugs} />
         <form onSubmit={(e) => handleDrugAdding(e)}>
           <AddingFormInput input={drugsTextInput} />
           <AddingFormInput input={drugsFrequencyInput} />
@@ -108,6 +110,7 @@ function Dashboard() {
         </form>
       </Section>
       <Section header="Pielęgnacja">
+        <List elements={cares} />
         <form onSubmit={(e) => handleCareAdding(e)}>
           <AddingFormInput input={caresTextInput} />
           <AddingFormInput input={caresFrequencyInput} />
@@ -115,12 +118,14 @@ function Dashboard() {
         </form>
       </Section>
       <Section header="Zdarzenia">
+        <List elements={events} />
         <form onSubmit={(e) => handleEventAdding(e)}>
           <AddingFormInput input={eventsTextInput} />
           <button type="submit">Dodaj</button>
         </form>
       </Section>
       <Section header="Notatki">
+        <List elements={notes} />
         <form onSubmit={(e) => handleNoteAdding(e)}>
           <AddingFormInput input={notesTextarea} />
           <button type="submit">Dodaj</button>
