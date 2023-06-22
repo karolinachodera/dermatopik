@@ -1,15 +1,11 @@
-export function AddingFormInput({ input, handleChange, listItem }) {
+export function AddingFormInput({ input }) {
   if (input.name === "note") {
     return (
       <>
         <label htmlFor={input.name} required={input.required && "required"}>
           {input.header}
         </label>
-        <textarea
-          id={input.name}
-          name={input.name}
-          onChange={(e) => handleChange(e, listItem)}
-        ></textarea>
+        <textarea id={input.name} name={input.name}></textarea>
       </>
     );
   } else {
@@ -20,9 +16,7 @@ export function AddingFormInput({ input, handleChange, listItem }) {
           id={input.name}
           name={input.name}
           type={input.type}
-          //value={listItem.name}
           required={input.required && "required"}
-          //onChange={(e) => handleChange(e, listItem)}
         ></input>
       </>
     );

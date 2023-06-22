@@ -7,7 +7,6 @@ import Section from "../Section/Section";
 import "./Dashboard.css";
 
 import {
-  addingFormData,
   drugsTextInput,
   drugsFrequencyInput,
   caresTextInput,
@@ -25,19 +24,11 @@ function Dashboard() {
   const [cares, setCares] = useState([]);
   const [events, setEvents] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [listItem, setListItem] = useState({});
 
   function handleButtonClick(e) {
     if (e.target.name === "scorad") {
       setDisplayForm(true);
     }
-  }
-
-  function handleInputChange(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    setListItem((values) => ({ ...values, [name]: value }));
-    console.log(listItem);
   }
 
   function handleDrugAdding(e) {
@@ -47,7 +38,6 @@ function Dashboard() {
       name: formData.get("drug"),
       frequency: Number(formData.get("drug-frequency")),
     };
-    console.log(newDrug);
     let newDrugsList = [...drugs, newDrug];
     console.log(newDrugsList);
     setDrugs(newDrugsList);
@@ -56,28 +46,36 @@ function Dashboard() {
 
   function handleCareAdding(e) {
     e.preventDefault();
-    let newCares = [...cares, listItem];
-    console.log(newCares);
-    setCares(newCares);
-    setListItem({});
+    const formData = new FormData(e.target);
+    const newCare = {
+      name: formData.get("care"),
+      frequency: Number(formData.get("care-frequency")),
+    };
+    let newCaresList = [...cares, newCare];
+    console.log(newCaresList);
+    setCares(newCaresList);
     e.target.reset();
   }
 
   function handleEventAdding(e) {
     e.preventDefault();
-    let newEvents = [...events, listItem];
-    console.log(newEvents);
-    setEvents(newEvents);
-    setListItem({});
+    const formData = new FormData(e.target);
+    const newEvent = {
+      event: formData.get("event"),
+    };
+    let newEventsList = [...events, newEvent];
+    console.log(newEventsList);
+    setEvents(newEventsList);
     e.target.reset();
   }
 
   function handleNoteAdding(e) {
     e.preventDefault();
-    let newNotes = [...notes, listItem];
-    console.log(newNotes);
-    setNotes(newNotes);
-    setListItem({});
+    const formData = new FormData(e.target);
+    const newNote = formData.get("note");
+    let newNotesList = [...notes, newNote];
+    console.log(newNotesList);
+    setNotes(newNotesList);
     e.target.reset();
   }
 
@@ -99,58 +97,32 @@ function Dashboard() {
 
   return (
     <main>
-      <Section
-        width="full-width"
-        children={<ScoradSection />}
-        header="SCORAD"
-      />
+      <Section width="full-width" header="SCORAD">
+        <ScoradSection />
+      </Section>
       <Section header="Leki">
         <form onSubmit={(e) => handleDrugAdding(e)}>
-          <AddingFormInput
-            input={drugsTextInput}
-            handleChange={handleInputChange}
-            listItem={listItem}
-          />
-          <AddingFormInput
-            input={drugsFrequencyInput}
-            handleChange={handleInputChange}
-            listItem={listItem}
-          />
+          <AddingFormInput input={drugsTextInput} />
+          <AddingFormInput input={drugsFrequencyInput} />
           <button type="submit">Dodaj</button>
         </form>
       </Section>
       <Section header="Pielęgnacja">
         <form onSubmit={(e) => handleCareAdding(e)}>
-          <AddingFormInput
-            input={caresTextInput}
-            handleChange={handleInputChange}
-            listItem={listItem}
-          />
-          <AddingFormInput
-            input={caresFrequencyInput}
-            handleChange={handleInputChange}
-            listItem={listItem}
-          />
+          <AddingFormInput input={caresTextInput} />
+          <AddingFormInput input={caresFrequencyInput} />
           <button type="submit">Dodaj</button>
         </form>
       </Section>
       <Section header="Zdarzenia">
         <form onSubmit={(e) => handleEventAdding(e)}>
-          <AddingFormInput
-            input={eventsTextInput}
-            handleChange={handleInputChange}
-            listItem={listItem}
-          />
+          <AddingFormInput input={eventsTextInput} />
           <button type="submit">Dodaj</button>
         </form>
       </Section>
       <Section header="Notatki">
         <form onSubmit={(e) => handleNoteAdding(e)}>
-          <AddingFormInput
-            input={notesTextarea}
-            handleChange={handleInputChange}
-            listItem={listItem}
-          />
+          <AddingFormInput input={notesTextarea} />
           <button type="submit">Dodaj</button>
         </form>
       </Section>
