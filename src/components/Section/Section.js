@@ -1,26 +1,8 @@
-import { AddingForm } from "../AddingForm/AddingForm";
-
-function Section({
-  children,
-  header,
-  width,
-  addingFormInputs,
-  handleInputChange,
-  handleSubmit,
-  listItem,
-}) {
+function Section({ children, header, width, id }) {
   return (
-    <section className={`${header} ${width} main`}>
+    <section className={`${width} main`} id={id}>
       <h2>{header}</h2>
       {children}
-      {addingFormInputs && (
-        <AddingForm
-          inputs={addingFormInputs}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          listItem={listItem}
-        />
-      )}
     </section>
   );
 }
