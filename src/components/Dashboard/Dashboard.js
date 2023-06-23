@@ -3,6 +3,10 @@ import { useState } from "react";
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
 import Section from "../Section/Section";
+import { DrugsForm } from "../DrugsForm/DrugsForm";
+import { CaresForm } from "../CaresForm/CaresForm";
+import { EventsForm } from "../EventsForm/EventsForm";
+import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 
 import "./Dashboard.css";
@@ -15,16 +19,18 @@ import {
   eventsTextInput,
   notesTextarea,
   drugsMock,
+  caresMock,
+  eventsMock,
+  notesMock,
 } from "../../constants/dashboardInputs";
-import { AddingFormInput } from "../AddingFormInput/AddingFormInput";
 
 function Dashboard() {
   const [todayScorad, setTodayScorad] = useState(null);
   const [displayForm, setDisplayForm] = useState(false);
   const [drugs, setDrugs] = useState(drugsMock);
-  const [cares, setCares] = useState([]);
-  const [events, setEvents] = useState([]);
-  const [notes, setNotes] = useState([]);
+  const [cares, setCares] = useState(caresMock);
+  const [events, setEvents] = useState(eventsMock);
+  const [notes, setNotes] = useState(notesMock);
 
   function handleButtonClick(e) {
     if (e.target.name === "scorad") {
@@ -77,53 +83,32 @@ function Dashboard() {
       <Section width="full-width" header="SCORAD">
         <ScoradSection />
       </Section>
-      <Section header="Leki">
-        <List elements={drugs} />
-        <form
-          onSubmit={(e) =>
-            handleDrugAdding(e, {
-              name: e.target.drug.value,
-              frequency: Number(e.target.drugFrequency.value),
-            })
-          }
-        >
-          <AddingFormInput input={drugsTextInput} />
-          <AddingFormInput input={drugsFrequencyInput} />
-          <button type="submit">Dodaj</button>
-        </form>
+      <Section header="Leki" id="drugs" width="half-width">
+        <List elements={drugs} section="drugs" />
+        <DrugsForm
+          handleSubmit={handleDrugAdding}
+          textInput={drugsTextInput}
+          frequencyInput={drugsFrequencyInput}
+        />
       </Section>
-      <Section header="Pielęgnacja">
-        <List elements={cares} />
-        <form
-          onSubmit={(e) =>
-            handleCareAdding(e, {
-              name: e.target.care.value,
-              frequency: Number(e.target.careFrequency.value),
-            })
-          }
-        >
-          <AddingFormInput input={caresTextInput} />
-          <AddingFormInput input={caresFrequencyInput} />
-          <button type="submit">Dodaj</button>
-        </form>
+      <Section header="Pielęgnacja" id="cares" width="half-width">
+        <List elements={cares} section="cares" />
+        <CaresForm
+          handleSubmit={handleCareAdding}
+          textInput={caresTextInput}
+          frequencyInput={caresFrequencyInput}
+        />
       </Section>
-      <Section header="Zdarzenia">
-        <List elements={events} />
-        <form
-          onSubmit={(e) =>
-            handleEventAdding(e, { event: e.target.event.value })
-          }
-        >
-          <AddingFormInput input={eventsTextInput} />
-          <button type="submit">Dodaj</button>
-        </form>
+      <Section header="Zdarzenia" id="events" width="half-width">
+        <List elements={events} section="events" />
+        <EventsForm
+          handleSubmit={handleEventAdding}
+          textInput={eventsTextInput}
+        />
       </Section>
-      <Section header="Notatki">
-        <List elements={notes} />
-        <form onSubmit={(e) => handleNoteAdding(e, e.target.note.value)}>
-          <AddingFormInput input={notesTextarea} />
-          <button type="submit">Dodaj</button>
-        </form>
+      <Section header="Notatki" id="notes" width="half-width">
+        <List elements={notes} section="notes" />
+        <NotesForm handleSubmit={handleNoteAdding} textarea={notesTextarea} />
       </Section>
     </main>
   );
