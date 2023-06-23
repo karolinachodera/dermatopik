@@ -7,7 +7,7 @@ export const drugsTextInput = {
 };
 
 export const drugsFrequencyInput = {
-  name: "drug-frequency",
+  name: "drugFrequency",
   header: "Podaj częstotliwość stosowania leku",
   type: "number",
   required: true,
@@ -22,7 +22,7 @@ export const caresTextInput = {
 };
 
 export const caresFrequencyInput = {
-  name: "care-frequency",
+  name: "careFrequency",
   header: "Podaj częstotliwość stosowania",
   type: "number",
   required: true,
