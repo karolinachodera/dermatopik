@@ -52,11 +52,35 @@ export const sectionsData = [
 
 export const drugsMock = [
   {
-    name: "Novate",
+    name: "Edelan",
     frequency: 1,
   },
   {
     name: "Protopic",
     frequency: 2,
   },
+];
+
+export const caresMock = [
+  {
+    name: "Krem rokitnikowy",
+    frequency: 2,
+  },
+  {
+    name: "Balsam",
+    frequency: 3,
+  },
+];
+
+export const eventsMock = [
+  "Stres",
+  "Jedzenie",
+  "Kosmetyki",
+  "Stan zapalny",
+  "Zaburzenia snu",
+  "Alergeny",
+];
+
+export const notesMock = [
+  "Sucha i czerwona szyja - być może po maśle orzechowym?",
 ];
