@@ -32,51 +32,27 @@ function Dashboard() {
     }
   }
 
-  function handleDrugAdding(e) {
+  function handleDrugAdding(e, newDrug) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const newDrug = {
-      name: formData.get("drug"),
-      frequency: Number(formData.get("drug-frequency")),
-    };
-    let newDrugsList = [...drugs, newDrug];
-    console.log(newDrugsList);
-    setDrugs(newDrugsList);
+    setDrugs([...drugs, newDrug]);
     e.target.reset();
   }
 
-  function handleCareAdding(e) {
+  function handleCareAdding(e, newCare) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const newCare = {
-      name: formData.get("care"),
-      frequency: Number(formData.get("care-frequency")),
-    };
-    let newCaresList = [...cares, newCare];
-    console.log(newCaresList);
-    setCares(newCaresList);
+    setCares([...cares, newCare]);
     e.target.reset();
   }
 
-  function handleEventAdding(e) {
+  function handleEventAdding(e, newEvent) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const newEvent = {
-      event: formData.get("event"),
-    };
-    let newEventsList = [...events, newEvent];
-    console.log(newEventsList);
-    setEvents(newEventsList);
+    setEvents([...events, newEvent]);
     e.target.reset();
   }
 
-  function handleNoteAdding(e) {
+  function handleNoteAdding(e, newNote) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const newNote = formData.get("note");
-    let newNotesList = [...notes, newNote];
-    console.log(newNotesList);
-    setNotes(newNotesList);
+    setNotes([...notes, newNote]);
     e.target.reset();
   }
 
@@ -103,7 +79,14 @@ function Dashboard() {
       </Section>
       <Section header="Leki">
         <List elements={drugs} />
-        <form onSubmit={(e) => handleDrugAdding(e)}>
+        <form
+          onSubmit={(e) =>
+            handleDrugAdding(e, {
+              name: e.target.drug.value,
+              frequency: Number(e.target.drugFrequency.value),
+            })
+          }
+        >
           <AddingFormInput input={drugsTextInput} />
           <AddingFormInput input={drugsFrequencyInput} />
           <button type="submit">Dodaj</button>
@@ -111,7 +94,14 @@ function Dashboard() {
       </Section>
       <Section header="Pielęgnacja">
         <List elements={cares} />
-        <form onSubmit={(e) => handleCareAdding(e)}>
+        <form
+          onSubmit={(e) =>
+            handleCareAdding(e, {
+              name: e.target.care.value,
+              frequency: Number(e.target.careFrequency.value),
+            })
+          }
+        >
           <AddingFormInput input={caresTextInput} />
           <AddingFormInput input={caresFrequencyInput} />
           <button type="submit">Dodaj</button>
@@ -119,14 +109,18 @@ function Dashboard() {
       </Section>
       <Section header="Zdarzenia">
         <List elements={events} />
-        <form onSubmit={(e) => handleEventAdding(e)}>
+        <form
+          onSubmit={(e) =>
+            handleEventAdding(e, { event: e.target.event.value })
+          }
+        >
           <AddingFormInput input={eventsTextInput} />
           <button type="submit">Dodaj</button>
         </form>
       </Section>
       <Section header="Notatki">
         <List elements={notes} />
-        <form onSubmit={(e) => handleNoteAdding(e)}>
+        <form onSubmit={(e) => handleNoteAdding(e, e.target.note.value)}>
           <AddingFormInput input={notesTextarea} />
           <button type="submit">Dodaj</button>
         </form>
