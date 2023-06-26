@@ -67,6 +67,30 @@ function Dashboard() {
     setDisplayForm(false);
   }
 
+  function handleRemoveDrug(index) {
+    const newDrugs = [...drugs];
+    newDrugs.splice(index, 1);
+    setDrugs(newDrugs);
+  }
+
+  function handleRemoveCare(index) {
+    const newCares = [...cares];
+    newCares.splice(index, 1);
+    setCares(newCares);
+  }
+
+  function handleRemoveEvent(index) {
+    const newEvents = [...events];
+    newEvents.splice(index, 1);
+    setEvents(newEvents);
+  }
+
+  function handleRemoveNote(index) {
+    const newNotes = [...notes];
+    newNotes.splice(index, 1);
+    setNotes(newNotes);
+  }
+
   function ScoradSection() {
     if (todayScorad === null && displayForm === false) {
       return (
@@ -89,7 +113,11 @@ function Dashboard() {
         <ScoradSection />
       </Section>
       <Section header="Leki" id="drugs" width="half-width">
-        <List elements={drugs} section="drugs" />
+        <List
+          elements={drugs}
+          section="drugs"
+          handleRemoveItem={handleRemoveDrug}
+        />
         <DrugsForm
           handleSubmit={handleDrugAdding}
           textInput={drugsTextInput}
@@ -97,7 +125,11 @@ function Dashboard() {
         />
       </Section>
       <Section header="Pielęgnacja" id="cares" width="half-width">
-        <List elements={cares} section="cares" />
+        <List
+          elements={cares}
+          section="cares"
+          handleRemoveItem={handleRemoveCare}
+        />
         <CaresForm
           handleSubmit={handleCareAdding}
           textInput={caresTextInput}
@@ -105,14 +137,22 @@ function Dashboard() {
         />
       </Section>
       <Section header="Zdarzenia" id="events" width="half-width">
-        <List elements={events} section="events" />
+        <List
+          elements={events}
+          section="events"
+          handleRemoveItem={handleRemoveEvent}
+        />
         <EventsForm
           handleSubmit={handleEventAdding}
           textInput={eventsTextInput}
         />
       </Section>
       <Section header="Notatki" id="notes" width="half-width">
-        <List elements={notes} section="notes" />
+        <List
+          elements={notes}
+          section="notes"
+          handleRemoveItem={handleRemoveNote}
+        />
         <NotesForm handleSubmit={handleNoteAdding} textarea={notesTextarea} />
       </Section>
     </main>

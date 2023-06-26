@@ -1,4 +1,6 @@
-export function List({ elements, section }) {
+import { RemoveButton } from "../RemoveButton/RemoveButton";
+
+export function List({ elements, section, handleRemoveItem }) {
   const list = elements.map((element, index) => {
     let checkboxes = [];
     if (element.frequency) {
@@ -13,6 +15,7 @@ export function List({ elements, section }) {
       <li key={`${section}-${index}`}>
         {element.name || element}
         {checkboxes}
+        <RemoveButton handleClick={() => handleRemoveItem(index)} />
       </li>
     );
   });
