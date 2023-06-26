@@ -2,10 +2,12 @@ export function AddingFormInput({ input }) {
   if (input.name === "note") {
     return (
       <>
-        <label htmlFor={input.name} required={input.required && "required"}>
-          {input.header}
-        </label>
-        <textarea id={input.name} name={input.name}></textarea>
+        <label htmlFor={input.name}>{input.header}</label>
+        <textarea
+          id={input.name}
+          name={input.name}
+          required={input.required && "required"}
+        ></textarea>
       </>
     );
   } else {
