@@ -62,6 +62,11 @@ function Dashboard() {
     e.target.reset();
   }
 
+  function handleScoradFinish(scoradResult) {
+    setTodayScorad(scoradResult);
+    setDisplayForm(false);
+  }
+
   function ScoradSection() {
     if (todayScorad === null && displayForm === false) {
       return (
@@ -72,7 +77,7 @@ function Dashboard() {
         />
       );
     } else if (displayForm === true) {
-      return <Scorad />;
+      return <Scorad handleScoradFinish={handleScoradFinish} />;
     } else {
       return <p>Twój dzisiejszy wynik SCORAD to: {todayScorad}</p>;
     }
