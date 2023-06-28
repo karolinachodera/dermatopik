@@ -2,7 +2,7 @@ import { RemoveButton } from "../RemoveButton/RemoveButton";
 
 export function List({ elements, section, handleRemoveItem }) {
   const list = elements.map((element, index) => {
-    let checkboxes = [];
+    const checkboxes = [];
     if (element.frequency) {
       for (let i = 0; i < element.frequency; i++) {
         checkboxes.push(<input key={`${section}-${i}`} type="checkbox" />);
