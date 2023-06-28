@@ -13,7 +13,7 @@ import {
   rangeData,
 } from "../../constants/formInputs";
 
-function Scorad() {
+function Scorad({ handleScoradFinish }) {
   const [step, setStep] = useState(1);
   const [scoradResult, setScoradResult] = useState(0);
 
@@ -120,12 +120,21 @@ function Scorad() {
     }
   }
 
+  function handleFinish(e) {
+    e.preventDefault();
+    handleScoradFinish(scoradResult);
+  }
+
   return (
     <>
       <h2>Ocena SCORAD</h2>
-      <form>
+      <form onSubmit={(e) => handleFinish(e)}>
         {setPartComponent()}
-        <FormNav handleClick={handleNavClick} step={step} />
+        <FormNav
+          handleClick={handleNavClick}
+          handleFinish={handleFinish}
+          step={step}
+        />
       </form>
     </>
   );

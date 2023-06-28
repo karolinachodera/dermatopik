@@ -1,7 +1,10 @@
-function NavButton({ handleClick, direction }) {
+function NavButton({ handleClick, direction, description }) {
+  if (direction === "done") {
+    return <button type="submit">{description}</button>;
+  }
   return (
     <button onClick={handleClick} value={direction}>
-      {direction === "prev" ? "Wstecz" : "Dalej"}
+      {description}
     </button>
   );
 }
