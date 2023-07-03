@@ -4,7 +4,7 @@ import NavButton from "../NavButton/NavButton";
 
 function FormNav({ handleClick, step, handleFinish }) {
   return (
-    <section>
+    <section className="form-nav">
       {step > 1 && (
         <NavButton
           handleClick={handleClick}

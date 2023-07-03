@@ -9,10 +9,11 @@ export function DrugsForm({ handleSubmit, textInput, frequencyInput }) {
           frequency: Number(e.target.drugFrequency.value),
         })
       }
+      className="adding-form"
     >
       <AddingFormInput input={textInput} />
       <AddingFormInput input={frequencyInput} />
-      <button type="submit">Dodaj</button>
+      <button type="submit">+</button>
     </form>
   );
 }

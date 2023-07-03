@@ -1,5 +1,7 @@
 import { RemoveButton } from "../RemoveButton/RemoveButton";
 
+import "./List.css";
+
 export function List({ elements, section, handleRemoveItem }) {
   const list = elements.map((element, index) => {
     const checkboxes = [];
@@ -14,8 +16,12 @@ export function List({ elements, section, handleRemoveItem }) {
     return (
       <li key={`${section}-${index}`}>
         {element.name || element}
-        {checkboxes}
-        <RemoveButton handleClick={() => handleRemoveItem(index)} />
+        {checkboxes.length > 0 && (
+          <div className="frequency-checkboxes">{checkboxes}</div>
+        )}
+        {section !== "events" && (
+          <RemoveButton handleClick={() => handleRemoveItem(index)} />
+        )}
       </li>
     );
   });

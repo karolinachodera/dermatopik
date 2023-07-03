@@ -1,6 +1,6 @@
 export const drugsTextInput = {
   name: "drug",
-  header: "Podaj nazwę leku",
+  header: "Nazwa leku",
   type: "text",
   frequency: true,
   required: true,
@@ -8,14 +8,14 @@ export const drugsTextInput = {
 
 export const drugsFrequencyInput = {
   name: "drugFrequency",
-  header: "Podaj częstotliwość stosowania leku",
+  header: "Częstotliwość stosowania",
   type: "number",
   required: true,
 };
 
 export const caresTextInput = {
   name: "care",
-  header: "Podaj nazwę kosmetyku/zabiegu",
+  header: "Nazwa pielęgnacji",
   type: "text",
   frequency: true,
   required: true,
@@ -23,14 +23,14 @@ export const caresTextInput = {
 
 export const caresFrequencyInput = {
   name: "careFrequency",
-  header: "Podaj częstotliwość stosowania",
+  header: "Częstotliwość stosowania",
   type: "number",
   required: true,
 };
 
 export const eventsTextInput = {
   name: "event",
-  header: "Podaj nazwę zdarzenia",
+  header: "Nazwa zdarzenia",
   frequency: false,
   required: true,
 };
