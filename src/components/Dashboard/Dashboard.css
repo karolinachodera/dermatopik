@@ -4,7 +4,7 @@ main {
     gap: 20px;
     width: 100%;
     max-width: 1000px;
-    padding: 50px;
+    padding: 0 50px;
     margin: 0 auto;
 }
 
@@ -26,4 +26,9 @@ button {
 
 button:hover {
     background-color: var(--dark-green);
+}
+
+button[name="scorad"] {
+    padding: 15px;
+        font-size: 1rem;
 }

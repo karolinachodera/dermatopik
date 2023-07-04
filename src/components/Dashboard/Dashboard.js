@@ -114,7 +114,7 @@ function Dashboard() {
 
   return (
     <main>
-      <Section width="full-width" header="SCORAD">
+      <Section width="full-width" header="SCORAD" id="scorad">
         <ScoradSection />
       </Section>
       <Section header="Leki" id="drugs" width="half-width">

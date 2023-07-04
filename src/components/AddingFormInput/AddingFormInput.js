@@ -24,7 +24,9 @@ export function AddingFormInput({ input }) {
           name={input.name}
           type={input.type}
           required={input.required && "required"}
-          placeholder={input.type !== "number" && "Nazwa"}
+          placeholder={
+            input.type === "number" ? "Ilość dawek dziennie" : "Nazwa"
+          }
         ></input>
       </div>
     );

@@ -18,3 +18,11 @@ h1 {
     margin: 50px 20px 20px;
     text-align: center;
 }
+
+header {
+    text-align: center;
+}
+
+header img {
+    height: 200px;
+}
