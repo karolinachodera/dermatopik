@@ -35,7 +35,16 @@ function Scorad({ handleScoradFinish }) {
     symptomsInputs.forEach((input) => (symptomsSum += input.points));
     sleepAndItchInputs.forEach((input) => (sleepAndItchSum += input.points));
     const result = bodyPartsSum / 5 + (7 * symptomsSum) / 2 + sleepAndItchSum;
-    setScoradResult(result);
+
+    let description;
+    if (scoradResult <= 14) {
+      description = "Twoje AZS ma łagodny przebieg";
+    } else if (scoradResult > 14 && scoradResult <= 39) {
+      description = "Twoje AZS ma umiarkowany przebieg";
+    } else {
+      description = "Twoje AZS ma ciężki przebieg";
+    }
+    setScoradResult({ result: result, description: description });
   }
 
   function handleInputChangeInSectionA(part, side) {

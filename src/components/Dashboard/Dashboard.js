@@ -103,7 +103,12 @@ function Dashboard() {
     } else if (displayForm === true) {
       return <Scorad handleScoradFinish={handleScoradFinish} />;
     } else {
-      return <p>Twój dzisiejszy wynik SCORAD to: {todayScorad}</p>;
+      return (
+        <p>
+          Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
+          {todayScorad.description}.
+        </p>
+      );
     }
   }
 
