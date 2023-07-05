@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import "./Scorad.css";
+import "./Scorad.scss";
 
 import BodyParts from "../BodyParts/BodyParts";
 import Symptoms from "../Symptoms/Symptoms";

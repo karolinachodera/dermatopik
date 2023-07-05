@@ -1,5 +1,7 @@
+@use '../../base';
+
 fieldset {
-    border-color: var(--green);
+    border-color: base.$green;
     border-style: solid;
     margin: 25px 0;
     padding: 20px;

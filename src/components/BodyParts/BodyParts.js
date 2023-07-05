@@ -1,4 +1,4 @@
-import "./BodyParts.css";
+import "./BodyParts.scss";
 import Areas from "../Areas/Areas";
 
 function BodyParts({ handleChange, inputs }) {

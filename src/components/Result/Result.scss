@@ -1,5 +1,7 @@
+@use '../../base';
+
 section.result {
-    border: 2px solid var(--green);
+    border: 2px solid base.$green;
     padding: 30px;
 }
 

@@ -1,3 +1,5 @@
+@use '../../base';
+
 input[type="range"] {
     width: 100%;
     padding: 20px 0;
@@ -12,7 +14,7 @@ output {
     width: 50px;
     height: 30px;
     border-radius: 5px;
-    background: var(--yellow);
+    background: base.$yellow;
     line-height: 30px;
     color: white;
     grid-column: 2 / 3;

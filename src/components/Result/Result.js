@@ -1,4 +1,4 @@
-import "./Result.css";
+import "./Result.scss";
 
 function Result({ scoradResult }) {
   return (

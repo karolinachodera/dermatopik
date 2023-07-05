@@ -1,3 +1,5 @@
+@use '../../base';
+
 .body-parts {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -23,14 +25,14 @@
 .body-part {
     width: 195px;
     height: 500px;
-    background-color: var(--nude);
+    background-color: base.$nude;
     grid-row-start: 2;
     grid-column-start: 1;
     margin: auto;
 }
 
 .body-part.checked {
-    background-color: var(--dark-nude);
+    background-color: base.$dark-nude;
 }
 
 .head {
@@ -182,9 +184,9 @@ clip-path: polygon(50% 48%,
 }
 
 .affected {
-    background-color: var(--dark-nude);
+    background-color: base.$dark-nude;
 }
 
 .unaffected {
-    background-color: var(--nude);
+    background-color: base.$nude;
 }

@@ -1,3 +1,5 @@
+@use '../../base';
+
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -9,7 +11,7 @@ main {
 }
 
 section.main {
-    border: 2px solid var(--dark-green);
+    border: 2px solid base.$dark-green;
     padding: 20px;
 }
 
@@ -21,11 +23,11 @@ button {
     border: none;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
     transition: all 0.1s;
-    background-color: var(--green);
+    background-color: base.$green;
 }
 
 button:hover {
-    background-color: var(--dark-green);
+    background-color: base.$dark-green;
 }
 
 button[name="scorad"] {

@@ -1,4 +1,4 @@
-import "./FormNav.css";
+import "./FormNav.scss";
 
 import NavButton from "../NavButton/NavButton";
 
