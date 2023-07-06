@@ -1,0 +1,20 @@
+@use '../../base';
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 50px;
+    margin: 0 auto;
+}
+
+section.main {
+    border: 2px solid base.$dark-green;
+    padding: 20px;
+}
+
+section.main.full-width {
+    grid-column: 1 / 3;
+}

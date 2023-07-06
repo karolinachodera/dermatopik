@@ -1,24 +1,5 @@
 @use '../../base';
 
-main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    width: 100%;
-    max-width: 1000px;
-    padding: 0 50px;
-    margin: 0 auto;
-}
-
-section.main {
-    border: 2px solid base.$dark-green;
-    padding: 20px;
-}
-
-section.main.full-width{
-    grid-column: 1 / 3;
-}
-
 button {
     border: none;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
