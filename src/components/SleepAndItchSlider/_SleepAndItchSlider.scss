@@ -1,5 +1,20 @@
 @use '../../base';
 
+@mixin thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: base.$dark-nude;
+    cursor: pointer;
+}
+
+@mixin track {
+    cursor: pointer;
+    background-color: rgba(255, 211, 199, 0.4);
+    border-radius: 10px;
+    height: 8px;
+}
+
 input[type="range"] {
     width: 100%;
     padding: 20px 0;
@@ -18,9 +33,9 @@ output {
     line-height: 30px;
     color: white;
     grid-column: 2 / 3;
-    margin-left: 15px;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto {
+        left: 15px;
+    }
 }
 
 fieldset.sleep-and-itch {
@@ -34,48 +49,27 @@ label {
 }
 
 input[type=range]::-webkit-slider-thumb {
+    @include thumb;
     -webkit-appearance: none;
-    height: 16px;
-    width: 16px;
-    border-radius: 8px;
-    background: var(--dark-nude);
-    cursor: pointer;
     margin-top: -4px;
 }
 
 input[type=range]::-moz-range-thumb {
-    height: 16px;
-    width: 16px;
-    border-radius: 8px;
-    background: var(--dark-nude);
-    cursor: pointer;
+    @include thumb;
 }
 
 input[type=range]::-ms-thumb {
-    height: 16px;
-    width: 16px;
-    border-radius: 8px;
-    background: var(--dark-nude);
-    cursor: pointer;
+    @include thumb;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-    cursor: pointer;
-    background-color: rgba(255, 211, 199, 0.4);
-    border-radius: 10px;
-    height: 8px;
+    @include track;
  }
 
 input[type=range]::-moz-range-track {
-    cursor: pointer;
-    background-color: rgba(255, 211, 199, 0.4);
-    border-radius: 10px;
-    height: 8px;
+    @include track;
  }
 
 input[type=range]::-ms-track {
-     cursor: pointer;
-     background-color: rgba(255, 211, 199, 0.4);
-     border-radius: 10px;
-     height: 8px;
+    @include track;
  }
