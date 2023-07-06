@@ -1,4 +1,4 @@
-import "./SleepAndItchSlider.scss";
+import "./_SleepAndItchSlider.scss";
 
 function SleepAndItchSlider({ symptom, handleChange }) {
   return (

@@ -1,6 +1,6 @@
 import { RemoveButton } from "../RemoveButton/RemoveButton";
 
-import "./List.scss";
+import "./_List.scss";
 
 export function List({ elements, section, handleRemoveItem }) {
   const list = elements.map((element, index) => {

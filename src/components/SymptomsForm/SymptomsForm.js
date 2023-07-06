@@ -1,4 +1,4 @@
-import "./SymptomsForm.scss";
+import "./_SymptomsForm.scss";
 
 import SymptomInputs from "../SymptomInputs/SymptomInputs";
 

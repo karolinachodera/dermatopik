@@ -1,4 +1,4 @@
-import "./Section.scss";
+import "./_Section.scss";
 
 function Section({ children, header, width, id }) {
   return (
