@@ -1,8 +1,7 @@
 @use '../../base';
 
 fieldset {
-    border-color: base.$green;
-    border-style: solid;
+    border: 1px solid base.$green;
     margin: 25px 0;
     padding: 20px;
 }
@@ -11,7 +10,3 @@ fieldset.symptom {
     display: flex;
     justify-content: space-around;
 }
-
-/* input[type='radio'] {
-    accent-color: var(--dark-nude);
-} */
