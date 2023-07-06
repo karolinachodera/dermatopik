@@ -1,10 +1,12 @@
 @use '../../base';
 
+$size: 20px;
+
 button.remove {
     background-color: base.$nude;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: $size;
+    height: $size;
+    line-height: $size;
     padding: 0;
     text-align: center;
     justify-self: end;
