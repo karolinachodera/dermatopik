@@ -1,7 +1,6 @@
-@use '../../base';
-
+@use '../../styles/variables';
 fieldset {
-    border: 1px solid base.$green;
+    border: 1px solid variables.$green;
     margin: 25px 0;
     padding: 20px;
 }

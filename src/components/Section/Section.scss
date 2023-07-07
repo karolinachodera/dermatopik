@@ -1,7 +1,6 @@
-@use '../../base';
-
+@use '../../styles/variables';
 .adding-form {
-    border-top: 1px solid base.$dark-nude;
+    border-top: 1px solid variables.$dark-nude;
     padding-top: 20px;
     display: grid;
     grid-template-columns: 4fr 3fr 1fr;

@@ -1,4 +1,4 @@
-// import "./_RemoveButton.scss";
+import "./RemoveButton.scss";
 
 export function RemoveButton({ handleClick }) {
   return (

@@ -1,4 +1,4 @@
-@use './base';
+@use './variables';
 
 main {
     display: grid;
@@ -11,7 +11,7 @@ main {
 }
 
 section.main {
-    border: 2px solid base.$dark-green;
+    border: 2px solid variables.$dark-green;
     padding: 20px;
 }
 

@@ -1,5 +1,4 @@
-@use '../../base';
-
+@use '../../styles/variables';
 .body-parts {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -25,14 +24,14 @@
 .body-part {
     width: 195px;
     height: 500px;
-    background-color: base.$nude;
+    background-color: variables.$nude;
     grid-row-start: 2;
     grid-column-start: 1;
     margin: auto;
 }
 
 .body-part.checked {
-    background-color: base.$dark-nude;
+    background-color: variables.$dark-nude;
 }
 
 .head {
@@ -184,9 +183,9 @@ clip-path: polygon(50% 48%,
 }
 
 .affected {
-    background-color: base.$dark-nude;
+    background-color: variables.$dark-nude;
 }
 
 .unaffected {
-    background-color: base.$nude;
+    background-color: variables.$nude;
 }

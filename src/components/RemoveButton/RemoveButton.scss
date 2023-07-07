@@ -1,9 +1,8 @@
-@use '../../base';
-
+@use '../../styles/variables';
 $size: 20px;
 
 button.remove {
-    background-color: base.$nude;
+    background-color: variables.$nude;
     width: $size;
     height: $size;
     line-height: $size;
@@ -14,7 +13,7 @@ button.remove {
 }
 
 button.remove:hover {
-    background-color: base.$dark-nude;
+    background-color: variables.$dark-nude;
 }
 
 #notes button.remove {

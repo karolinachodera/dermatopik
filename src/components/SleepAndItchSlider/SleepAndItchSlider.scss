@@ -1,10 +1,9 @@
-@use '../../base';
-
+@use '../../styles/variables';
 @mixin thumb {
     height: 16px;
     width: 16px;
     border-radius: 8px;
-    background: base.$dark-nude;
+    background: variables.$dark-nude;
     cursor: pointer;
 }
 
@@ -29,7 +28,7 @@ output {
     width: 50px;
     height: 30px;
     border-radius: 5px;
-    background: base.$yellow;
+    background: variables.$yellow;
     line-height: 30px;
     color: white;
     grid-column: 2 / 3;

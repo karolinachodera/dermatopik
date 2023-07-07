@@ -1,15 +1,14 @@
-@use "../../base";
-//@use "../../layout";
+@use "../../styles/variables";
 
 button {
     border: none;
     box-shadow: 1px 1px 2px 0px rgba(0, 0, 0, 0.3);
     transition: all 0.1s;
-    background-color: base.$green;
+    background-color: variables.$green;
 }
 
 button:hover {
-    background-color: base.$dark-green;
+    background-color: variables.$dark-green;
 }
 
 button[name="scorad"] {

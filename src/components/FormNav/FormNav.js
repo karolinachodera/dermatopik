@@ -1,5 +1,7 @@
 import NavButton from "../NavButton/NavButton";
 
+import "./FormNav.scss";
+
 function FormNav({ handleClick, step, handleFinish }) {
   return (
     <section className="form-nav">

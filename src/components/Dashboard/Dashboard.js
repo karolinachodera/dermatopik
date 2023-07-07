@@ -9,7 +9,7 @@ import { EventsForm } from "../EventsForm/EventsForm";
 import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 
-// import "./_Dashboard.scss";
+import "./Dashboard.scss";
 
 import {
   drugsTextInput,

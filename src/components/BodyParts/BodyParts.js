@@ -1,5 +1,7 @@
 import Areas from "../Areas/Areas";
 
+import "./BodyParts.scss";
+
 function BodyParts({ handleChange, inputs }) {
   return (
     <section>
