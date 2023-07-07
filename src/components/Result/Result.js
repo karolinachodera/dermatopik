@@ -1,4 +1,4 @@
-import "./_Result.scss";
+// import "./_Result.scss";
 
 function Result({ scoradResult }) {
   return (
