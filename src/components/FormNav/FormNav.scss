@@ -1,0 +1,32 @@
+@use '../../styles/variables';
+section.form-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 30px;
+}
+
+.form-nav p {
+    grid-column: 2 / 3;
+    margin: auto;
+}
+
+section.form-nav button[value="prev"] {
+    grid-column: 1 / 2;
+    margin-right: 10px;
+    margin-left: auto;
+}
+
+section.form-nav button[value="next"], section.form-nav button[value="done"] {
+    grid-column: 3 / 4;
+    margin-left: 10px;
+}
+section.form-nav button {
+    background-color: variables.$green;
+    padding: 15px;
+    font-size: 1rem;
+    max-width: 100px;
+}
+
+section.form-nav button:hover {
+    background-color: variables.$dark-green;
+}

@@ -1,0 +1,11 @@
+@use '../../styles/variables';
+fieldset {
+    border: 1px solid variables.$green;
+    margin: 25px 0;
+    padding: 20px;
+}
+
+fieldset.symptom {
+    display: flex;
+    justify-content: space-around;
+}

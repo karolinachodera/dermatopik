@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "./Scorad.scss";
+
 import BodyParts from "../BodyParts/BodyParts";
 import Symptoms from "../Symptoms/Symptoms";
 import SleepAndItch from "../SleepAndItch/SleepAndItch";

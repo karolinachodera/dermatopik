@@ -9,7 +9,7 @@ import { EventsForm } from "../EventsForm/EventsForm";
 import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 
-import "./Dashboard.css";
+import "./Dashboard.scss";
 
 import {
   drugsTextInput,
@@ -114,7 +114,7 @@ function Dashboard() {
 
   return (
     <main>
-      <Section width="full-width" header="SCORAD">
+      <Section width="full-width" header="SCORAD" id="scorad">
         <ScoradSection />
       </Section>
       <Section header="Leki" id="drugs" width="half-width">

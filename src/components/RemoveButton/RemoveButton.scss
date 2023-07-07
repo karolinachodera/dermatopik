@@ -1,0 +1,23 @@
+@use '../../styles/variables';
+$size: 20px;
+
+button.remove {
+    background-color: variables.$nude;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    padding: 0;
+    text-align: center;
+    justify-self: end;
+    font-size: 0.7rem;
+}
+
+button.remove:hover {
+    background-color: variables.$dark-nude;
+}
+
+#notes button.remove {
+    grid-column: 2 / 3;
+}
+
+

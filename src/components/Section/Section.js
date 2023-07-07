@@ -1,3 +1,5 @@
+import "./Section.scss";
+
 function Section({ children, header, width, id }) {
   return (
     <section className={`${width} main`} id={id}>

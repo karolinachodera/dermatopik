@@ -1,8 +1,10 @@
 import NavButton from "../NavButton/NavButton";
 
+import "./FormNav.scss";
+
 function FormNav({ handleClick, step, handleFinish }) {
   return (
-    <section>
+    <section className="form-nav">
       {step > 1 && (
         <NavButton
           handleClick={handleClick}
