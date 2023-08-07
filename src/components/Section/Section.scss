@@ -1,4 +1,6 @@
 @use '../../styles/variables';
+@use '../../styles/mixins';
+
 .adding-form {
     border-top: 1px solid variables.$dark-nude;
     padding-top: 20px;
@@ -27,12 +29,21 @@
         justify-self: end;
         font-size: 1.5rem;
         color: white;
+        @include mixins.small {
+            grid-column: 3 / 4;
+        }
     }
     .input-field.frequency {
         grid-column: 2 / 3;
+        @include mixins.small {
+            grid-column: 1 / 4;
+        }
     }
     .input-field {
         grid-column: 1 / 2;
+        @include mixins.small {
+            grid-column: 1 / 4;
+        }
     }
 }
 

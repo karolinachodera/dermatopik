@@ -1,4 +1,6 @@
 @use '../../styles/variables';
+@use '../../styles/mixins';
+
 .body-parts {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -14,12 +16,21 @@
     grid-column: 1 / 2;
     margin-left: auto;
     margin-right: 30px;
+
+    @include mixins.rwd(600px) {
+        grid-column: 1 / 3;
+        margin-right: auto;
+    }
 }
 
 .back-body {
     grid-column: 2 / 3;
     margin-left: 30px;
     margin-right: auto;
+    @include mixins.rwd(600px) {
+        grid-column: 1 / 3;
+        margin-left: auto;
+    }
 }
 .body-part {
     width: 195px;
@@ -175,6 +186,15 @@ clip-path: polygon(50% 48%,
 .body-legend {
     display: flex;
     justify-content: center;
+    @include mixins.small {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+    p {
+        @include mixins.small {
+                flex: 75%;
+        }
+    }
 }
 .legend {
     width: 30px;

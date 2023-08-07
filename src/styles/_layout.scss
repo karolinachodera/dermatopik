@@ -1,9 +1,15 @@
 @use './variables';
+@use './mixins';
+
+body {
+    width: 100%;
+}
 
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    box-sizing: border-box;
     width: 100%;
     max-width: 1000px;
     padding: 0 50px;
@@ -13,8 +19,13 @@ main {
 section.main {
     border: 2px solid variables.$dark-green;
     padding: 20px;
+            @include mixins.large {
+                    grid-column: 1 / 3;
+                }
 }
 
 section.main.full-width {
     grid-column: 1 / 3;
+
+
 }
