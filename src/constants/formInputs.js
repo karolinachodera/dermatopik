@@ -109,7 +109,7 @@ export const rangeData = [
   {
     symptomName: "itch",
     rangeDescription:
-      "Nasielenie świądu w skali od 0 (brak świądu) do 10 (mocno nasilony)",
+      "Nasilenie świądu w skali od 0 (brak świądu) do 10 (mocno nasilony)",
     points: 0,
     id: 0,
   },
