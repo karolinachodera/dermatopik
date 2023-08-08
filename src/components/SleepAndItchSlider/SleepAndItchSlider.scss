@@ -1,0 +1,74 @@
+@use '../../styles/variables';
+@mixin thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 8px;
+    background: variables.$dark-nude;
+    cursor: pointer;
+}
+
+@mixin track {
+    cursor: pointer;
+    background-color: rgba(255, 211, 199, 0.4);
+    border-radius: 10px;
+    height: 8px;
+}
+
+input[type="range"] {
+    width: 100%;
+    padding: 20px 0;
+    -webkit-appearance: none;
+    appearance: none;
+    grid-column: 1 / 2;
+}
+
+output {
+    text-align: center;
+    display: block;
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    background: variables.$yellow;
+    line-height: 30px;
+    color: white;
+    grid-column: 2 / 3;
+    margin: auto {
+        left: 15px;
+    }
+}
+
+fieldset.sleep-and-itch {
+    display: grid;
+    grid-template-columns: auto 65px;
+    padding-top: 35px;
+}
+
+label {
+    grid-column: 1 / 3;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+    margin-top: -4px;
+}
+
+input[type=range]::-moz-range-thumb {
+    @include thumb;
+}
+
+input[type=range]::-ms-thumb {
+    @include thumb;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    @include track;
+ }
+
+input[type=range]::-moz-range-track {
+    @include track;
+ }
+
+input[type=range]::-ms-track {
+    @include track;
+ }

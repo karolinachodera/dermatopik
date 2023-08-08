@@ -1,0 +1,54 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+
+.adding-form {
+    border-top: 1px solid variables.$dark-nude;
+    padding-top: 20px;
+    display: grid;
+    grid-template-columns: 4fr 3fr 1fr;
+    gap: 15px;
+    align-items: end;
+
+    input {
+        height: 20px;
+        width: 100%;
+    }
+    
+    label {
+        font-size: 0.7rem;
+    }
+    
+    textarea {
+        width: 100%;
+    }
+    
+    button[type="submit"] {
+        width: 45px;
+        height: 45px;
+        border-radius: 25px;
+        justify-self: end;
+        font-size: 1.5rem;
+        color: white;
+        @include mixins.small {
+            grid-column: 3 / 4;
+        }
+    }
+    .input-field.frequency {
+        grid-column: 2 / 3;
+        @include mixins.small {
+            grid-column: 1 / 4;
+        }
+    }
+    .input-field {
+        grid-column: 1 / 2;
+        @include mixins.small {
+            grid-column: 1 / 4;
+        }
+    }
+}
+
+#events .adding-form .input-field, #notes .adding-form .input-field {
+    grid-column: 1 / 3;
+}
+
+

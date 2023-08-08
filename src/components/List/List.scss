@@ -1,0 +1,25 @@
+ul {
+    padding: 0 10px;
+}
+
+li {
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr;
+    margin: 10px 0;
+    align-items: center;
+    gap: 10px;
+    max-width: 400px;
+}
+
+.frequency-checkboxes {
+    grid-column: 2 / 3;
+}
+
+.frequency-checkboxes input {
+    width: 25px;
+    height: 25px;
+}
+
+#notes li {
+    grid-template-columns: 5fr 1fr;
+}

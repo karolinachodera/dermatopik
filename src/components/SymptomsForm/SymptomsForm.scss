@@ -1,0 +1,15 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+fieldset {
+    border: 1px solid variables.$green;
+    margin: 25px 0;
+    padding: 20px;
+}
+
+fieldset.symptom {
+    display: flex;
+    justify-content: space-around;
+    @include mixins.medium {
+        flex-wrap: wrap;
+    }
+}

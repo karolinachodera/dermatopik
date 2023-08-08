@@ -1,3 +1,5 @@
+import "./Result.scss";
+
 function Result({ scoradResult }) {
   return (
     <section className="result">

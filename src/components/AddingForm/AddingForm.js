@@ -1,5 +1,7 @@
 import { AddingFormInput } from "../AddingFormInput/AddingFormInput";
 
+import "./AddingForm.css";
+
 export function AddingForm({
   inputs,
   handleInputChange,
@@ -33,7 +35,7 @@ export function AddingForm({
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form className="adding-form" onSubmit={(e) => handleSubmit(e)}>
       {setAddingFormInputs()}
       <button type="submit">Dodaj</button>
     </form>

@@ -1,0 +1,27 @@
+$screen-large: 920px;
+$screen-medium: 760px;
+$screen-small: 540px;
+
+@mixin small {
+    @media (max-width: #{$screen-small}) {
+        @content;
+    }
+}
+
+@mixin medium {
+    @media (max-width: #{$screen-medium}) {
+        @content;
+    }
+}
+
+@mixin large {
+    @media (max-width: #{$screen-large}) {
+        @content;
+    }
+}
+
+@mixin rwd($size) {
+    @media (max-width: #{$size}) {
+        @content;
+    }
+}
