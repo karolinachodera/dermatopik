@@ -24,6 +24,10 @@ import {
   notesMock,
 } from "../../constants/dashboardInputs";
 
+interface ScoradResult {
+  result: number, description: string,
+}
+
 function Dashboard() {
   const [todayScorad, setTodayScorad] = useState < {result: number, description: string} | null>(null);
   const [displayForm, setDisplayForm] = useState(false);
@@ -62,7 +66,7 @@ function Dashboard() {
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleScoradFinish(scoradResult: {result: number, description: string}) {
+  function handleScoradFinish(scoradResult: ScoradResult) {
     setTodayScorad(scoradResult);
     setDisplayForm(false);
   }
