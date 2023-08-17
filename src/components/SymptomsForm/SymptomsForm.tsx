@@ -1,9 +1,17 @@
 import "./SymptomsForm.scss";
 
 import SymptomInputs from "../SymptomInputs/SymptomInputs";
+import { ChangeEvent, ReactElement } from "react";
 
-function SymptomsForm({ symptoms, handleChange, values }) {
-  const fieldset = symptoms.map((symptom, index) => {
+interface Symptom {
+  name: string,
+  polishLabel: string,
+  points: number,
+  id: number,
+}
+
+function SymptomsForm({ symptoms, handleChange, values }: {symptoms: Symptom[], handleChange: (e: ChangeEvent<HTMLInputElement>, symptom: Symptom) => void, values: string[]}): ReactElement {
+  const fieldset: ReactElement[] = symptoms.map((symptom, index) => {
     return (
       <fieldset
         name={symptom.name}
@@ -20,7 +28,7 @@ function SymptomsForm({ symptoms, handleChange, values }) {
       </fieldset>
     );
   });
-  return fieldset;
+  return <>{fieldset}</>;
 }
 
 export default SymptomsForm;

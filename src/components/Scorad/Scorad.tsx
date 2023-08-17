@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ChangeEvent, ReactElement, useState } from "react";
 
 import "./Scorad.scss";
 
@@ -97,7 +97,7 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
     setBodyPartsInputs(newBodyPartsInputs);
   }
 
-  function handleInputChangeInSectionB(e: Event, symptom: Symptom): void {
+  function handleInputChangeInSectionB(e: ChangeEvent<HTMLInputElement>, symptom: Symptom): void {
     let updatedSymptom: Symptom;
 
     updatedSymptom = {
