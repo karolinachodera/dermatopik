@@ -28,69 +28,74 @@ interface ScoradResult {
   result: number, description: string,
 }
 
-function Dashboard() {
-  const [todayScorad, setTodayScorad] = useState < {result: number, description: string} | null>(null);
-  const [displayForm, setDisplayForm] = useState(false);
-  const [drugs, setDrugs] = useState(drugsMock);
-  const [cares, setCares] = useState(caresMock);
-  const [events, setEvents] = useState(eventsMock);
-  const [notes, setNotes] = useState(notesMock);
+interface FormInput {
+  name: string,
+    frequency: number,
+}
 
-  function handleButtonClick(e: Event) {
+function Dashboard(): ReactElement {
+  const [todayScorad, setTodayScorad] = useState < ScoradResult | null>(null);
+  const [displayForm, setDisplayForm] = useState<boolean>(false);
+  const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
+  const [cares, setCares] = useState<FormInput[]>(caresMock);
+  const [events, setEvents] = useState<string[]>(eventsMock);
+  const [notes, setNotes] = useState<string[]>(notesMock);
+
+  function handleButtonClick(e: Event): void {
     if ((e.target as HTMLButtonElement).name === "scorad") {
       setDisplayForm(true);
     }
   }
 
-  function handleDrugAdding(e: Event, newDrug: {name: string, frequency: number}) {
+  function handleDrugAdding(e: Event, newDrug: FormInput): void {
     e.preventDefault();
     setDrugs([...drugs, newDrug]);
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleCareAdding(e: Event, newCare: {name: string, frequency: number}) {
+  function handleCareAdding(e: Event, newCare: FormInput): void {
     e.preventDefault();
     setCares([...cares, newCare]);
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleEventAdding(e: Event, newEvent: string) {
+  function handleEventAdding(e: Event, newEvent: string): void {
     e.preventDefault();
     setEvents([...events, newEvent]);
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleNoteAdding(e: Event, newNote: string) {
+  function handleNoteAdding(e: Event, newNote: string): void {
     e.preventDefault();
     setNotes([...notes, newNote]);
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleScoradFinish(scoradResult: ScoradResult) {
+  function handleScoradFinish(scoradResult: ScoradResult): void {
     setTodayScorad(scoradResult);
     setDisplayForm(false);
   }
 
-  function handleRemoveDrug(index: number) {
-    const newDrugs = [...drugs];
+  function handleRemoveDrug(index: number): void {
+    const newDrugs: FormInput[] = [...drugs];
     newDrugs.splice(index, 1);
     setDrugs(newDrugs);
   }
 
-  function handleRemoveCare(index: number) {
-    const newCares = [...cares];
+  function handleRemoveCare(index: number): void {
+    const newCares: FormInput[] = [...cares];
     newCares.splice(index, 1);
     setCares(newCares);
   }
 
-  function handleRemoveEvent(index: number) {
-    const newEvents = [...events];
+  function handleRemoveEvent(index: number): void {
+    const newEvents: string [] = [...events];
     newEvents.splice(index, 1);
     setEvents(newEvents);
   }
 
-  function handleRemoveNote(index: number) {
-    const newNotes = [...notes];
+  function handleRemoveNote(index: number): void {
+    const newNotes: string[] = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
   }
