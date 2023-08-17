@@ -1,7 +1,15 @@
+import { ChangeEvent, ReactElement } from "react";
 import SleepAndItchSlider from "../SleepAndItchSlider/SleepAndItchSlider";
 
-function SleepAndItch({ rangeData, handleChange }) {
-  const sliders = rangeData.map((symptom) => {
+interface Range {
+  symptomName: string,
+    rangeDescription: string,
+    points: number,
+    id: number,
+}
+
+function SleepAndItch({ rangeData, handleChange }: {rangeData: Range[], handleChange: (e: ChangeEvent<HTMLInputElement>, symptom: Range) => void}): ReactElement {
+  const sliders: ReactElement[] = rangeData.map((symptom) => {
     return (
       <SleepAndItchSlider
         symptom={symptom}

@@ -1,6 +1,14 @@
+import { ChangeEvent, ReactElement } from "react";
 import "./SleepAndItchSlider.scss";
 
-function SleepAndItchSlider({ symptom, handleChange }) {
+interface Range {
+  symptomName: string,
+    rangeDescription: string,
+    points: number,
+    id: number,
+}
+
+function SleepAndItchSlider({ symptom, handleChange }: {symptom: Range, handleChange: (e: ChangeEvent<HTMLInputElement>, symptom: Range) => void}): ReactElement {
   return (
     <fieldset className="sleep-and-itch">
       <label htmlFor={symptom.symptomName}>{symptom.rangeDescription}</label>

@@ -109,7 +109,7 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
     setSymptomsInputs(newSymptomInputs);
   }
 
-  function handleInputChangeInSectionC(e: Event, symptom: Range): void {
+  function handleInputChangeInSectionC(e: ChangeEvent<HTMLInputElement>, symptom: Range): void {
     let updatedRange: Range = {
       ...symptom,
       points: Number((e.target as HTMLInputElement).value),
