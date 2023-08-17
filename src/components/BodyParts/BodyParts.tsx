@@ -1,8 +1,19 @@
+import { ReactElement } from "react";
 import Areas from "../Areas/Areas";
 
 import "./BodyParts.scss";
 
-function BodyParts({ handleChange, inputs }) {
+interface BodyPart {
+  bodyPartName: string,
+  bodyPartProportion: number,
+  id: number,
+  frontSide: boolean,
+  backSide: boolean,
+  isFrontChecked: boolean,
+  isBackChecked: boolean,
+}
+
+function BodyParts({ handleChange, inputs }: {handleChange: (part: BodyPart, side: string) => void, inputs: BodyPart[] }): ReactElement {
   return (
     <section>
       <h2>Część A: Powierzchnia skóry zajęta przez AZS</h2>
