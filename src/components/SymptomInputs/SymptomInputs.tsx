@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface Symptom {
   name: string,
@@ -7,7 +7,7 @@ interface Symptom {
   id: number,
 }
 
-function SymptomInputs({ symptom, handleChange, values }: {symptom: Symptom, handleChange: (e: ChangeEvent<HTMLInputElement>, symptom: Symptom, index: number) => void, values: string[]}): ReactElement {
+function SymptomInputs({ symptom, handleChange, values }: {symptom: Symptom, handleChange: (e: React.ChangeEvent<HTMLInputElement>, symptom: Symptom, index: number) => void, values: string[]}): ReactElement {
   const inputs: ReactElement[] = values.map((value, index) => {
     const isChecked = index === symptom.points;
     return (

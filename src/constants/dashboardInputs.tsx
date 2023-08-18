@@ -2,8 +2,8 @@ interface Input {
   name: string,
   header: string,
   type?: string,
-  frequency?: boolean
-  required: boolean
+  frequency?: boolean,
+  required: boolean,
 }
 
 interface FormInput {
