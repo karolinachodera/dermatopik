@@ -41,7 +41,7 @@ function Dashboard(): ReactElement {
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
 
-  function handleButtonClick(e: Event): void {
+  function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): void {
     if ((e.target as HTMLButtonElement).name === "scorad") {
       setDisplayForm(true);
     }
