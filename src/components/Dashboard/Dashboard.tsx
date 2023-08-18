@@ -47,7 +47,7 @@ function Dashboard(): ReactElement {
     }
   }
 
-  function handleDrugAdding(e: Event, newDrug: FormInput): void {
+  function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
     e.preventDefault();
     setDrugs([...drugs, newDrug]);
     (e.target as HTMLFormElement).reset();
