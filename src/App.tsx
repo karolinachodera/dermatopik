@@ -1,5 +1,4 @@
 import "./styles/App.scss";
-import Scorad from "./components/Scorad/Scorad";
 import Dashboard from "./components/Dashboard/Dashboard";
 import logo from "./img/logo-dermatopik.png";
 import { ReactElement } from "react";
