@@ -14,12 +14,6 @@ interface Input {
   required: boolean
 }
 
-interface FrequencyInput {
-  name: string,
-  header: string,
-  type: string,
-  required: boolean,
-}
 export function DrugsForm({ handleSubmit, textInput, frequencyInput }: {textInput: Input, frequencyInput: Input, handleSubmit: (e: React.FormEvent<HTMLFormElement>, newDrug: FormInput) => void}): ReactElement {
   return (
     <form
