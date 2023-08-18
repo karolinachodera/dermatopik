@@ -53,19 +53,19 @@ function Dashboard(): ReactElement {
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleCareAdding(e: Event, newCare: FormInput): void {
+  function handleCareAdding(e: React.FormEvent<HTMLFormElement>, newCare: FormInput): void {
     e.preventDefault();
     setCares([...cares, newCare]);
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleEventAdding(e: Event, newEvent: string): void {
+  function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: string): void {
     e.preventDefault();
     setEvents([...events, newEvent]);
     (e.target as HTMLFormElement).reset();
   }
 
-  function handleNoteAdding(e: Event, newNote: string): void {
+  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: string): void {
     e.preventDefault();
     setNotes([...notes, newNote]);
     (e.target as HTMLFormElement).reset();
