@@ -1,8 +1,9 @@
+import { ReactElement } from "react";
 import NavButton from "../NavButton/NavButton";
 
 import "./FormNav.scss";
 
-function FormNav({ handleClick, step, handleFinish }) {
+function FormNav({ handleClick, step }: {handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void, step: number}): ReactElement {
   return (
     <section className="form-nav">
       {step > 1 && (
@@ -22,7 +23,6 @@ function FormNav({ handleClick, step, handleFinish }) {
       )}
       {step === 4 && (
         <NavButton
-          handleClick={handleFinish}
           direction="done"
           description="Zakończ"
         />

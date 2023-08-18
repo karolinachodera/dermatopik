@@ -45,7 +45,7 @@ interface Range {
 
 function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: ScoradResult) => void}): ReactElement {
   const [step, setStep] = useState<number>(1);
-  const [scoradResult, setScoradResult] = useState< ScoradResult | null>(null);
+  const [scoradResult, setScoradResult] = useState< ScoradResult>({result: 0, description: ""});
   const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState<Symptom[]>([...symptoms]);
   const [sleepAndItchInputs, setSleepAndItchInputs] = useState<Range[]>([...rangeData]);
@@ -147,7 +147,7 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
     }
   }
 
-  function handleNavClick(e: Event): void {
+  function handleNavClick(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
 
     if ((e.target as HTMLButtonElement).value === "prev") {
@@ -174,7 +174,6 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
         {setPartComponent()}
         <FormNav
           handleClick={handleNavClick}
-          handleFinish={handleFinish}
           step={step}
         />
       </form>
