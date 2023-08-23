@@ -1,4 +1,14 @@
-export function AddingFormInput({ input }) {
+import { ReactElement } from "react";
+
+interface Input {
+  name: string,
+  header: string,
+  type?: string,
+  frequency?: boolean
+  required: boolean
+}
+
+export function AddingFormInput({ input } : {input: Input}): ReactElement {
   if (input.name === "note") {
     return (
       <div className="input-field">
@@ -7,7 +17,7 @@ export function AddingFormInput({ input }) {
         <textarea
           id={input.name}
           name={input.name}
-          required={input.required && "required"}
+          required={input.required}
           placeholder={input.header}
         ></textarea>
       </div>
@@ -23,7 +33,7 @@ export function AddingFormInput({ input }) {
           id={input.name}
           name={input.name}
           type={input.type}
-          required={input.required && "required"}
+          required={input.required}
           placeholder={
             input.type === "number" ? "Ilość dawek dziennie" : "Nazwa"
           }

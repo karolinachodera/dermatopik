@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, ReactElement, useState } from "react";
 
 import "./Scorad.scss";
 
@@ -15,18 +15,45 @@ import {
   rangeData,
 } from "../../constants/formInputs";
 
-function Scorad({ handleScoradFinish }) {
-  const [step, setStep] = useState(1);
-  const [scoradResult, setScoradResult] = useState(0);
+interface BodyPart {
+  bodyPartName: string,
+  bodyPartProportion: number,
+  id: number,
+  frontSide: boolean,
+  backSide: boolean,
+  isFrontChecked: boolean,
+  isBackChecked: boolean,
+}
 
-  const [bodyPartsInputs, setBodyPartsInputs] = useState([...bodyPartsData]);
-  const [symptomsInputs, setSymptomsInputs] = useState([...symptoms]);
-  const [sleepAndItchInputs, setSleepAndItchInputs] = useState([...rangeData]);
+interface Symptom {
+  name: string,
+  polishLabel: string,
+  points: number,
+  id: number,
+}
 
-  function countScorad() {
-    let bodyPartsSum = 0;
-    let symptomsSum = 0;
-    let sleepAndItchSum = 0;
+interface ScoradResult {
+  result: number, description: string,
+}
+
+interface Range {
+  symptomName: string,
+    rangeDescription: string,
+    points: number,
+    id: number,
+}
+
+function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: ScoradResult) => void}): ReactElement {
+  const [step, setStep] = useState<number>(1);
+  const [scoradResult, setScoradResult] = useState< ScoradResult>({result: 0, description: ""});
+  const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
+  const [symptomsInputs, setSymptomsInputs] = useState<Symptom[]>([...symptoms]);
+  const [sleepAndItchInputs, setSleepAndItchInputs] = useState<Range[]>([...rangeData]);
+
+  function countScorad(): void {
+    let bodyPartsSum: number = 0;
+    let symptomsSum: number = 0;
+    let sleepAndItchSum: number = 0;
     bodyPartsInputs.forEach((input) => {
       if (input.isFrontChecked) {
         bodyPartsSum += input.bodyPartProportion;
@@ -36,12 +63,12 @@ function Scorad({ handleScoradFinish }) {
     });
     symptomsInputs.forEach((input) => (symptomsSum += input.points));
     sleepAndItchInputs.forEach((input) => (sleepAndItchSum += input.points));
-    const result = bodyPartsSum / 5 + (7 * symptomsSum) / 2 + sleepAndItchSum;
+    const result: number = bodyPartsSum / 5 + (7 * symptomsSum) / 2 + sleepAndItchSum;
 
-    let description;
-    if (scoradResult <= 14) {
+    let description: string;
+    if (result <= 14) {
       description = "Twoje AZS ma łagodny przebieg";
-    } else if (scoradResult > 14 && scoradResult <= 39) {
+    } else if (result > 14 && result <= 39) {
       description = "Twoje AZS ma umiarkowany przebieg";
     } else {
       description = "Twoje AZS ma ciężki przebieg";
@@ -49,8 +76,8 @@ function Scorad({ handleScoradFinish }) {
     setScoradResult({ result: result, description: description });
   }
 
-  function handleInputChangeInSectionA(part, side) {
-    let updatedPart;
+  function handleInputChangeInSectionA(part: BodyPart, side: string): void {
+    let updatedPart: BodyPart;
 
     if (side === "front") {
       updatedPart = {
@@ -61,36 +88,38 @@ function Scorad({ handleScoradFinish }) {
       updatedPart = {
         ...part,
         isBackChecked: !part.isBackChecked,
-      };
+      } 
+    } else {
+        updatedPart = { ...part };
     }
-    const newBodyPartsInputs = [...bodyPartsInputs];
+    const newBodyPartsInputs: BodyPart[] = [...bodyPartsInputs];
     newBodyPartsInputs[part.id] = updatedPart;
     setBodyPartsInputs(newBodyPartsInputs);
   }
 
-  function handleInputChangeInSectionB(e, symptom) {
-    let updatedSymptom;
+  function handleInputChangeInSectionB(e: ChangeEvent<HTMLInputElement>, symptom: Symptom): void {
+    let updatedSymptom: Symptom;
 
     updatedSymptom = {
       ...symptom,
-      points: Number(e.target.value),
+      points: Number((e.target as HTMLInputElement).value),
     };
-    const newSymptomInputs = [...symptomsInputs];
+    const newSymptomInputs: Symptom[] = [...symptomsInputs];
     newSymptomInputs[symptom.id] = updatedSymptom;
     setSymptomsInputs(newSymptomInputs);
   }
 
-  function handleInputChangeInSectionC(e, symptom) {
-    let updatedRange = {
+  function handleInputChangeInSectionC(e: ChangeEvent<HTMLInputElement>, symptom: Range): void {
+    let updatedRange: Range = {
       ...symptom,
-      points: Number(e.target.value),
+      points: Number((e.target as HTMLInputElement).value),
     };
-    const newSleepAndItchInputs = [...sleepAndItchInputs];
+    const newSleepAndItchInputs: Range[] = [...sleepAndItchInputs];
     newSleepAndItchInputs[symptom.id] = updatedRange;
     setSleepAndItchInputs(newSleepAndItchInputs);
   }
 
-  function setPartComponent() {
+  function setPartComponent(): ReactElement {
     if (step === 1) {
       return (
         <BodyParts
@@ -118,12 +147,12 @@ function Scorad({ handleScoradFinish }) {
     }
   }
 
-  function handleNavClick(e) {
+  function handleNavClick(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
 
-    if (e.target.value === "prev") {
+    if ((e.target as HTMLButtonElement).value === "prev") {
       setStep(step - 1);
-    } else if (e.target.value === "next") {
+    } else if ((e.target as HTMLButtonElement).value === "next") {
       setStep(step + 1);
     }
     if (step === 3) {
@@ -131,9 +160,11 @@ function Scorad({ handleScoradFinish }) {
     }
   }
 
-  function handleFinish(e) {
+  function handleFinish(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    handleScoradFinish(scoradResult);
+    if (scoradResult) {
+      handleScoradFinish(scoradResult);
+    }
   }
 
   return (
@@ -143,7 +174,6 @@ function Scorad({ handleScoradFinish }) {
         {setPartComponent()}
         <FormNav
           handleClick={handleNavClick}
-          handleFinish={handleFinish}
           step={step}
         />
       </form>

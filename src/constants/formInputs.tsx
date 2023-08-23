@@ -1,4 +1,28 @@
-export const bodyPartsData = [
+interface BodyPart {
+  bodyPartName: string,
+  bodyPartProportion: number,
+  id: number,
+  frontSide: boolean,
+  backSide: boolean,
+  isFrontChecked: boolean,
+  isBackChecked: boolean,
+}
+
+interface Symptom {
+  name: string,
+  polishLabel: string,
+  points: number,
+  id: number,
+}
+
+interface Range {
+  symptomName: string,
+    rangeDescription: string,
+    points: number,
+    id: number,
+}
+
+export const bodyPartsData: BodyPart[] = [
   {
     bodyPartName: "head",
     bodyPartProportion: 4.5,
@@ -64,7 +88,7 @@ export const bodyPartsData = [
   },
 ];
 
-export const symptoms = [
+export const symptoms: Symptom[] = [
   {
     name: "erythema",
     polishLabel: "Rumień",
@@ -98,14 +122,14 @@ export const symptoms = [
   },
 ];
 
-export const symptomsValues = [
+export const symptomsValues: string[] = [
   "brak",
   "słabo nasilony",
   "średnio nasilony",
   "mocno nasilony",
 ];
 
-export const rangeData = [
+export const rangeData: Range[] = [
   {
     symptomName: "itch",
     rangeDescription:

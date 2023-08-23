@@ -1,4 +1,17 @@
-export const drugsTextInput = {
+interface Input {
+  name: string,
+  header: string,
+  type?: string,
+  frequency?: boolean,
+  required: boolean,
+}
+
+interface FormInput {
+  name: string,
+    frequency: number,
+}
+
+export const drugsTextInput: Input = {
   name: "drug",
   header: "Nazwa leku",
   type: "text",
@@ -6,14 +19,14 @@ export const drugsTextInput = {
   required: true,
 };
 
-export const drugsFrequencyInput = {
+export const drugsFrequencyInput: Input = {
   name: "drugFrequency",
   header: "Częstotliwość stosowania",
   type: "number",
   required: true,
 };
 
-export const caresTextInput = {
+export const caresTextInput: Input = {
   name: "care",
   header: "Nazwa pielęgnacji",
   type: "text",
@@ -21,36 +34,28 @@ export const caresTextInput = {
   required: true,
 };
 
-export const caresFrequencyInput = {
+export const caresFrequencyInput: Input = {
   name: "careFrequency",
   header: "Częstotliwość stosowania",
   type: "number",
   required: true,
 };
 
-export const eventsTextInput = {
+export const eventsTextInput: Input = {
   name: "event",
   header: "Nazwa zdarzenia",
   frequency: false,
   required: true,
 };
 
-export const notesTextarea = {
+export const notesTextarea: Input = {
   name: "note",
   header: "Wpisz notatkę",
   frequency: false,
   required: true,
 };
 
-export const sectionsData = [
-  {
-    name: "scorad",
-    header: "SCORAD",
-    width: "full-width",
-  },
-];
-
-export const drugsMock = [
+export const drugsMock: FormInput[] = [
   {
     name: "Edelan",
     frequency: 1,
@@ -61,7 +66,7 @@ export const drugsMock = [
   },
 ];
 
-export const caresMock = [
+export const caresMock: FormInput[] = [
   {
     name: "Krem rokitnikowy",
     frequency: 2,
@@ -72,7 +77,7 @@ export const caresMock = [
   },
 ];
 
-export const eventsMock = [
+export const eventsMock: string[] = [
   "Stres",
   "Jedzenie",
   "Kosmetyki",
@@ -81,6 +86,6 @@ export const eventsMock = [
   "Alergeny",
 ];
 
-export const notesMock = [
+export const notesMock: string[] = [
   "Sucha i czerwona szyja - być może po maśle orzechowym?",
 ];

@@ -1,5 +1,14 @@
-function SymptomInputs({ symptom, handleChange, values }) {
-  const inputs = values.map((value, index) => {
+import { ReactElement } from "react";
+
+interface Symptom {
+  name: string,
+  polishLabel: string,
+  points: number,
+  id: number,
+}
+
+function SymptomInputs({ symptom, handleChange, values }: {symptom: Symptom, handleChange: (e: React.ChangeEvent<HTMLInputElement>, symptom: Symptom, index: number) => void, values: string[]}): ReactElement {
+  const inputs: ReactElement[] = values.map((value, index) => {
     const isChecked = index === symptom.points;
     return (
       <span key={`label-${index}`}>
@@ -16,7 +25,7 @@ function SymptomInputs({ symptom, handleChange, values }) {
     );
   });
 
-  return inputs;
+  return <>{inputs}</>;
 }
 
 export default SymptomInputs;

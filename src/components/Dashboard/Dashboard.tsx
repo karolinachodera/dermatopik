@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
@@ -24,90 +24,99 @@ import {
   notesMock,
 } from "../../constants/dashboardInputs";
 
-function Dashboard() {
-  const [todayScorad, setTodayScorad] = useState(null);
-  const [displayForm, setDisplayForm] = useState(false);
-  const [drugs, setDrugs] = useState(drugsMock);
-  const [cares, setCares] = useState(caresMock);
-  const [events, setEvents] = useState(eventsMock);
-  const [notes, setNotes] = useState(notesMock);
+interface ScoradResult {
+  result: number, description: string,
+}
 
-  function handleButtonClick(e) {
-    if (e.target.name === "scorad") {
+interface FormInput {
+  name: string,
+    frequency: number,
+}
+
+function Dashboard(): ReactElement {
+  const [todayScorad, setTodayScorad] = useState < ScoradResult | null>(null);
+  const [displayForm, setDisplayForm] = useState<boolean>(false);
+  const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
+  const [cares, setCares] = useState<FormInput[]>(caresMock);
+  const [events, setEvents] = useState<string[]>(eventsMock);
+  const [notes, setNotes] = useState<string[]>(notesMock);
+
+  function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): void {
+    if ((e.target as HTMLButtonElement).name === "scorad") {
       setDisplayForm(true);
     }
   }
 
-  function handleDrugAdding(e, newDrug) {
+  function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
     e.preventDefault();
     setDrugs([...drugs, newDrug]);
-    e.target.reset();
+    (e.target as HTMLFormElement).reset();
   }
 
-  function handleCareAdding(e, newCare) {
+  function handleCareAdding(e: React.FormEvent<HTMLFormElement>, newCare: FormInput): void {
     e.preventDefault();
     setCares([...cares, newCare]);
-    e.target.reset();
+    (e.target as HTMLFormElement).reset();
   }
 
-  function handleEventAdding(e, newEvent) {
+  function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: string): void {
     e.preventDefault();
     setEvents([...events, newEvent]);
-    e.target.reset();
+    (e.target as HTMLFormElement).reset();
   }
 
-  function handleNoteAdding(e, newNote) {
+  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: string): void {
     e.preventDefault();
     setNotes([...notes, newNote]);
-    e.target.reset();
+    (e.target as HTMLFormElement).reset();
   }
 
-  function handleScoradFinish(scoradResult) {
+  function handleScoradFinish(scoradResult: ScoradResult): void {
     setTodayScorad(scoradResult);
     setDisplayForm(false);
   }
 
-  function handleRemoveDrug(index) {
-    const newDrugs = [...drugs];
+  function handleRemoveDrug(index: number): void {
+    const newDrugs: FormInput[] = [...drugs];
     newDrugs.splice(index, 1);
     setDrugs(newDrugs);
   }
 
-  function handleRemoveCare(index) {
-    const newCares = [...cares];
+  function handleRemoveCare(index: number): void {
+    const newCares: FormInput[] = [...cares];
     newCares.splice(index, 1);
     setCares(newCares);
   }
 
-  function handleRemoveEvent(index) {
-    const newEvents = [...events];
+  function handleRemoveEvent(index: number): void {
+    const newEvents: string [] = [...events];
     newEvents.splice(index, 1);
     setEvents(newEvents);
   }
 
-  function handleRemoveNote(index) {
-    const newNotes = [...notes];
+  function handleRemoveNote(index: number): void {
+    const newNotes: string[] = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
   }
 
-  function ScoradSection() {
-    if (todayScorad === null && displayForm === false) {
-      return (
-        <Button
-          description="Oceń SCORAD"
-          handleClick={handleButtonClick}
-          buttonName="scorad"
-        />
-      );
-    } else if (displayForm === true) {
+  function ScoradSection(): ReactElement {
+    if (displayForm === true) {
       return <Scorad handleScoradFinish={handleScoradFinish} />;
-    } else {
+    } else if (todayScorad) {
       return (
         <p>
           Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
           {todayScorad.description}.
         </p>
+      );
+    } else {
+            return (
+        <Button
+          description="Oceń SCORAD"
+          handleClick={handleButtonClick}
+          buttonName="scorad"
+        />
       );
     }
   }
