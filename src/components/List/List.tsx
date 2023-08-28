@@ -31,5 +31,5 @@ export function List({ elements, section, handleRemoveItem }: {elements: FormInp
       </li>
     );
   });
-  return <ul>{list}</ul>;
+  return <ul className="checkbox-list">{list}</ul>;
 }
