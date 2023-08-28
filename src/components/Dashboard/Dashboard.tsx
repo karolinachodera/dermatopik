@@ -23,16 +23,17 @@ import {
 } from "../../constants/dashboardInputs";
 
 interface ScoradResult {
-  result: number, description: string,
+  result: number, description: string, date: Date,
 }
 
 interface FormInput {
   name: string,
-    frequency: number,
+  frequency: number,
 }
 
 function Dashboard(): ReactElement {
-  const [todayScorad, setTodayScorad] = useState < ScoradResult | null>(null);
+  const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
+  const [scoradList, setScoradList] = useState<ScoradResult[] | []>([])
   const [displayForm, setDisplayForm] = useState<boolean>(false);
   const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
   const [cares, setCares] = useState<FormInput[]>(caresMock);
@@ -69,8 +70,28 @@ function Dashboard(): ReactElement {
     (e.target as HTMLFormElement).reset();
   }
 
+  function isTodayScorad(scoradResult: ScoradResult): boolean {
+    if (scoradList.length > 0){
+      const lastDate: Date = scoradList[scoradList.length - 1].date;
+      const resultDate: Date = scoradResult.date;
+      const isSameDate: boolean =
+    resultDate.getDate() === lastDate.getDate() &&
+    resultDate.getMonth() === lastDate.getMonth() &&
+      resultDate.getFullYear() === lastDate.getFullYear();
+    return isSameDate;
+    } else {
+      return false;
+    }
+  }
+
   function handleScoradFinish(scoradResult: ScoradResult): void {
     setTodayScorad(scoradResult);
+    if (isTodayScorad(scoradResult)) {
+      setScoradList([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
+    } else {
+      setScoradList([...scoradList, scoradResult]);
+    }
+    setScoradList([...scoradList, scoradResult]);
     setDisplayForm(false);
   }
 
@@ -98,15 +119,32 @@ function Dashboard(): ReactElement {
     setNotes(newNotes);
   }
 
+  function ResultList(): ReactElement {
+    const list: ReactElement[] = scoradList.map((result, index) => {
+      return <li key={`scoradresult-${index}`}>
+        {result.date.toDateString()}: {result.result}
+      </li>
+    });
+    return <>{list}</>
+  }
+
   function ScoradSection(): ReactElement {
     if (displayForm === true) {
       return <Scorad handleScoradFinish={handleScoradFinish} />;
     } else if (todayScorad) {
       return (
+        <>
         <p>
           Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
           {todayScorad.description}.
-        </p>
+          </p>
+          <ResultList />
+        <Button
+          description="Oceń SCORAD"
+          handleClick={handleButtonClick}
+          buttonName="scorad"
+          />
+          </>
       );
     } else {
             return (
