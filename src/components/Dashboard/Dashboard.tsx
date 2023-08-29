@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect } from "react";
 
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
@@ -55,13 +55,6 @@ async function getUserScoradResults(id: string) {
   });
   return results;
 }
-let userScoradResult: [];
-(async () => {
-  userScoradResult = await getUserScoradResults("tester");
-  console.log(userScoradResult);
-})()
-//const userScoradResult = getUserScoradResults("tester");
-
 
 async function setUsersScoradResults(userId: string, scoradList: ScoradResult[]) {
   for (let i = 1; i <= scoradList.length; i++) {
@@ -71,7 +64,6 @@ async function setUsersScoradResults(userId: string, scoradList: ScoradResult[])
 
 const user = getUser(db, "users", "tester");
 
-
 interface User {
   name: string,
   password: string,
@@ -80,7 +72,7 @@ interface User {
 }
 
 interface ScoradResult {
-  result: number, description: string, date: Date,
+  result: number, description: string, date: Date | any,
 }
 
 interface FormInput {
@@ -90,12 +82,32 @@ interface FormInput {
 
 function Dashboard(): ReactElement {
   const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
-  const [scoradList, setScoradList] = useState<ScoradResult[] | any>(userScoradResult);
+  const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
   const [displayForm, setDisplayForm] = useState<boolean>(false);
   const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
   const [cares, setCares] = useState<FormInput[]>(caresMock);
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
+  console.log(scoradList);
+  
+  useEffect(() => {
+    const fetchScoradResults = async () => {
+      try {
+        const userScoradResult = await getUserScoradResults("tester");
+        setScoradList(userScoradResult);
+      } catch (error) {
+        console.error("Error fetching SCORAD results:", error);
+      }
+    };
+    fetchScoradResults();
+  }, []);
+
+  
+  // (async () => {
+  //   userScoradResult = await getUserScoradResults("tester");
+  //   console.log(userScoradResult);
+  //   setScoradList(userScoradResult);
+  // })();
 
   function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): void {
     if ((e.target as HTMLButtonElement).name === "scorad") {
@@ -128,8 +140,8 @@ function Dashboard(): ReactElement {
   }
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {
-    if (scoradList.length > 0){
-      const lastDate: Date = scoradList[scoradList.length - 1].date;
+    if (scoradList.length > 0) {
+      const lastDate: Date = (scoradList[scoradList.length - 1].date).toDate();
       const resultDate: Date = scoradResult.date;
       const isSameDate: boolean =
     resultDate.getDate() === lastDate.getDate() &&
@@ -178,10 +190,15 @@ function Dashboard(): ReactElement {
   }
 
   function ResultList(): ReactElement {
-    console.log(scoradList);
     const list: ReactElement[] = scoradList.map((result: ScoradResult, index: number) => {
+      let date;
+      if (result.date instanceof Date) {
+        date = result.date;
+      } else {
+        date = result.date.toDate();
+      }
       return <li key={`scoradresult-${index}`}>
-        {result.date.toDateString()}: {result.result}
+        {date.toDateString()}: {result.result}
       </li>
     });
     return <>{list}</>
