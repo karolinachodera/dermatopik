@@ -1,5 +1,7 @@
 import { ReactElement, useState, useEffect } from "react";
 
+import {db, usersRef, getUserScoradResults, setUserScoradResults} from "../../config/firebase"
+
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
 import Section from "../Section/Section";
@@ -21,45 +23,6 @@ import {
   eventsMock,
   notesMock,
 } from "../../constants/dashboardInputs";
-
-// Firebase config and initialization
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc} from "firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBEssCenunDi3GmwZ9Tqp1hMFPCRfBwRws",
-  authDomain: "dermatopik-fafaa.firebaseapp.com",
-  projectId: "dermatopik-fafaa",
-  storageBucket: "dermatopik-fafaa.appspot.com",
-  messagingSenderId: "786299126069",
-  appId: "1:786299126069:web:540af163295a52b1228c7c"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-async function getUser(db: any, coll: string, id: string) {
-  const userRef: any = doc(db, coll, id);
-  const userSnap = await getDoc(userRef);
-  const user = userSnap.data();
-  console.log(user);
-  return user;
-}
-
-async function getUserScoradResults(id: string) {
-  const resultsRef = collection(db, "users", id, "scorad-results");
-  const resultsSnap = await getDocs(resultsRef);
-  const results: ScoradResult[] = resultsSnap.docs.map(result => ({ ...result.data() as ScoradResult }));
-  return results;
-}
-
-async function setUsersScoradResults(userId: string, scoradList: ScoradResult[]) {
-  for (let i = 1; i <= scoradList.length; i++) {
-    await setDoc(doc(db, "users", userId, "scorad-results", i.toString()), scoradList[i-1]);
-  }
-}
-
-const user = getUser(db, "users", "tester");
 
 interface User {
   name: string,
@@ -158,7 +121,7 @@ function Dashboard(): ReactElement {
     }
     setScoradList([...scoradList, scoradResult]);
     setDisplayForm(false);
-    setUsersScoradResults("tester", [...scoradList, scoradResult]);
+    setUserScoradResults("tester", [...scoradList, scoradResult]);
   }
 
   function handleRemoveDrug(index: number): void {
