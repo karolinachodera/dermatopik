@@ -49,10 +49,7 @@ async function getUser(db: any, coll: string, id: string) {
 async function getUserScoradResults(id: string) {
   const resultsRef = collection(db, "users", id, "scorad-results");
   const resultsSnap = await getDocs(resultsRef);
-  let results: any = [];
-  resultsSnap.forEach((result) => {
-    results.push(result.data());
-  });
+  const results: ScoradResult[] = resultsSnap.docs.map(result => ({ ...result.data() as ScoradResult }));
   return results;
 }
 
@@ -88,7 +85,6 @@ function Dashboard(): ReactElement {
   const [cares, setCares] = useState<FormInput[]>(caresMock);
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
-  console.log(scoradList);
   
   useEffect(() => {
     const fetchScoradResults = async () => {
@@ -141,7 +137,7 @@ function Dashboard(): ReactElement {
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {
     if (scoradList.length > 0) {
-      const lastDate: Date = (scoradList[scoradList.length - 1].date).toDate();
+      const lastDate: Date = scoradList[scoradList.length - 1].date instanceof Date ? (scoradList[scoradList.length - 1].date): (scoradList[scoradList.length - 1].date).toDate();
       const resultDate: Date = scoradResult.date;
       const isSameDate: boolean =
     resultDate.getDate() === lastDate.getDate() &&
