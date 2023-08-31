@@ -9,8 +9,6 @@ import { EventsForm } from "../EventsForm/EventsForm";
 import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 
-import "./Dashboard.scss";
-
 import {
   drugsTextInput,
   drugsFrequencyInput,
