@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, orderBy, query } from "firebase/firestore";
 
 interface ScoradResult {
   result: number, description: string, date: Date | any,
@@ -27,7 +27,7 @@ export async function getUser(id: string) {
 }
 
 export async function getUserScoradResults(id: string) {
-  const resultsRef = collection(db, "users", id, "scorad-results");
+    const resultsRef = query(collection(db, "users", id, "scorad-results"), orderBy("date", "asc"));
   const resultsSnap = await getDocs(resultsRef);
   const results: ScoradResult[] = resultsSnap.docs.map(result => ({ ...result.data() as ScoradResult }));
   return results;
