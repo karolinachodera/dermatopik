@@ -100,13 +100,13 @@ function Dashboard(): ReactElement {
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {
     if (scoradList.length > 0) {
-      const lastDate: Date = scoradList[scoradList.length - 1].date instanceof Date ? (scoradList[scoradList.length - 1].date): (scoradList[scoradList.length - 1].date).toDate();
+      const lastDate: Date = scoradList[scoradList.length - 1].date instanceof Date ? (scoradList[scoradList.length - 1].date) : (scoradList[scoradList.length - 1].date).toDate();
       const resultDate: Date = scoradResult.date;
       const isSameDate: boolean =
-    resultDate.getDate() === lastDate.getDate() &&
-    resultDate.getMonth() === lastDate.getMonth() &&
-      resultDate.getFullYear() === lastDate.getFullYear();
-    return isSameDate;
+        resultDate.getDate() === lastDate.getDate() &&
+        resultDate.getMonth() === lastDate.getMonth() &&
+        resultDate.getFullYear() === lastDate.getFullYear();
+      return isSameDate;
     } else {
       return false;
     }
@@ -137,7 +137,7 @@ function Dashboard(): ReactElement {
   }
 
   function handleRemoveEvent(index: number): void {
-    const newEvents: string [] = [...events];
+    const newEvents: string[] = [...events];
     newEvents.splice(index, 1);
     setEvents(newEvents);
   }
@@ -148,16 +148,29 @@ function Dashboard(): ReactElement {
     setNotes(newNotes);
   }
 
+  function dateFormatting(date: Date | any): string {
+    let formattedDate: string;
+    let dateToFormat: Date;
+    
+    if (date instanceof Date) {
+      dateToFormat = date;
+    } else {
+      dateToFormat = date.toDate();
+    }
+    console.log(dateToFormat);
+    let year = dateToFormat.getFullYear();
+    let month = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
+    let day = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
+
+    formattedDate = `${day}.${month}.${year}`
+    return formattedDate;
+  }
+
   function ResultList(): ReactElement {
     const list: ReactElement[] = scoradList.map((result: ScoradResult, index: number) => {
-      let date;
-      if (result.date instanceof Date) {
-        date = result.date;
-      } else {
-        date = result.date.toDate();
-      }
+      const date = dateFormatting(result.date);
       return <li key={`scoradresult-${index}`}>
-        {date.toDateString()}: {result.result}
+        {date}: {result.result}
       </li>
     });
     return <>{list}</>
