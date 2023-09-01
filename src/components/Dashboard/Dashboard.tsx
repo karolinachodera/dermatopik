@@ -40,6 +40,7 @@ interface FormInput {
   frequency: number,
 }
 
+
 function Dashboard(): ReactElement {
   const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
   const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
@@ -48,17 +49,22 @@ function Dashboard(): ReactElement {
   const [cares, setCares] = useState<FormInput[]>(caresMock);
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
-  
+
   useEffect(() => {
+    let ignore: boolean = false;
     const fetchScoradResults = async () => {
       try {
-        const userScoradResult = await getUserScoradResults("tester");
-        setScoradList(userScoradResult);
+        const userScoradResult: ScoradResult[] = await getUserScoradResults("tester");
+        if (!ignore) {
+          setScoradList(userScoradResult);
+        }
       } catch (error) {
         console.error("Error fetching SCORAD results:", error);
       }
     };
     fetchScoradResults();
+
+    return () => {ignore = true;}
   }, []);
 
   
@@ -114,14 +120,16 @@ function Dashboard(): ReactElement {
 
   function handleScoradFinish(scoradResult: ScoradResult): void {
     setTodayScorad(scoradResult);
+    let newList: ScoradResult[];
+
     if (isTodayScorad(scoradResult)) {
-      setScoradList([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
+      newList = ([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
     } else {
-      setScoradList([...scoradList, scoradResult]);
+      newList = ([...scoradList, scoradResult]);
     }
-    setScoradList([...scoradList, scoradResult]);
+    setScoradList(newList);
     setDisplayForm(false);
-    setUserScoradResults("tester", [...scoradList, scoradResult]);
+    setUserScoradResults("tester", newList);
   }
 
   function handleRemoveDrug(index: number): void {
@@ -157,10 +165,9 @@ function Dashboard(): ReactElement {
     } else {
       dateToFormat = date.toDate();
     }
-    console.log(dateToFormat);
-    let year = dateToFormat.getFullYear();
-    let month = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
-    let day = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
+    const year: number = dateToFormat.getFullYear();
+    const month: number | string = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
+    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
 
     formattedDate = `${day}.${month}.${year}`
     return formattedDate;
