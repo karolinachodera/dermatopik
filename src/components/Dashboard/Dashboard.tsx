@@ -10,6 +10,7 @@ import { CaresForm } from "../CaresForm/CaresForm";
 import { EventsForm } from "../EventsForm/EventsForm";
 import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
+import { LineChart } from "../LineChart/LineChart";
 
 import {
   drugsTextInput,
@@ -40,6 +41,22 @@ interface FormInput {
   frequency: number,
 }
 
+export function dateFormatting(date: Date | any): string {
+    let formattedDate: string;
+    let dateToFormat: Date;
+    
+    if (date instanceof Date) {
+      dateToFormat = date;
+    } else {
+      dateToFormat = date.toDate();
+    }
+    const year: number = dateToFormat.getFullYear();
+    const month: number | string = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
+    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
+
+    formattedDate = `${day}.${month}.${year}`
+    return formattedDate;
+  }
 
 function Dashboard(): ReactElement {
   const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
@@ -156,23 +173,6 @@ function Dashboard(): ReactElement {
     setNotes(newNotes);
   }
 
-  function dateFormatting(date: Date | any): string {
-    let formattedDate: string;
-    let dateToFormat: Date;
-    
-    if (date instanceof Date) {
-      dateToFormat = date;
-    } else {
-      dateToFormat = date.toDate();
-    }
-    const year: number = dateToFormat.getFullYear();
-    const month: number | string = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
-    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
-
-    formattedDate = `${day}.${month}.${year}`
-    return formattedDate;
-  }
-
   function ResultList(): ReactElement {
     const list: ReactElement[] = scoradList.map((result: ScoradResult, index: number) => {
       const date = dateFormatting(result.date);
@@ -194,6 +194,7 @@ function Dashboard(): ReactElement {
           {todayScorad.description}.
           </p>
           <ResultList />
+          <LineChart chartData={scoradList} />
         <Button
           description="Oceń SCORAD"
           handleClick={handleButtonClick}
@@ -204,7 +205,8 @@ function Dashboard(): ReactElement {
     } else {
       return (
               <>
-            <ResultList />
+          <ResultList />
+          <LineChart chartData={scoradList} />
         <Button
           description="Oceń SCORAD"
           handleClick={handleButtonClick}
