@@ -41,23 +41,6 @@ interface FormInput {
   frequency: number,
 }
 
-export function dateFormatting(date: Date | any): string {
-    let formattedDate: string;
-    let dateToFormat: Date;
-    
-    if (date instanceof Date) {
-      dateToFormat = date;
-    } else {
-      dateToFormat = date.toDate();
-    }
-    const year: number = dateToFormat.getFullYear();
-    const month: number | string = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
-    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
-
-    formattedDate = `${day}.${month}.${year}`
-    return formattedDate;
-  }
-
 function Dashboard(): ReactElement {
   const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
   const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
@@ -173,16 +156,6 @@ function Dashboard(): ReactElement {
     setNotes(newNotes);
   }
 
-  function ResultList(): ReactElement {
-    const list: ReactElement[] = scoradList.map((result: ScoradResult, index: number) => {
-      const date = dateFormatting(result.date);
-      return <li key={`scoradresult-${index}`}>
-        {date}: {result.result}
-      </li>
-    });
-    return <>{list}</>
-  }
-
   function ScoradSection(): ReactElement {
     if (displayForm === true) {
       return <Scorad handleScoradFinish={handleScoradFinish} />;
@@ -193,7 +166,6 @@ function Dashboard(): ReactElement {
           Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
           {todayScorad.description}.
           </p>
-          <ResultList />
           <LineChart chartData={scoradList} />
         <Button
           description="Oceń SCORAD"
@@ -205,7 +177,6 @@ function Dashboard(): ReactElement {
     } else {
       return (
               <>
-          <ResultList />
           <LineChart chartData={scoradList} />
         <Button
           description="Oceń SCORAD"
