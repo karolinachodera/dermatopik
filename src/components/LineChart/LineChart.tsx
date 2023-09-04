@@ -1,5 +1,7 @@
 import React from 'react';
 import { dateFormatting } from '../Dashboard/Dashboard';
+import variables from "./LineChart.scss";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -35,6 +37,9 @@ const options = {
     title: {
       display: true,
       text: 'Wyniki SCORAD',
+      font: {
+        family: "Montserrat",
+      }
     },
   },
     scales: {
@@ -54,8 +59,8 @@ const data = {
     {
       label: 'scorad',
       data: chartData.map((result: any) => result.result),
-      borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      borderColor: variables.darkNude,
+      backgroundColor: variables.nude + 60,
       fill: true,
     },
   ],
