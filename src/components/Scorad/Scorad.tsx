@@ -33,7 +33,7 @@ interface Symptom {
 }
 
 interface ScoradResult {
-  result: number, description: string,
+  result: number, description: string, date: Date,
 }
 
 interface Range {
@@ -45,7 +45,7 @@ interface Range {
 
 function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: ScoradResult) => void}): ReactElement {
   const [step, setStep] = useState<number>(1);
-  const [scoradResult, setScoradResult] = useState< ScoradResult>({result: 0, description: ""});
+  const [scoradResult, setScoradResult] = useState< ScoradResult>({result: 0, description: "", date: new Date()});
   const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState<Symptom[]>([...symptoms]);
   const [sleepAndItchInputs, setSleepAndItchInputs] = useState<Range[]>([...rangeData]);
@@ -73,7 +73,12 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
     } else {
       description = "Twoje AZS ma ciężki przebieg";
     }
-    setScoradResult({ result: result, description: description });
+    const todayScorad = {
+      result: result,
+      description: description,
+      date: new Date(),
+    }
+    setScoradResult(todayScorad);
   }
 
   function handleInputChangeInSectionA(part: BodyPart, side: string): void {

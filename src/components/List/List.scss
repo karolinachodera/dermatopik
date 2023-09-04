@@ -1,14 +1,13 @@
-ul {
+ul.checkbox-list {
     padding: 0 10px;
-}
-
-li {
-    display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
-    margin: 10px 0;
-    align-items: center;
-    gap: 10px;
-    max-width: 400px;
+    li {
+        display: grid;
+        grid-template-columns: 3fr 3fr 1fr;
+        margin: 10px 0;
+        align-items: center;
+        gap: 10px;
+        max-width: 400px;
+    }
 }
 
 .frequency-checkboxes {

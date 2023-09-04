@@ -1,4 +1,6 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useState, useEffect } from "react";
+
+import {db, usersRef, getUserScoradResults, setUserScoradResults} from "../../config/firebase"
 
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
@@ -8,6 +10,7 @@ import { CaresForm } from "../CaresForm/CaresForm";
 import { EventsForm } from "../EventsForm/EventsForm";
 import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
+import { LineChart } from "../LineChart/LineChart";
 
 import {
   drugsTextInput,
@@ -22,22 +25,71 @@ import {
   notesMock,
 } from "../../constants/dashboardInputs";
 
+interface User {
+  name: string,
+  password: string,
+  id: string,
+  email: string,
+}
+
 interface ScoradResult {
-  result: number, description: string,
+  result: number, description: string, date: Date | any,
 }
 
 interface FormInput {
   name: string,
-    frequency: number,
+  frequency: number,
 }
 
+export function dateFormatting(date: Date | any): string {
+    let formattedDate: string;
+    let dateToFormat: Date;
+    
+    if (date instanceof Date) {
+      dateToFormat = date;
+    } else {
+      dateToFormat = date.toDate();
+    }
+    const year: number = dateToFormat.getFullYear();
+    const month: number | string = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
+    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
+
+    formattedDate = `${day}.${month}.${year}`
+    return formattedDate;
+  }
+
 function Dashboard(): ReactElement {
-  const [todayScorad, setTodayScorad] = useState < ScoradResult | null>(null);
+  const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
+  const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
   const [displayForm, setDisplayForm] = useState<boolean>(false);
   const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
   const [cares, setCares] = useState<FormInput[]>(caresMock);
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
+
+  useEffect(() => {
+    let ignore: boolean = false;
+    const fetchScoradResults = async () => {
+      try {
+        const userScoradResult: ScoradResult[] = await getUserScoradResults("tester");
+        if (!ignore) {
+          setScoradList(userScoradResult);
+        }
+      } catch (error) {
+        console.error("Error fetching SCORAD results:", error);
+      }
+    };
+    fetchScoradResults();
+
+    return () => {ignore = true;}
+  }, []);
+
+  
+  // (async () => {
+  //   userScoradResult = await getUserScoradResults("tester");
+  //   console.log(userScoradResult);
+  //   setScoradList(userScoradResult);
+  // })();
 
   function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): void {
     if ((e.target as HTMLButtonElement).name === "scorad") {
@@ -69,9 +121,32 @@ function Dashboard(): ReactElement {
     (e.target as HTMLFormElement).reset();
   }
 
+  function isTodayScorad(scoradResult: ScoradResult): boolean {
+    if (scoradList.length > 0) {
+      const lastDate: Date = scoradList[scoradList.length - 1].date instanceof Date ? (scoradList[scoradList.length - 1].date) : (scoradList[scoradList.length - 1].date).toDate();
+      const resultDate: Date = scoradResult.date;
+      const isSameDate: boolean =
+        resultDate.getDate() === lastDate.getDate() &&
+        resultDate.getMonth() === lastDate.getMonth() &&
+        resultDate.getFullYear() === lastDate.getFullYear();
+      return isSameDate;
+    } else {
+      return false;
+    }
+  }
+
   function handleScoradFinish(scoradResult: ScoradResult): void {
     setTodayScorad(scoradResult);
+    let newList: ScoradResult[];
+
+    if (isTodayScorad(scoradResult)) {
+      newList = ([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
+    } else {
+      newList = ([...scoradList, scoradResult]);
+    }
+    setScoradList(newList);
     setDisplayForm(false);
+    setUserScoradResults("tester", newList);
   }
 
   function handleRemoveDrug(index: number): void {
@@ -87,7 +162,7 @@ function Dashboard(): ReactElement {
   }
 
   function handleRemoveEvent(index: number): void {
-    const newEvents: string [] = [...events];
+    const newEvents: string[] = [...events];
     newEvents.splice(index, 1);
     setEvents(newEvents);
   }
@@ -98,23 +173,46 @@ function Dashboard(): ReactElement {
     setNotes(newNotes);
   }
 
+  function ResultList(): ReactElement {
+    const list: ReactElement[] = scoradList.map((result: ScoradResult, index: number) => {
+      const date = dateFormatting(result.date);
+      return <li key={`scoradresult-${index}`}>
+        {date}: {result.result}
+      </li>
+    });
+    return <>{list}</>
+  }
+
   function ScoradSection(): ReactElement {
     if (displayForm === true) {
       return <Scorad handleScoradFinish={handleScoradFinish} />;
     } else if (todayScorad) {
       return (
+        <>
         <p>
           Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
           {todayScorad.description}.
-        </p>
-      );
-    } else {
-            return (
+          </p>
+          <ResultList />
+          <LineChart chartData={scoradList} />
         <Button
           description="Oceń SCORAD"
           handleClick={handleButtonClick}
           buttonName="scorad"
-        />
+          />
+          </>
+      );
+    } else {
+      return (
+              <>
+          <ResultList />
+          <LineChart chartData={scoradList} />
+        <Button
+          description="Oceń SCORAD"
+          handleClick={handleButtonClick}
+          buttonName="scorad"
+          />
+          </>
       );
     }
   }

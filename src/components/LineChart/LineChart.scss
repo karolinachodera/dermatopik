@@ -1,0 +1,6 @@
+@use '../../styles/variables';
+
+:export {
+    nude: variables.$nude;
+    darkNude: variables.$dark-nude;
+}
