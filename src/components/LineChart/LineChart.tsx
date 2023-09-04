@@ -1,5 +1,4 @@
 import React from 'react';
-import { dateFormatting } from '../Dashboard/Dashboard';
 import variables from "./LineChart.scss";
 
 import {
@@ -25,6 +24,23 @@ ChartJS.register(
     Legend,
   Filler
 );
+
+function dateFormatting(date: Date | any): string {
+    let formattedDate: string;
+    let dateToFormat: Date;
+    
+    if (date instanceof Date) {
+      dateToFormat = date;
+    } else {
+      dateToFormat = date.toDate();
+    }
+    const year: number = dateToFormat.getFullYear();
+    const month: number | string = dateToFormat.getMonth() < 10 ? `0${dateToFormat.getMonth()}` : dateToFormat.getMonth();
+    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
+
+    formattedDate = `${day}.${month}.${year}`
+    return formattedDate;
+  }
 
 export function LineChart({ chartData } : {chartData: any}) {
 const options = {
