@@ -37,6 +37,15 @@ const options = {
       text: 'Wyniki SCORAD',
     },
   },
+    scales: {
+      y: {
+        min: 0,
+        title: {
+          text: "Wynik SCORAD",
+          display: true,
+        }
+      },
+    },
 };
 
 const data = {
