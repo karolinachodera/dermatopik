@@ -76,7 +76,8 @@ function Dashboard(): ReactElement {
 
   function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): void {
     if ((e.target as HTMLButtonElement).name === "scorad") {
-      setDisplayForm(true);
+      // setDisplayForm(true);
+      window.location.href='/scorad';
     }
   }
 
@@ -170,7 +171,7 @@ function Dashboard(): ReactElement {
         <Button
           description="Oceń SCORAD"
           handleClick={handleButtonClick}
-          buttonName="scorad"
+            buttonName="scorad"
           />
           </>
       );
