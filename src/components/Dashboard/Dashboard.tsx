@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect } from "react";
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate, Link, useLocation } from 'react-router-dom';
 import {db, usersRef, getUserScoradResults, setUserScoradResults} from "../../config/firebase"
 
 import Scorad from "../Scorad/Scorad";
@@ -67,23 +67,26 @@ function Dashboard(): ReactElement {
     return () => {ignore = true;}
   }, []);
 
-  
-  // (async () => {
-  //   userScoradResult = await getUserScoradResults("tester");
-  //   console.log(userScoradResult);
-  //   setScoradList(userScoradResult);
-  // })();
+  const location = useLocation();
+  const result = location.state;
+  useEffect(() => handleScoradFinish(result), []);
 
-  function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): ReactElement {
-    if ((e.target as HTMLButtonElement).name === "scorad") {
-      return <Navigate to="/scorad" />
-      // setDisplayForm(true);
-      // //window.location.href='/scorad';
+  function handleScoradFinish(scoradResult: ScoradResult): void {
+    if (!scoradResult) {
+      return;
     } else {
-      return <p>Error</p>
+      setTodayScorad(scoradResult);
     }
-  }
-
+    let newList: ScoradResult[];
+    if (isTodayScorad(scoradResult)) {
+      newList = ([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
+    } else {
+      newList = ([...scoradList, scoradResult]);
+    }
+    setScoradList(newList);
+    setUserScoradResults("tester", newList);
+  } 
+  
   function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
     e.preventDefault();
     setDrugs([...drugs, newDrug]);
@@ -122,21 +125,6 @@ function Dashboard(): ReactElement {
     }
   }
 
-  function handleScoradFinish(scoradResult: ScoradResult): ReactElement {
-    setTodayScorad(scoradResult);
-    let newList: ScoradResult[];
-
-    if (isTodayScorad(scoradResult)) {
-      newList = ([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
-    } else {
-      newList = ([...scoradList, scoradResult]);
-    }
-    setScoradList(newList);
-    // setDisplayForm(false);
-    setUserScoradResults("tester", newList);
-    return <Navigate to="/" />
-  }
-
   function handleRemoveDrug(index: number): void {
     const newDrugs: FormInput[] = [...drugs];
     newDrugs.splice(index, 1);
@@ -171,11 +159,6 @@ function Dashboard(): ReactElement {
           </p>
           <LineChart chartData={scoradList} />
           <Link to="/scorad">Oceń Scorad</Link>
-        {/* <Button
-          description="Oceń SCORAD"
-          handleClick={handleButtonClick}
-            buttonName="scorad"
-          /> */}
           </>
       );
     } else {
@@ -183,11 +166,6 @@ function Dashboard(): ReactElement {
               <>
           <LineChart chartData={scoradList} />
           <Link to="/scorad">Oceń Scorad</Link>
-        {/* <Button
-          description="Oceń SCORAD"
-          handleClick={handleButtonClick}
-          buttonName="scorad"
-          /> */}
           </>
       );
     }

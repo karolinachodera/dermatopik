@@ -44,7 +44,7 @@ interface Range {
     id: number,
 }
 
-function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: ScoradResult) => void}): ReactElement {
+function Scorad(): ReactElement {
   const [step, setStep] = useState<number>(1);
   const [scoradResult, setScoradResult] = useState< ScoradResult>({result: 0, description: "", date: new Date()});
   const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
@@ -169,16 +169,13 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
 
   function handleFinish(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    if (scoradResult) {
-      handleScoradFinish(scoradResult);
-    }
+    navigate("/", {state: scoradResult})
   }
 
   return (
     <>
       <h2>Ocena SCORAD</h2>
-      <form onSubmit={(e) => handleFinish(e)}>
-      {/* <form onSubmit={(e) => navigate("/", {state: scoradResult})} > */}
+      <form onSubmit={(e) => handleFinish(e)} >
         {setPartComponent()}
         <FormNav
           handleClick={handleNavClick}
