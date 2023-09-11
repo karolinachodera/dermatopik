@@ -1,4 +1,5 @@
 import { ChangeEvent, ReactElement, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 import "./Scorad.scss";
 
@@ -49,6 +50,7 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
   const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState<Symptom[]>([...symptoms]);
   const [sleepAndItchInputs, setSleepAndItchInputs] = useState<Range[]>([...rangeData]);
+  const navigate = useNavigate();
 
   function countScorad(): void {
     let bodyPartsSum: number = 0;
@@ -176,6 +178,7 @@ function Scorad({ handleScoradFinish } : {handleScoradFinish: (scoradResult: Sco
     <>
       <h2>Ocena SCORAD</h2>
       <form onSubmit={(e) => handleFinish(e)}>
+      {/* <form onSubmit={(e) => navigate("/", {state: scoradResult})} > */}
         {setPartComponent()}
         <FormNav
           handleClick={handleNavClick}

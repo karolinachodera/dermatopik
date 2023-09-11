@@ -1,5 +1,5 @@
 import { ReactElement, useState, useEffect } from "react";
-
+import { Navigate, Link } from 'react-router-dom';
 import {db, usersRef, getUserScoradResults, setUserScoradResults} from "../../config/firebase"
 
 import Scorad from "../Scorad/Scorad";
@@ -74,10 +74,13 @@ function Dashboard(): ReactElement {
   //   setScoradList(userScoradResult);
   // })();
 
-  function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): void {
+  function handleButtonClick(e: React.MouseEvent<HTMLButtonElement>): ReactElement {
     if ((e.target as HTMLButtonElement).name === "scorad") {
+      return <Navigate to="/scorad" />
       // setDisplayForm(true);
-      window.location.href='/scorad';
+      // //window.location.href='/scorad';
+    } else {
+      return <p>Error</p>
     }
   }
 
@@ -119,7 +122,7 @@ function Dashboard(): ReactElement {
     }
   }
 
-  function handleScoradFinish(scoradResult: ScoradResult): void {
+  function handleScoradFinish(scoradResult: ScoradResult): ReactElement {
     setTodayScorad(scoradResult);
     let newList: ScoradResult[];
 
@@ -129,8 +132,9 @@ function Dashboard(): ReactElement {
       newList = ([...scoradList, scoradResult]);
     }
     setScoradList(newList);
-    setDisplayForm(false);
+    // setDisplayForm(false);
     setUserScoradResults("tester", newList);
+    return <Navigate to="/" />
   }
 
   function handleRemoveDrug(index: number): void {
@@ -158,9 +162,7 @@ function Dashboard(): ReactElement {
   }
 
   function ScoradSection(): ReactElement {
-    if (displayForm === true) {
-      return <Scorad handleScoradFinish={handleScoradFinish} />;
-    } else if (todayScorad) {
+  if (todayScorad) {
       return (
         <>
         <p>
@@ -168,22 +170,24 @@ function Dashboard(): ReactElement {
           {todayScorad.description}.
           </p>
           <LineChart chartData={scoradList} />
-        <Button
+          <Link to="/scorad">Oceń Scorad</Link>
+        {/* <Button
           description="Oceń SCORAD"
           handleClick={handleButtonClick}
             buttonName="scorad"
-          />
+          /> */}
           </>
       );
     } else {
       return (
               <>
           <LineChart chartData={scoradList} />
-        <Button
+          <Link to="/scorad">Oceń Scorad</Link>
+        {/* <Button
           description="Oceń SCORAD"
           handleClick={handleButtonClick}
           buttonName="scorad"
-          />
+          /> */}
           </>
       );
     }
