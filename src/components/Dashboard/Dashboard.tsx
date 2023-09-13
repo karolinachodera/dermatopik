@@ -49,42 +49,60 @@ function Dashboard(): ReactElement {
   const [cares, setCares] = useState<FormInput[]>(caresMock);
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
-
+  console.log(scoradList);
+  const location = useLocation();
+  let result = location.state;
   useEffect(() => {
     let ignore: boolean = false;
     const fetchScoradResults = async () => {
       try {
-        const userScoradResult: ScoradResult[] = await getUserScoradResults("tester");
+        const userScoradResults: ScoradResult[] = await getUserScoradResults("tester");
+        console.log("Fetched Scorad results:", userScoradResults); 
         if (!ignore) {
-          setScoradList(userScoradResult);
+          setScoradList(userScoradResults);
         }
       } catch (error) {
         console.error("Error fetching SCORAD results:", error);
       }
     };
-    fetchScoradResults();
-
+      fetchScoradResults();
     return () => {ignore = true;}
   }, []);
 
-  const location = useLocation();
-  const result = location.state;
-  useEffect(() => handleScoradFinish(result), []);
 
-  function handleScoradFinish(scoradResult: ScoradResult): void {
-    if (!scoradResult) {
-      return;
-    } else {
-      setTodayScorad(scoradResult);
-    }
+  // useEffect(() => {
+  //   console.log(scoradList);
+  //   if(scoradList.length > 0)
+  //   handleScoradFinish(result);
+  // }, [result]);
+
+  function handleScoradFinish(result: ScoradResult): void {
     let newList: ScoradResult[];
-    if (isTodayScorad(scoradResult)) {
-      newList = ([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
+    if (isTodayScorad(result)) {
+      newList = ([...scoradList.slice(0, scoradList.length - 1), result]);
     } else {
-      newList = ([...scoradList, scoradResult]);
+      newList = ([...scoradList, result]);
     }
+    console.log(newList);
+    setTodayScorad(result);
     setScoradList(newList);
     setUserScoradResults("tester", newList);
+  
+
+
+    // if (!scoradResult) {
+    //   return;
+    // }
+    // console.log(scoradResult);
+    // setTodayScorad(scoradResult);
+    // let newList: ScoradResult[];
+    // if (isTodayScorad(scoradResult)) {
+    //   newList = ([...scoradList.slice(0, scoradList.length - 1), scoradResult]);
+    // } else {
+    //   newList = ([...scoradList, scoradResult]);
+    // }
+    // setScoradList(newList);
+    // setUserScoradResults("tester", newList);
   } 
   
   function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
@@ -112,14 +130,22 @@ function Dashboard(): ReactElement {
   }
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {
+    console.log("check");
+    console.log(scoradList.length);
+    console.log(scoradList);
     if (scoradList.length > 0) {
+      console.log(scoradList);
       const lastDate: Date = scoradList[scoradList.length - 1].date instanceof Date ? (scoradList[scoradList.length - 1].date) : (scoradList[scoradList.length - 1].date).toDate();
       const resultDate: Date = scoradResult.date;
+      console.log(resultDate);
+      console.log(lastDate);
       const isSameDate: boolean =
         resultDate.getDate() === lastDate.getDate() &&
         resultDate.getMonth() === lastDate.getMonth() &&
         resultDate.getFullYear() === lastDate.getFullYear();
+      console.log("isDameDate" + isSameDate)
       return isSameDate;
+
     } else {
       return false;
     }
