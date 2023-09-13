@@ -171,7 +171,6 @@ function Scorad(): ReactElement {
     e.preventDefault();
     console.log(scoradResult);
     navigate("/", { state: scoradResult });
-
   }
 
   return (
