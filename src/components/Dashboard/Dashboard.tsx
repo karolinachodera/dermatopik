@@ -13,6 +13,8 @@ import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 import { LineChart } from "../LineChart/LineChart";
 
+import "./Dashboard.scss";
+
 import {
   drugsTextInput,
   drugsFrequencyInput,
