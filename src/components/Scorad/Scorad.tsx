@@ -169,7 +169,6 @@ function Scorad(): ReactElement {
 
   function handleFinish(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    console.log(scoradResult);
     navigate("/", { state: scoradResult });
   }
 

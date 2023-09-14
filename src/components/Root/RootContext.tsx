@@ -5,8 +5,11 @@ import {db, usersRef, getUserScoradResults, setUserScoradResults} from "../../co
 interface ScoradResult {
   result: number, description: string, date: Date | any,
 }
-
-const RootContext = createContext({});
+interface ContextType {
+    scoradList: ScoradResult[],
+    setScoradList: (newValue: ScoradResult[]) => void,
+}
+const RootContext = createContext<ContextType>({ scoradList: [], setScoradList: (newValue: ScoradResult[]) => { } });
 
 export const useRootContext = () => {
   return useContext(RootContext);
