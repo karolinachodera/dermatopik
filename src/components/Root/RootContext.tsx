@@ -8,8 +8,10 @@ interface ScoradResult {
 interface ContextType {
     scoradList: ScoradResult[],
     setScoradList: (newValue: ScoradResult[]) => void,
+    todayScorad: ScoradResult | null,
+    setTodayScorad: (newValue: ScoradResult) => void,
 }
-const RootContext = createContext<ContextType>({ scoradList: [], setScoradList: (newValue: ScoradResult[]) => { } });
+const RootContext = createContext<ContextType>({ scoradList: [], setScoradList: (newValue: ScoradResult[]) => { }, todayScorad: null, setTodayScorad: (newValue: ScoradResult) => {}});
 
 export const useRootContext = () => {
   return useContext(RootContext);
@@ -17,6 +19,8 @@ export const useRootContext = () => {
 
 export const RootProvider = ({ children }: {children: any}) => {
     const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
+      const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
+
 
     useEffect(() => {
     let ignore: boolean = false;
@@ -36,7 +40,7 @@ export const RootProvider = ({ children }: {children: any}) => {
     }, []);
 
   return (
-    <RootContext.Provider value={{ scoradList, setScoradList }}>
+    <RootContext.Provider value={{ scoradList, setScoradList, todayScorad, setTodayScorad }}>
       {children}
     </RootContext.Provider>
   );

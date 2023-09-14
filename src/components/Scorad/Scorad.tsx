@@ -1,5 +1,7 @@
 import { ChangeEvent, ReactElement, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useRootContext } from '../Root/RootContext';
+
 
 import "./Scorad.scss";
 
@@ -50,6 +52,8 @@ function Scorad(): ReactElement {
   const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState<Symptom[]>([...symptoms]);
   const [sleepAndItchInputs, setSleepAndItchInputs] = useState<Range[]>([...rangeData]);
+    const { scoradList, setScoradList, todayScorad, setTodayScorad } = useRootContext();
+
   const navigate = useNavigate();
 
   function countScorad(): void {
@@ -169,7 +173,10 @@ function Scorad(): ReactElement {
 
   function handleFinish(e: React.FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    navigate("/", { state: scoradResult });
+    setTodayScorad(scoradResult);
+        navigate("/");
+
+    // navigate("/", { state: scoradResult });
   }
 
   return (
