@@ -47,19 +47,15 @@ interface FormInput {
 function Dashboard(): ReactElement {
   // const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
   // const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
+  // const [displayForm, setDisplayForm] = useState<boolean>(false);
   const { scoradList, setScoradList, todayScorad, setTodayScorad } = useRootContext();
-  const [displayForm, setDisplayForm] = useState<boolean>(false);
   const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
   const [cares, setCares] = useState<FormInput[]>(caresMock);
   const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
-  
-  // const location = useLocation();
-  // let result = location.state;
 
   useEffect(() => {
-    //check if scoradList is uploaded from database, prevent adding result from location.state on first loading
-    if (scoradList.length > 0 && todayScorad) {
+    if ( todayScorad) {
       handleScoradFinish(todayScorad);
     } 
   }, [todayScorad]);
@@ -74,7 +70,6 @@ function Dashboard(): ReactElement {
     } else {
       newList = ([...scoradList, result]);
     }
-    // setTodayScorad(result);
     setScoradList(newList);
     setUserScoradResults("tester", newList);
   } 

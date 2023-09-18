@@ -19,7 +19,7 @@ export const useRootContext = () => {
 
 export const RootProvider = ({ children }: {children: any}) => {
     const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
-      const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
+    const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
 
 
     useEffect(() => {
