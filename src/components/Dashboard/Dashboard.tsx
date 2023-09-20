@@ -6,9 +6,6 @@ import { useRootContext } from '../Root/RootContext';
 import Scorad from "../Scorad/Scorad";
 import Button from "../Button/Button";
 import Section from "../Section/Section";
-import { DrugsForm } from "../DrugsForm/DrugsForm";
-import { CaresForm } from "../CaresForm/CaresForm";
-import { EventsForm } from "../EventsForm/EventsForm";
 import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 import { LineChart } from "../LineChart/LineChart";
@@ -16,15 +13,7 @@ import { LineChart } from "../LineChart/LineChart";
 import "./Dashboard.scss";
 
 import {
-  drugsTextInput,
-  drugsFrequencyInput,
-  caresTextInput,
-  caresFrequencyInput,
-  eventsTextInput,
   notesTextarea,
-  drugsMock,
-  caresMock,
-  eventsMock,
   notesMock,
 } from "../../constants/dashboardInputs";
 
@@ -39,19 +28,11 @@ interface ScoradResult {
   result: number, description: string, date: Date | any,
 }
 
-interface FormInput {
-  name: string,
-  frequency: number,
-}
-
 function Dashboard(): ReactElement {
   // const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
   // const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
   // const [displayForm, setDisplayForm] = useState<boolean>(false);
   const { scoradList, setScoradList, todayScorad, setTodayScorad } = useRootContext();
-  const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
-  const [cares, setCares] = useState<FormInput[]>(caresMock);
-  const [events, setEvents] = useState<string[]>(eventsMock);
   const [notes, setNotes] = useState<string[]>(notesMock);
 
   useEffect(() => {
@@ -73,24 +54,6 @@ function Dashboard(): ReactElement {
     setScoradList(newList);
     setUserScoradResults("tester", newList);
   } 
-  
-  function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
-    e.preventDefault();
-    setDrugs([...drugs, newDrug]);
-    (e.target as HTMLFormElement).reset();
-  }
-
-  function handleCareAdding(e: React.FormEvent<HTMLFormElement>, newCare: FormInput): void {
-    e.preventDefault();
-    setCares([...cares, newCare]);
-    (e.target as HTMLFormElement).reset();
-  }
-
-  function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: string): void {
-    e.preventDefault();
-    setEvents([...events, newEvent]);
-    (e.target as HTMLFormElement).reset();
-  }
 
   function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: string): void {
     e.preventDefault();
@@ -118,24 +81,6 @@ function Dashboard(): ReactElement {
     } else {
       return false;
     }
-  }
-
-  function handleRemoveDrug(index: number): void {
-    const newDrugs: FormInput[] = [...drugs];
-    newDrugs.splice(index, 1);
-    setDrugs(newDrugs);
-  }
-
-  function handleRemoveCare(index: number): void {
-    const newCares: FormInput[] = [...cares];
-    newCares.splice(index, 1);
-    setCares(newCares);
-  }
-
-  function handleRemoveEvent(index: number): void {
-    const newEvents: string[] = [...events];
-    newEvents.splice(index, 1);
-    setEvents(newEvents);
   }
 
   function handleRemoveNote(index: number): void {
@@ -170,41 +115,6 @@ function Dashboard(): ReactElement {
     <main>
       <Section width="full-width" header="SCORAD" id="scorad">
         <ScoradSection />
-      </Section>
-      <Section header="Leki" id="drugs" width="half-width">
-        <List
-          elements={drugs}
-          section="drugs"
-          handleRemoveItem={handleRemoveDrug}
-        />
-        <DrugsForm
-          handleSubmit={handleDrugAdding}
-          textInput={drugsTextInput}
-          frequencyInput={drugsFrequencyInput}
-        />
-      </Section>
-      <Section header="Pielęgnacja" id="cares" width="half-width">
-        <List
-          elements={cares}
-          section="cares"
-          handleRemoveItem={handleRemoveCare}
-        />
-        <CaresForm
-          handleSubmit={handleCareAdding}
-          textInput={caresTextInput}
-          frequencyInput={caresFrequencyInput}
-        />
-      </Section>
-      <Section header="Zdarzenia" id="events" width="half-width">
-        <List
-          elements={events}
-          section="events"
-          handleRemoveItem={handleRemoveEvent}
-        />
-        <EventsForm
-          handleSubmit={handleEventAdding}
-          textInput={eventsTextInput}
-        />
       </Section>
       <Section header="Notatki" id="notes" width="half-width">
         <List
