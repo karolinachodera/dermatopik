@@ -8,7 +8,8 @@ interface Input {
 
 interface FormInput {
   name: string,
-    frequency: number,
+  frequency: number,
+  checked: boolean[],
 }
 
 export const drugsTextInput: Input = {
@@ -59,10 +60,12 @@ export const drugsMock: FormInput[] = [
   {
     name: "Edelan",
     frequency: 1,
+    checked: [false]
   },
   {
     name: "Protopic",
     frequency: 2,
+    checked: [false, false]
   },
 ];
 
@@ -70,10 +73,12 @@ export const caresMock: FormInput[] = [
   {
     name: "Krem rokitnikowy",
     frequency: 2,
+    checked: [false, false]
   },
   {
     name: "Balsam",
     frequency: 3,
+    checked: [false, false, false]
   },
 ];
 

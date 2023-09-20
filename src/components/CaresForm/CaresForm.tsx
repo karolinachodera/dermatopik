@@ -3,7 +3,8 @@ import { AddingFormInput } from "../AddingFormInput/AddingFormInput";
 
 interface FormInput {
   name: string,
-    frequency: number,
+  frequency: number,
+  checked: boolean[],
 }
 
 interface Input {
@@ -21,6 +22,7 @@ export function CaresForm({ handleSubmit, textInput, frequencyInput }: {textInpu
         handleSubmit(e, {
           name: (e.target as HTMLFormElement).care.value,
           frequency: Number((e.target as HTMLFormElement).careFrequency.value),
+          checked: new Array(Number((e.target as HTMLFormElement).careFrequency.value)).fill(false),
         })
       }
       className="adding-form"

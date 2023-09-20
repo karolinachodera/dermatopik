@@ -1,5 +1,17 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import {db, usersRef, getUserScoradResults, setUserScoradResults} from "../../config/firebase"
+import { db, usersRef, getUserScoradResults, setUserScoradResults } from "../../config/firebase";
+import {
+    drugsMock,
+    caresMock,
+    eventsMock,
+    notesMock,
+} from "../../constants/dashboardInputs";
+
+interface FormInput {
+  name: string,
+    frequency: number,
+    checked: boolean[],
+}
 
 
 interface ScoradResult {
@@ -10,8 +22,22 @@ interface ContextType {
     setScoradList: (newValue: ScoradResult[]) => void,
     todayScorad: ScoradResult | null,
     setTodayScorad: (newValue: ScoradResult) => void,
+    drugs: FormInput[],
+    setDrugs: (newValue: FormInput[]) => void,
+    cares: FormInput[],
+    setCares: (newValue: FormInput[]) => void,
+    events: string[],
+    setEvents: (newValue: string[]) => void,
 }
-const RootContext = createContext<ContextType>({ scoradList: [], setScoradList: (newValue: ScoradResult[]) => { }, todayScorad: null, setTodayScorad: (newValue: ScoradResult) => {}});
+const RootContext = createContext<ContextType>({
+    scoradList: [], setScoradList: (newValue: ScoradResult[]) => { }, todayScorad: null, setTodayScorad: (newValue: ScoradResult) => { },
+    drugs: [],
+    setDrugs: (newValue: FormInput[]) => { },
+    cares: [],
+    setCares: (newValue: FormInput[]) => { },
+    events: [],
+    setEvents: (newValue: string[]) => { },
+});
 
 export const useRootContext = () => {
   return useContext(RootContext);
@@ -20,7 +46,9 @@ export const useRootContext = () => {
 export const RootProvider = ({ children }: {children: any}) => {
     const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
     const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
-
+    const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
+    const [cares, setCares] = useState<FormInput[]>(caresMock);
+    const [events, setEvents] = useState<string[]>(eventsMock);
 
     useEffect(() => {
     let ignore: boolean = false;
@@ -40,7 +68,7 @@ export const RootProvider = ({ children }: {children: any}) => {
     }, []);
 
   return (
-    <RootContext.Provider value={{ scoradList, setScoradList, todayScorad, setTodayScorad }}>
+    <RootContext.Provider value={{ scoradList, setScoradList, todayScorad, setTodayScorad, drugs, setDrugs, cares, setCares, events, setEvents }}>
       {children}
     </RootContext.Provider>
   );
