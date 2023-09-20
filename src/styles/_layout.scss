@@ -13,7 +13,7 @@ main {
     box-sizing: border-box;
     width: 100%;
     max-width: 1000px;
-    padding: 0 50px;
+    padding: 50px;
     margin: 0 auto;
 
     @include mixins.medium {
@@ -22,7 +22,12 @@ main {
     }
 }
 
-section.main {
+main.third {
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 1300px;
+}
+
+section {
     border: 2px solid variables.$dark-green;
     padding: 20px;
     @include mixins.large {
@@ -30,6 +35,6 @@ section.main {
     }
 }
 
-section.main.full-width {
+section.full-width {
     grid-column: 1 / 3;
 }

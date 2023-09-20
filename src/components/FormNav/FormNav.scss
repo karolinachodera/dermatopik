@@ -21,12 +21,5 @@ section.form-nav button[value="next"], section.form-nav button[value="done"] {
     margin-left: 10px;
 }
 section.form-nav button {
-    background-color: variables.$green;
-    padding: 15px;
-    font-size: 1rem;
     max-width: 100px;
-}
-
-section.form-nav button:hover {
-    background-color: variables.$dark-green;
 }
