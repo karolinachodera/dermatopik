@@ -76,7 +76,7 @@ function Dashboard(): ReactElement {
 
   return (
     <main>
-      <Section width="full-width" header="SCORAD" id="scorad">
+      <Section header="SCORAD" id="scorad" style="frame" width="full-width">
         {todayScorad &&
           <p>
             Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}

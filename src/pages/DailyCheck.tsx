@@ -96,8 +96,8 @@ export function DailyCheck(): ReactElement {
         setEvents(newEvents);
     }
     return (
-        <main className="third">
-      <Section header="Leki" id="drugs">
+        <main className="third grid">
+      <Section header="Leki" id="drugs" style="frame">
         <List
           elements={drugs}
           section="drugs"
@@ -110,7 +110,7 @@ export function DailyCheck(): ReactElement {
           frequencyInput={drugsFrequencyInput}
         />
       </Section>
-      <Section header="Pielęgnacja" id="cares">
+      <Section header="Pielęgnacja" id="cares" style="frame">
         <List
           elements={cares}
           section="cares"
@@ -123,7 +123,7 @@ export function DailyCheck(): ReactElement {
           frequencyInput={caresFrequencyInput}
         />
       </Section>
-      <Section header="Zdarzenia" id="events">
+      <Section header="Zdarzenia" id="events" style="frame">
         <List
           elements={events}
           section="events"

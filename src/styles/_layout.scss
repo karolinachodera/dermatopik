@@ -7,14 +7,16 @@ body {
 }
 
 main {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
     box-sizing: border-box;
     width: 100%;
     max-width: 1000px;
     padding: 50px;
     margin: 0 auto;
+}
+
+main.grid {
+    display: grid;
+    gap: 20px;
 
     @include mixins.medium {
         gap: 10px;
@@ -28,8 +30,6 @@ main.third {
 }
 
 section {
-    border: 2px solid variables.$dark-green;
-    padding: 20px;
     @include mixins.large {
         grid-column: 1 / 3;
     }

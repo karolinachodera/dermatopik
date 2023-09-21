@@ -6,11 +6,12 @@ interface SectionProps {
   header?: string,
   width?: string,
   id: string,
+  style?: string
 }
 
-function Section({ children, header, width, id }: SectionProps): ReactElement {
+function Section({ children, header, width, id, style }: SectionProps): ReactElement {
   return (
-    <section className={width} id={id}>
+    <section className={`${width} ${style}`} id={id}>
       {header &&
         <h2>{header}</h2>
        }

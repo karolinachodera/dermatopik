@@ -178,7 +178,7 @@ function Scorad(): ReactElement {
   }
 
   return (
-    <>
+    <main>
       <h2>Ocena SCORAD</h2>
       <form onSubmit={(e) => handleFinish(e)} >
         {setPartComponent()}
@@ -187,7 +187,7 @@ function Scorad(): ReactElement {
           step={step}
         />
       </form>
-    </>
+    </main>
   );
 }
 

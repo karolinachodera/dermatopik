@@ -1,7 +1,7 @@
 @use '../../styles/variables';
 @use '../../styles/mixins';
 fieldset {
-    border: 1px solid variables.$green;
+    border: 2px solid variables.$green;
     margin: 25px 0;
     padding: 20px;
 }
