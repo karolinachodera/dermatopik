@@ -1,0 +1,41 @@
+@use '../../styles/variables';
+@use '../../styles/mixins';
+
+nav {
+    display: flex;
+    justify-content: center;
+
+    a {
+        text-decoration: none;
+        color: black;
+        display: inline-block;
+        padding: 10px 20px;
+        border-right: 2px solid variables.$dark-green;
+        text-align: center;
+        @include mixins.medium {
+            display: none;
+            border-right: none;
+        }
+    }
+    a:nth-last-child(2) {
+        border-right: none;
+    }
+
+    a.active {
+        font-weight: 600;
+    }
+    .navIcon {
+        display: none;
+        @include mixins.medium {
+            display: inline-block;
+            text-align: center;
+        }
+    }
+}
+
+nav.open {
+    flex-direction: column;
+    a {
+        display: inline-block;
+    }
+}
