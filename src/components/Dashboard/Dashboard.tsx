@@ -30,8 +30,8 @@ interface NoteType {
 }
 
 function Dashboard(): ReactElement {
-  const { scoradList, setScoradList, todayScorad, setTodayScorad } = useRootContext();
-  const [notes, setNotes] = useState<NoteType[]>(notesMock);
+  const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes } = useRootContext();
+  // const [notes, setNotes] = useState<NoteType[]>(notesMock);
 
   useEffect(() => {
     if ( todayScorad) {

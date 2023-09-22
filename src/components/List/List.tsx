@@ -41,7 +41,9 @@ export function List({ elements, section, style, handleRemoveItem, handleCheck }
     return (
       <li key={`${section}-${index}`}>
         {instanceOfFormInput(element) ? "" : 
-        <span className="date">{element.date.toDateString()}</span>
+          <>
+            <span className="date">{element.date.toDateString()}</span><br />
+        </>
         }
         {instanceOfFormInput(element) ? element.name : element.note}
         {checkboxes.length > 0 && (

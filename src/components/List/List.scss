@@ -1,3 +1,5 @@
+@use '../../styles/variables';
+
 ul.checkbox-list {
     padding: 0 10px;
     li {
@@ -20,5 +22,9 @@ ul.checkbox-list {
 }
 
 #notes li {
-    grid-template-columns: 5fr 1fr;
+    padding: 10px 0;
+}
+
+#notes li:not(:last-child) {
+    border-bottom: 1px solid variables.$dark-nude;
 }

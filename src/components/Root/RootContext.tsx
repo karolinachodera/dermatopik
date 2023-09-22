@@ -17,6 +17,11 @@ interface FormInput {
 interface ScoradResult {
   result: number, description: string, date: Date | any,
 }
+
+interface NoteType {
+  note: string,
+  date: Date,
+}
 interface ContextType {
     scoradList: ScoradResult[],
     setScoradList: (newValue: ScoradResult[]) => void,
@@ -27,7 +32,9 @@ interface ContextType {
     cares: FormInput[],
     setCares: (newValue: FormInput[]) => void,
     events: FormInput[],
-    setEvents: (newValue: FormInput[]) => void,
+  setEvents: (newValue: FormInput[]) => void,
+  notes: NoteType[],
+    setNotes: (newValue: NoteType[]) => void,
 }
 const RootContext = createContext<ContextType>({
     scoradList: [], setScoradList: (newValue: ScoradResult[]) => { },
@@ -37,7 +44,9 @@ const RootContext = createContext<ContextType>({
     cares: [],
     setCares: (newValue: FormInput[]) => { },
     events: [],
-    setEvents: (newValue: FormInput[]) => { },
+  setEvents: (newValue: FormInput[]) => { },
+    notes: [],
+    setNotes: (newValue: NoteType[]) => { },
 });
 
 export const useRootContext = () => {
@@ -49,7 +58,8 @@ export const RootProvider = ({ children }: {children: any}) => {
     const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
     const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
     const [cares, setCares] = useState<FormInput[]>(caresMock);
-    const [events, setEvents] = useState<FormInput[]>(eventsMock);
+  const [events, setEvents] = useState<FormInput[]>(eventsMock);
+    const [notes, setNotes] = useState<NoteType[]>(notesMock);
 
     useEffect(() => {
     let ignore: boolean = false;
@@ -69,7 +79,7 @@ export const RootProvider = ({ children }: {children: any}) => {
     }, []);
 
   return (
-    <RootContext.Provider value={{ scoradList, setScoradList, todayScorad, setTodayScorad, drugs, setDrugs, cares, setCares, events, setEvents }}>
+    <RootContext.Provider value={{ scoradList, setScoradList, todayScorad, setTodayScorad, drugs, setDrugs, cares, setCares, events, setEvents, notes, setNotes }}>
       {children}
     </RootContext.Provider>
   );
