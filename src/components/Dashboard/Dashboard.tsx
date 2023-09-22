@@ -24,9 +24,14 @@ interface ScoradResult {
   result: number, description: string, date: Date | any,
 }
 
+interface NoteType {
+  note: string,
+  date: Date,
+}
+
 function Dashboard(): ReactElement {
   const { scoradList, setScoradList, todayScorad, setTodayScorad } = useRootContext();
-  const [notes, setNotes] = useState<string[]>(notesMock);
+  const [notes, setNotes] = useState<NoteType[]>(notesMock);
 
   useEffect(() => {
     if ( todayScorad) {
@@ -48,7 +53,7 @@ function Dashboard(): ReactElement {
     setUserScoradResults("tester", newList);
   } 
 
-  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: string): void {
+  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: NoteType): void {
     e.preventDefault();
     setNotes([...notes, newNote]);
     (e.target as HTMLFormElement).reset();
@@ -69,14 +74,14 @@ function Dashboard(): ReactElement {
   }
 
   function handleRemoveNote(index: number): void {
-    const newNotes: string[] = [...notes];
+    const newNotes: NoteType[] = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
   }
 
   return (
-    <main>
-      <Section header="SCORAD" id="scorad" style="frame" width="full-width">
+    <main id="dashboard">
+      <Section header="SCORAD" id="scorad" style="frame">
         {todayScorad &&
           <p>
             Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
@@ -84,7 +89,7 @@ function Dashboard(): ReactElement {
           </p>}
           <LineChart chartData={scoradList} />
       </Section>
-      <Section header="Notatki" id="notes" width="half-width">
+      <Section header="Notatki" id="notes" style="frame">
         <List
           elements={notes}
           section="notes"
@@ -92,7 +97,7 @@ function Dashboard(): ReactElement {
         />
         <NotesForm handleSubmit={handleNoteAdding} textarea={notesTextarea} />
       </Section>
-      <Section id="navigation" width="full-width">
+      <Section id="navigation">
         <Link to="/scorad" className="button">Oceń Scorad</Link>
         <Link to="/daily" className="button">Daily Check</Link>
         <Link to="/notes" className="button">Notatki</Link>

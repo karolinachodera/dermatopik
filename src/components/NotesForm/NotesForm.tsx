@@ -9,10 +9,20 @@ interface Input {
   required: boolean
 }
 
-export function NotesForm({ handleSubmit, textarea }: {textarea: Input, handleSubmit: (e: React.FormEvent<HTMLFormElement>, newNote: string) => void}): ReactElement {
+
+interface NoteType {
+  note: string,
+  date: Date,
+}
+
+export function NotesForm({ handleSubmit, textarea }: {textarea: Input, handleSubmit: (e: React.FormEvent<HTMLFormElement>, newNote: NoteType) => void}): ReactElement {
   return (
     <form
-      onSubmit={(e) => handleSubmit(e, (e.target as HTMLFormElement).note.value)}
+      onSubmit={(e) => handleSubmit(e, {
+        note: (e.target as HTMLFormElement).note.value,
+        date: new Date(),
+      })
+}
       className="adding-form"
     >
       <AddingFormInput input={textarea} />

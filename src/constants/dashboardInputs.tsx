@@ -12,6 +12,11 @@ interface FormInput {
   isChecked: boolean[],
 }
 
+interface NoteType {
+  note: string,
+  date: Date,
+}
+
 export const drugsTextInput: Input = {
   name: "drug",
   header: "Nazwa leku",
@@ -117,6 +122,10 @@ export const eventsMock: FormInput[] = [
 isChecked: [false],  },
 ];
 
-export const notesMock: string[] = [
-  "Sucha i czerwona szyja - być może po maśle orzechowym?",
+export const notesMock: NoteType[] = [
+  {
+    note: "Sucha i czerwona szyja - być może po maśle orzechowym?",
+    date: new Date("2023-08-25"),
+  }
+  
 ];

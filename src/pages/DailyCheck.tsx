@@ -100,7 +100,8 @@ export function DailyCheck(): ReactElement {
       <Section header="Leki" id="drugs" style="frame">
         <List
           elements={drugs}
-          section="drugs"
+            section="drugs"
+            style="checkbox-list"
         handleRemoveItem={handleRemoveDrug}
             handleCheck={handleDrugCheck}
         />
@@ -113,7 +114,8 @@ export function DailyCheck(): ReactElement {
       <Section header="Pielęgnacja" id="cares" style="frame">
         <List
           elements={cares}
-          section="cares"
+            section="cares"
+            style="checkbox-list"
             handleRemoveItem={handleRemoveCare}
             handleCheck={handleCareCheck}
         />
@@ -126,7 +128,8 @@ export function DailyCheck(): ReactElement {
       <Section header="Zdarzenia" id="events" style="frame">
         <List
           elements={events}
-          section="events"
+            section="events"
+            style="checkbox-list"
             handleRemoveItem={handleRemoveEvent}
             handleCheck={handleEventCheck}
         />

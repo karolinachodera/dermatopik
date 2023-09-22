@@ -8,18 +8,28 @@ interface FormInput {
   frequency?: number,
   isChecked: boolean[],
 }
+
+interface NoteType {
+  note: string,
+  date: Date,
+}
 interface ListProps {
-  elements: FormInput[] | string[],
+  elements: FormInput[] | NoteType[],
   section: string,
+  style?: string,
   handleRemoveItem: (index: number) => void,
   handleCheck?: (element: FormInput, i: number) => void,
- }
+}
+ 
+function instanceOfFormInput(element: any): element is FormInput {
+    return 'isChecked' in element;
+}
 
-export function List({ elements, section, handleRemoveItem, handleCheck }: ListProps): ReactElement {
+export function List({ elements, section, style, handleRemoveItem, handleCheck }: ListProps): ReactElement {
   
   const list: ReactElement[] = elements.map((element, index) => {
     const checkboxes = [];
-    if (typeof element !== "string" && handleCheck) {
+    if (instanceOfFormInput(element) && handleCheck) {
       if (element.frequency) {
         for (let i  = 0; i < element.frequency; i++) {
         checkboxes.push(<input key={`${section}-${i}`} type="checkbox" checked={element.isChecked[i] } onChange={()=> handleCheck(element, i)}/>);
@@ -30,7 +40,10 @@ export function List({ elements, section, handleRemoveItem, handleCheck }: ListP
     }
     return (
       <li key={`${section}-${index}`}>
-        {typeof element !== "string" ? element.name : element}
+        {instanceOfFormInput(element) ? "" : 
+        <span className="date">{element.date.toDateString()}</span>
+        }
+        {instanceOfFormInput(element) ? element.name : element.note}
         {checkboxes.length > 0 && (
           <div className="frequency-checkboxes">{checkboxes}</div>
         )}
@@ -40,5 +53,5 @@ export function List({ elements, section, handleRemoveItem, handleCheck }: ListP
       </li>
     );
   });
-  return <ul className="checkbox-list">{list}</ul>;
+  return <ul className={style}>{list}</ul>;
 }

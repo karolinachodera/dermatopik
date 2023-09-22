@@ -4,14 +4,13 @@ import "./Section.scss";
 interface SectionProps {
   children: ReactNode,
   header?: string,
-  width?: string,
   id: string,
   style?: string
 }
 
-function Section({ children, header, width, id, style }: SectionProps): ReactElement {
+function Section({ children, header, id, style }: SectionProps): ReactElement {
   return (
-    <section className={`${width} ${style}`} id={id}>
+    <section className={style} id={id}>
       {header &&
         <h2>{header}</h2>
        }

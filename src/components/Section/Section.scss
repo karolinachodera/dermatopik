@@ -80,6 +80,10 @@ button:hover,
     }
 }
 
+#dashboard section:not(:first-child) {
+    margin-top: 30px;
+}
+
 section.frame {
         border: 2px solid variables.$dark-green;
             padding: 20px;
