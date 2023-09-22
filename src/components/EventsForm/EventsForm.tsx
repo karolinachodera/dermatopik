@@ -9,10 +9,20 @@ interface Input {
   required: boolean
 }
 
-export function EventsForm({ handleSubmit, textInput }: {textInput: Input, handleSubmit: (e: React.FormEvent<HTMLFormElement>, newEvent: string) => void}): ReactElement {
+interface FormInput {
+  name: string,
+    frequency?: number,
+    isChecked: boolean[],
+}
+
+export function EventsForm({ handleSubmit, textInput }: {textInput: Input, handleSubmit: (e: React.FormEvent<HTMLFormElement>, newEvent: FormInput) => void}): ReactElement {
   return (
     <form
-      onSubmit={(e) => handleSubmit(e, (e.target as HTMLFormElement).event.value)}
+      onSubmit={(e) => handleSubmit(e, {
+        name: (e.target as HTMLFormElement).event.value,
+        isChecked: [false],
+      })
+}
       className="adding-form"
     >
       <AddingFormInput input={textInput} />

@@ -9,8 +9,8 @@ import {
 
 interface FormInput {
   name: string,
-    frequency: number,
-    checked: boolean[],
+    frequency?: number,
+    isChecked: boolean[],
 }
 
 
@@ -26,17 +26,18 @@ interface ContextType {
     setDrugs: (newValue: FormInput[]) => void,
     cares: FormInput[],
     setCares: (newValue: FormInput[]) => void,
-    events: string[],
-    setEvents: (newValue: string[]) => void,
+    events: FormInput[],
+    setEvents: (newValue: FormInput[]) => void,
 }
 const RootContext = createContext<ContextType>({
-    scoradList: [], setScoradList: (newValue: ScoradResult[]) => { }, todayScorad: null, setTodayScorad: (newValue: ScoradResult) => { },
+    scoradList: [], setScoradList: (newValue: ScoradResult[]) => { },
+    todayScorad: null, setTodayScorad: (newValue: ScoradResult) => { },
     drugs: [],
     setDrugs: (newValue: FormInput[]) => { },
     cares: [],
     setCares: (newValue: FormInput[]) => { },
     events: [],
-    setEvents: (newValue: string[]) => { },
+    setEvents: (newValue: FormInput[]) => { },
 });
 
 export const useRootContext = () => {
@@ -48,7 +49,7 @@ export const RootProvider = ({ children }: {children: any}) => {
     const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
     const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
     const [cares, setCares] = useState<FormInput[]>(caresMock);
-    const [events, setEvents] = useState<string[]>(eventsMock);
+    const [events, setEvents] = useState<FormInput[]>(eventsMock);
 
     useEffect(() => {
     let ignore: boolean = false;

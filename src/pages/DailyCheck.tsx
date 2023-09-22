@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import { useRootContext } from '../components/Root/RootContext';
 
 import Section from "../components/Section/Section";
@@ -17,48 +17,48 @@ import {
 
 interface FormInput {
   name: string,
-    frequency: number,
-    checked: boolean[]
+    frequency?: number,
+    isChecked: boolean[],
 }
 
 export function DailyCheck(): ReactElement {
     const { drugs, setDrugs, cares, setCares, events, setEvents } = useRootContext();
     
-    function handleDrugCheck(e: ChangeEvent<HTMLInputElement>, element: FormInput, i: number) {
-        const newChecked = [...element.checked];
+    function handleDrugCheck(element: FormInput, i: number) {
+        const newChecked = [...element.isChecked];
         newChecked[i] = !newChecked[i];
         const updatedDrugs = drugs.map((drug) => {
             if (drug === element) {
-            return { ...drug, checked: newChecked };
+            return { ...drug, isChecked: newChecked };
             }
             return drug;
         });
         setDrugs(updatedDrugs);
     }
 
-    function handleCareCheck(e: ChangeEvent<HTMLInputElement>, element: FormInput, i: number) {
-        const newChecked = [...element.checked];
+    function handleCareCheck(element: FormInput, i: number) {
+        const newChecked = [...element.isChecked];
         newChecked[i] = !newChecked[i];
         const updatedCares = cares.map((care) => {
             if (care === element) {
-            return { ...care, checked: newChecked };
+            return { ...care, isChecked: newChecked };
             }
             return care;
         });
         setCares(updatedCares);
     }
 
-    // function handleEventCheck(e: ChangeEvent<HTMLInputElement>, element: FormInput, i: number) {
-    //     const newChecked = [...element.checked];
-    //     newChecked[i] = !newChecked[i];
-    //     const updatedEvents = events.map((event) => {
-    //         if (event === element) {
-    //         return { ...event, checked: newChecked };
-    //         }
-    //         return event;
-    //     });
-    //     setEvents(updatedEvents);
-    // }
+    function handleEventCheck(element: FormInput, i: number) {
+        const newChecked = [...element.isChecked];
+        newChecked[i] = !newChecked[i];
+        const updatedEvents = events.map((event) => {
+            if (event === element) {
+            return { ...event, isChecked: newChecked };
+            }
+            return event;
+        });
+        setEvents(updatedEvents);
+    }
     
     function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
         e.preventDefault();
@@ -72,7 +72,7 @@ export function DailyCheck(): ReactElement {
         (e.target as HTMLFormElement).reset();
     }
 
-    function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: string): void {
+    function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: FormInput): void {
         e.preventDefault();
         setEvents([...events, newEvent]);
         (e.target as HTMLFormElement).reset();
@@ -91,7 +91,7 @@ export function DailyCheck(): ReactElement {
     }
 
     function handleRemoveEvent(index: number): void {
-        const newEvents: string[] = [...events];
+        const newEvents: FormInput[] = [...events];
         newEvents.splice(index, 1);
         setEvents(newEvents);
     }
@@ -127,9 +127,10 @@ export function DailyCheck(): ReactElement {
         <List
           elements={events}
           section="events"
-          handleRemoveItem={handleRemoveEvent}
+            handleRemoveItem={handleRemoveEvent}
+            handleCheck={handleEventCheck}
         />
-        <EventsForm
+          <EventsForm
           handleSubmit={handleEventAdding}
           textInput={eventsTextInput}
         />

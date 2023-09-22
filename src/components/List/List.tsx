@@ -1,31 +1,32 @@
-import { ChangeEvent, ReactElement } from "react";
+import { ReactElement } from "react";
 import { RemoveButton } from "../RemoveButton/RemoveButton";
 
 import "./List.scss";
 
 interface FormInput {
   name: string,
-  frequency: number,
-  checked: boolean[],
+  frequency?: number,
+  isChecked: boolean[],
 }
 interface ListProps {
   elements: FormInput[] | string[],
   section: string,
   handleRemoveItem: (index: number) => void,
-  handleCheck?: (e: ChangeEvent<HTMLInputElement>, element: FormInput, i: number) => void,
+  handleCheck?: (element: FormInput, i: number) => void,
  }
 
 export function List({ elements, section, handleRemoveItem, handleCheck }: ListProps): ReactElement {
   
   const list: ReactElement[] = elements.map((element, index) => {
     const checkboxes = [];
-    if (typeof element !== "string" && element.frequency && handleCheck) {
-      for (let i = 0; i < (element as FormInput).frequency; i++) {
-        checkboxes.push(<input key={`${section}-${i}`} type="checkbox" checked={element.checked[i] } onChange={(e)=> handleCheck(e, element, i)}/>);
+    if (typeof element !== "string" && handleCheck) {
+      if (element.frequency) {
+        for (let i  = 0; i < element.frequency; i++) {
+        checkboxes.push(<input key={`${section}-${i}`} type="checkbox" checked={element.isChecked[i] } onChange={()=> handleCheck(element, i)}/>);
       }
-    }
-    if (section === "events") {
-      checkboxes.push(<input key={`${section}-1`} type="checkbox" />);
+      } else {
+        checkboxes.push(<input key={`${section}-1`} type="checkbox" checked={element.isChecked[0]} onChange={() => handleCheck(element, 0)} />);
+      }
     }
     return (
       <li key={`${section}-${index}`}>

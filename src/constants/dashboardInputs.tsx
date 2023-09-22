@@ -8,8 +8,8 @@ interface Input {
 
 interface FormInput {
   name: string,
-  frequency: number,
-  checked: boolean[],
+  frequency?: number,
+  isChecked: boolean[],
 }
 
 export const drugsTextInput: Input = {
@@ -60,12 +60,12 @@ export const drugsMock: FormInput[] = [
   {
     name: "Edelan",
     frequency: 1,
-    checked: [false]
+    isChecked: [false]
   },
   {
     name: "Protopic",
     frequency: 2,
-    checked: [false, false]
+    isChecked: [false, false]
   },
 ];
 
@@ -73,22 +73,48 @@ export const caresMock: FormInput[] = [
   {
     name: "Krem rokitnikowy",
     frequency: 2,
-    checked: [false, false]
+    isChecked: [false, false]
   },
   {
     name: "Balsam",
     frequency: 3,
-    checked: [false, false, false]
+    isChecked: [false, false, false]
   },
 ];
 
-export const eventsMock: string[] = [
-  "Stres",
-  "Jedzenie",
-  "Kosmetyki",
-  "Stan zapalny",
-  "Zaburzenia snu",
-  "Alergeny",
+// export const eventsMock: string[] = [
+//   "Stres",
+//   "Jedzenie",
+//   "Kosmetyki",
+//   "Stan zapalny",
+//   "Zaburzenia snu",
+//   "Alergeny",
+// ];
+
+export const eventsMock: FormInput[] = [
+  {
+    name: "Stres",
+    isChecked: [false],
+  },
+  {
+    name: "Jedzenie",
+    isChecked: [false],
+  },
+  {
+    name: "Kosmetyki",
+    isChecked: [false],
+  },
+  {
+    name: "Stan zapalny",
+    isChecked: [false],
+  },
+  {
+    name: "Zaburzenia snu",
+    isChecked: [false],
+  },
+  {
+    name: "Alergeny",
+isChecked: [false],  },
 ];
 
 export const notesMock: string[] = [
