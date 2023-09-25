@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { RemoveButton } from "../RemoveButton/RemoveButton";
+import { dateFormatting } from "../../config/firebase";
 
 import "./List.scss";
 
@@ -42,7 +43,7 @@ export function List({ elements, section, style, handleRemoveItem, handleCheck }
       <li key={`${section}-${index}`}>
         {instanceOfFormInput(element) ? "" : 
           <>
-            <span className="date">{element.date.toDateString()}</span><br />
+            <span className="date">{dateFormatting(element.date)}</span><br />
         </>
         }
         {instanceOfFormInput(element) ? element.name : element.note}

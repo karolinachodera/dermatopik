@@ -38,3 +38,20 @@ export async function setUserScoradResults(userId: string, scoradList: ScoradRes
     await setDoc(doc(db, "users", userId, "scorad-results", i.toString()), scoradList[i-1]);
   }
 }
+
+export function dateFormatting(date: Date | any): string {
+    let formattedDate: string;
+    let dateToFormat: Date;
+    
+    if (date instanceof Date) {
+      dateToFormat = date;
+    } else {
+      dateToFormat = date.toDate();
+    }
+    const year: number = dateToFormat.getFullYear();
+    const month: number | string = dateToFormat.getMonth() < 9 ? `0${dateToFormat.getMonth()+1}` : dateToFormat.getMonth() +1;
+    const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
+
+    formattedDate = `${day}.${month}.${year}`
+    return formattedDate;
+  }
