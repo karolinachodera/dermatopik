@@ -53,7 +53,7 @@ function Dashboard(): ReactElement {
     setUserScoradResults("tester", newList);
   } 
 
-  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: NoteType): void {
+  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: NoteType): void { 
     e.preventDefault();
     setNotes([...notes, newNote]);
     (e.target as HTMLFormElement).reset();
@@ -89,13 +89,15 @@ function Dashboard(): ReactElement {
           </p>}
           <LineChart chartData={scoradList} />
       </Section>
-      <Section header="Notatki" id="notes" style="frame">
+      <Section header="Ostatnie notatki" id="notes" style="frame">
+        <Link to="/notes">Zobacz wszystkie</Link>
         <List
-          elements={notes}
+          elements={notes.length > 3 ? notes.slice(notes.length - 3, notes.length): notes}
           section="notes"
           handleRemoveItem={handleRemoveNote}
         />
         <NotesForm handleSubmit={handleNoteAdding} textarea={notesTextarea} />
+        
       </Section>
       <Section id="navigation">
         <Link to="/scorad" className="button">Oceń Scorad</Link>
