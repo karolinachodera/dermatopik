@@ -21,10 +21,11 @@ ul.checkbox-list {
     height: 25px;
 }
 
-#notes li {
+#last-notes li {
     padding: 10px 0;
+    position: relative;
 }
 
-#notes li:not(:last-child) {
+#last-notes li:not(:last-child) {
     border-bottom: 1px solid variables.$dark-nude;
 }

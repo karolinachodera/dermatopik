@@ -129,7 +129,7 @@ export function DailyCheck(): ReactElement {
         <List
           elements={events}
             section="events"
-            style="checkbox-list"
+            style="checkbox-list" 
             handleRemoveItem={handleRemoveEvent}
             handleCheck={handleEventCheck}
         />

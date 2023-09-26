@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Scorad from "./components/Scorad/Scorad";
 import Root from "./components/Root/Root";
 import { DailyCheck } from "./pages/DailyCheck";
+import { Notes } from "./pages/Notes";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<Dashboard />} />
       <Route path="/scorad" element={<Scorad />} />
       <Route path="/daily" element={<DailyCheck />} />
+      <Route path="/notes" element={<Notes />} />
     </Route>
   )
 );

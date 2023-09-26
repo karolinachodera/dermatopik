@@ -8,11 +8,6 @@ import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 import { LineChart } from "../LineChart/LineChart";
 
-import {
-  notesTextarea,
-  notesMock,
-} from "../../constants/dashboardInputs";
-
 interface User {
   name: string,
   password: string,
@@ -31,7 +26,6 @@ interface NoteType {
 
 function Dashboard(): ReactElement {
   const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes } = useRootContext();
-  // const [notes, setNotes] = useState<NoteType[]>(notesMock);
 
   useEffect(() => {
     if ( todayScorad) {
@@ -52,12 +46,6 @@ function Dashboard(): ReactElement {
     setScoradList(newList);
     setUserScoradResults("tester", newList);
   } 
-
-  function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: NoteType): void { 
-    e.preventDefault();
-    setNotes([...notes, newNote]);
-    (e.target as HTMLFormElement).reset();
-  }
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {
     if (scoradList.length > 0) {
@@ -82,6 +70,7 @@ function Dashboard(): ReactElement {
   return (
     <main id="dashboard">
       <Section header="SCORAD" id="scorad" style="frame">
+        <Link to="/scorad">Oceń Scorad</Link>
         {todayScorad &&
           <p>
             Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
@@ -89,14 +78,14 @@ function Dashboard(): ReactElement {
           </p>}
           <LineChart chartData={scoradList} />
       </Section>
-      <Section header="Ostatnie notatki" id="notes" style="frame">
+      <Section header="Ostatnie notatki" id="last-notes" style="frame">
         <Link to="/notes">Zobacz wszystkie</Link>
         <List
           elements={notes.length > 3 ? notes.slice(notes.length - 3, notes.length): notes}
           section="notes"
           handleRemoveItem={handleRemoveNote}
         />
-        <NotesForm handleSubmit={handleNoteAdding} textarea={notesTextarea} />
+        <NotesForm />
         
       </Section>
       <Section id="navigation">

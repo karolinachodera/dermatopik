@@ -16,8 +16,16 @@ button.remove:hover {
     background-color: variables.$dark-nude;
 }
 
-#notes button.remove {
+#last-notes button.remove {
     float: right;
+}
+
+#notes button.remove, #last-notes button.remove {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
 }
 
 
