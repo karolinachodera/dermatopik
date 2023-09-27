@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { db, usersRef, getUserScoradResults, setUserScoradResults, getUserNotes } from "../../config/firebase";
+import { db, usersRef, getUserScoradResults, setUserScoradResults, getUserNotes, getUserDrugs, getUserCares } from "../../config/firebase";
 import {
     drugsMock,
     caresMock,
@@ -85,8 +85,34 @@ export const RootProvider = ({ children }: {children: any}) => {
         console.error("Error fetching notes:", error);
       }
       };
+
+      const fetchDrugs = async () => {
+      try {
+        const userDrugs: FormInput[] = await getUserDrugs("tester");
+        console.log("Fetched drugs:", userDrugs); 
+        if (!ignore) {
+          setDrugs(userDrugs);
+        }
+      } catch (error) {
+        console.error("Error fetching drugs:", error);
+      }
+      };
+
+      const fetchCares = async () => {
+      try {
+        const userCares: FormInput[] = await getUserCares("tester");
+        console.log("Fetched cares:", userCares); 
+        if (!ignore) {
+          setCares(userCares);
+        }
+      } catch (error) {
+        console.error("Error fetching cares:", error);
+      }
+      };
       fetchScoradResults();
       fetchNotes();
+      fetchDrugs();
+      fetchCares();
     return () => {ignore = true;}
     }, []);
 

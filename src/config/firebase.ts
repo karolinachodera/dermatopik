@@ -10,6 +10,12 @@ interface NoteType {
   date: Date,
 }
 
+interface FormInput {
+  name: string,
+  frequency?: number,
+  isChecked: boolean[],
+}
+
 const firebaseConfig = {
   apiKey: "AIzaSyBEssCenunDi3GmwZ9Tqp1hMFPCRfBwRws",
   authDomain: "dermatopik-fafaa.firebaseapp.com",
@@ -53,6 +59,32 @@ export async function getUserNotes(id: string) {
 export async function setUserNotes(id: string, notes: NoteType[]) {
   for (let i = 1; i <= notes.length; i++) {
     await setDoc(doc(db, "users", id, "notes", i.toString()), notes[i-1]);
+  }
+}
+
+export async function getUserDrugs(id: string) {
+  const drugsRef = collection(db, "users", id, "drugs");
+  const drugsSnap = await getDocs(drugsRef);
+  const drugs: FormInput[] = drugsSnap.docs.map(drug => ({ ...drug.data() as FormInput }));
+  return drugs;
+}
+
+export async function setUserDrugs(id: string, drugs: FormInput[]) {
+  for (let i = 1; i <= drugs.length; i++) {
+    await setDoc(doc(db, "users", id, "drugs", i.toString()), drugs[i-1]);
+  }
+}
+
+export async function getUserCares(id: string) {
+  const caresRef = collection(db, "users", id, "cares");
+  const caresSnap = await getDocs(caresRef);
+  const cares: FormInput[] = caresSnap.docs.map(care => ({ ...care.data() as FormInput }));
+  return cares;
+}
+
+export async function setUserCares(id: string, cares: FormInput[]) {
+  for (let i = 1; i <= cares.length; i++) {
+    await setDoc(doc(db, "users", id, "cares", i.toString()), cares[i-1]);
   }
 }
 

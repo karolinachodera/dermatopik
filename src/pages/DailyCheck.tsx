@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { useRootContext } from '../components/Root/RootContext';
+import { setUserDrugs, setUserCares } from "../config/firebase";
 
 import Section from "../components/Section/Section";
 import { List } from "../components/List/List";
@@ -33,7 +34,7 @@ export function DailyCheck(): ReactElement {
             }
             return drug;
         });
-        setDrugs(updatedDrugs);
+      setDrugs(updatedDrugs);
     }
 
     function handleCareCheck(element: FormInput, i: number) {
@@ -45,7 +46,8 @@ export function DailyCheck(): ReactElement {
             }
             return care;
         });
-        setCares(updatedCares);
+      setCares(updatedCares);
+      
     }
 
     function handleEventCheck(element: FormInput, i: number) {
@@ -61,15 +63,19 @@ export function DailyCheck(): ReactElement {
     }
     
     function handleDrugAdding(e: React.FormEvent<HTMLFormElement>, newDrug: FormInput): void {
-        e.preventDefault();
-        setDrugs([...drugs, newDrug]);
-        (e.target as HTMLFormElement).reset();
+      e.preventDefault();
+      const updatedDrugs: FormInput[] = [...drugs, newDrug];
+        setDrugs(updatedDrugs);
+      (e.target as HTMLFormElement).reset();
+      setUserDrugs("tester", updatedDrugs);
     }
 
     function handleCareAdding(e: React.FormEvent<HTMLFormElement>, newCare: FormInput): void {
-        e.preventDefault();
-        setCares([...cares, newCare]);
-        (e.target as HTMLFormElement).reset();
+      e.preventDefault();
+      const updatedCares: FormInput[] = [...cares, newCare];
+        setCares(updatedCares);
+      (e.target as HTMLFormElement).reset();
+      setUserCares("tester", updatedCares);
     }
 
     function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: FormInput): void {
@@ -81,13 +87,15 @@ export function DailyCheck(): ReactElement {
     function handleRemoveDrug(index: number): void {
         const newDrugs: FormInput[] = [...drugs];
         newDrugs.splice(index, 1);
-        setDrugs(newDrugs);
+      setDrugs(newDrugs);
+      setUserDrugs("tester", newDrugs);
     }
 
     function handleRemoveCare(index: number): void {
         const newCares: FormInput[] = [...cares];
         newCares.splice(index, 1);
-        setCares(newCares);
+      setCares(newCares);
+      setUserCares("tester", newCares);
     }
 
     function handleRemoveEvent(index: number): void {
