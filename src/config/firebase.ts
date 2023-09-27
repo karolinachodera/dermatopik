@@ -5,6 +5,11 @@ interface ScoradResult {
   result: number, description: string, date: Date | any,
 }
 
+interface NoteType {
+  note: string,
+  date: Date,
+}
+
 const firebaseConfig = {
   apiKey: "AIzaSyBEssCenunDi3GmwZ9Tqp1hMFPCRfBwRws",
   authDomain: "dermatopik-fafaa.firebaseapp.com",
@@ -19,23 +24,35 @@ export const db = getFirestore(app);
 export const usersRef = collection(db, "users"); 
 
 export async function getUser(id: string) {
-    const userRef: any = doc(usersRef, id);
+  const userRef: any = doc(usersRef, id);
   const userSnap = await getDoc(userRef);
   const user = userSnap.data();
-  console.log(user);
   return user;
 }
 
 export async function getUserScoradResults(id: string) {
-    const resultsRef = query(collection(db, "users", id, "scorad-results"), orderBy("date", "asc"));
+  const resultsRef = query(collection(db, "users", id, "scorad-results"), orderBy("date", "asc"));
   const resultsSnap = await getDocs(resultsRef);
   const results: ScoradResult[] = resultsSnap.docs.map(result => ({ ...result.data() as ScoradResult }));
   return results;
 }
 
-export async function setUserScoradResults(userId: string, scoradList: ScoradResult[]) {
+export async function setUserScoradResults(id: string, scoradList: ScoradResult[]) {
   for (let i = 1; i <= scoradList.length; i++) {
-    await setDoc(doc(db, "users", userId, "scorad-results", i.toString()), scoradList[i-1]);
+    await setDoc(doc(db, "users", id, "scorad-results", i.toString()), scoradList[i-1]);
+  }
+}
+
+export async function getUserNotes(id: string) {
+  const notesRef = query(collection(db, "users", id, "notes"), orderBy("date", "asc"));
+  const notesSnap = await getDocs(notesRef);
+  const notes: NoteType[] = notesSnap.docs.map(note => ({ ...note.data() as NoteType }));
+  return notes;
+}
+
+export async function setUserNotes(id: string, notes: NoteType[]) {
+  for (let i = 1; i <= notes.length; i++) {
+    await setDoc(doc(db, "users", id, "notes", i.toString()), notes[i-1]);
   }
 }
 
@@ -53,5 +70,5 @@ export function dateFormatting(date: Date | any): string {
     const day: number | string = dateToFormat.getDate() < 10 ? `0${dateToFormat.getDate()}` : dateToFormat.getDate();
 
     formattedDate = `${day}.${month}.${year}`
-    return formattedDate;
-  }
+  return formattedDate;
+}

@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import { useRootContext } from '../components/Root/RootContext';
-import { dateFormatting } from "../config/firebase";
+import { dateFormatting, setUserNotes } from "../config/firebase";
 
 import Section from "../components/Section/Section";
 import { NotesForm } from "../components/NotesForm/NotesForm";
@@ -11,15 +11,14 @@ interface NoteType {
   date: Date,
 }
 
-
-
 export function Notes(): ReactElement {
     const { notes, setNotes } = useRootContext();
 
     function handleRemoveNote(index: number): void {
     const newNotes: NoteType[] = [...notes];
     newNotes.splice(index, 1);
-    setNotes(newNotes);
+        setNotes(newNotes);
+        setUserNotes("tester", newNotes);
   }
     const Notes: ReactElement[] = notes.map((note, index) => {
         return (

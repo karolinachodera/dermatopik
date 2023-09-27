@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { db, usersRef, getUserScoradResults, setUserScoradResults } from "../../config/firebase";
+import { db, usersRef, getUserScoradResults, setUserScoradResults, getUserNotes } from "../../config/firebase";
 import {
     drugsMock,
     caresMock,
@@ -74,7 +74,19 @@ export const RootProvider = ({ children }: {children: any}) => {
         console.error("Error fetching SCORAD results:", error);
       }
     };
+      const fetchNotes = async () => {
+      try {
+        const userNotes: NoteType[] = await getUserNotes("tester");
+        console.log("Fetched notes:", userNotes); 
+        if (!ignore) {
+          setNotes(userNotes);
+        }
+      } catch (error) {
+        console.error("Error fetching notes:", error);
+      }
+      };
       fetchScoradResults();
+      fetchNotes();
     return () => {ignore = true;}
     }, []);
 

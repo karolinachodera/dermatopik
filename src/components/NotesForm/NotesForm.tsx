@@ -3,6 +3,7 @@ import { AddingFormInput } from "../AddingFormInput/AddingFormInput";
 import { useRootContext } from "../Root/RootContext";
 
 import { notesTextarea } from "../../constants/dashboardInputs";
+import { setUserNotes } from "../../config/firebase";
 
 interface Input {
   name: string,
@@ -11,7 +12,6 @@ interface Input {
   frequency?: boolean
   required: boolean
 }
-
 
 interface NoteType {
   note: string,
@@ -23,8 +23,11 @@ export function NotesForm(): ReactElement {
   
   function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: NoteType): void { 
     e.preventDefault();
-    setNotes([...notes, newNote]);
+    const newNotes: NoteType[] = [...notes, newNote];
+    setNotes(newNotes);
     (e.target as HTMLFormElement).reset();
+    setUserNotes("tester", newNotes);
+
   }
 
   return (

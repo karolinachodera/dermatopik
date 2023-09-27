@@ -1,6 +1,6 @@
 import { ReactElement, useState, useEffect } from "react";
 import { Navigate, Link, useLocation } from 'react-router-dom';
-import { db, usersRef, getUserScoradResults, setUserScoradResults } from "../../config/firebase";
+import { db, usersRef, getUserScoradResults, setUserScoradResults, setUserNotes } from "../../config/firebase";
 import { useRootContext } from '../Root/RootContext';
 
 import Section from "../Section/Section";
@@ -65,6 +65,7 @@ function Dashboard(): ReactElement {
     const newNotes: NoteType[] = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
+    setUserNotes("tester", newNotes);
   }
 
   return (
