@@ -124,8 +124,16 @@ isChecked: [false],  },
 
 export const notesMock: NoteType[] = [
   {
-    note: "Sucha i czerwona szyja - być może po maśle orzechowym?",
+    note: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     date: new Date("2023-08-25"),
+  },
+  {
+    note: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    date: new Date("2023-08-30"),
+  },
+  {
+    note: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    date: new Date("2023-09-15"),
   }
   
 ];

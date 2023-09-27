@@ -91,19 +91,32 @@ section.frame {
 
 main#notes {
     section {
-        position: relative;
+        p {
+             margin: 0;
+             line-height: 1.5;
+        }
+        h2 {
+            display: inline-block;
+            margin: 0 0 15px 0;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
     }
-.adding-form {
-    border-top: none;
-    padding-top: 0;
-    display: block;
-    
-    .input-field {
-        min-height: 50px;
+
+    .adding-form {
+        border-top: none;
+        padding-top: 0;
+        display: block;
+        
+        .input-field {
+            min-height: 50px;
+        }
+        button[type="submit"] {
+            float: right;
+        }
+        textarea {
+            height: 130px;
+        }
     }
-    button[type="submit"] {
-        float: right;
-    }
-}
 }
 

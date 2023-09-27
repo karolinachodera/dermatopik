@@ -21,11 +21,25 @@ ul.checkbox-list {
     height: 25px;
 }
 
-#last-notes li {
-    padding: 10px 0;
-    position: relative;
+#last-notes ul {
+    padding: 0 15px;
+
+    li {
+        padding: 15px 0;
+        position: relative;
+        list-style: none;
+        line-height: 1.5;
+        
+        span {
+            font-weight: 500;
+            display: inline-block;
+            padding-bottom: 7px;
+        }
+    }
+    
+    li:not(:last-child) {
+        border-bottom: 1px solid variables.$dark-nude;
+    }
 }
 
-#last-notes li:not(:last-child) {
-    border-bottom: 1px solid variables.$dark-nude;
-}
+
