@@ -1,0 +1,8 @@
+.error {
+    display: none;
+    color: red;
+}
+
+.error.visible {
+    display: block;
+}

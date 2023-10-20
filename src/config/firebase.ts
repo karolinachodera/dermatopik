@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, orderBy, query } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 interface ScoradResult {
   result: number, description: string, date: Date | any,
@@ -28,6 +29,34 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const usersRef = collection(db, "users"); 
+const auth = getAuth(app);
+
+export async function handleUserLogin(e: React.FormEvent<HTMLFormElement>) {
+  if (document.querySelector(".error")) {
+    document.querySelector(".error")!.classList.remove("visible");
+  }
+  const loginEmail = (e.target as HTMLFormElement).email.value;
+  const loginPassword = (e.target as HTMLFormElement).password.value;
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+    console.log(userCredential.user);
+  } catch (error) {
+    console.log(error);
+    showLoginError(e, error);
+  }
+  
+}
+
+function showLoginError(e: any, error: any) {
+  const message = e.target.querySelector(".error");
+  message.classList.add("visible");
+
+  if (error.code === "auth/invalid-login-credentials") {
+    message.textContent = "Błędne hasło. Spróbuj ponownie.";
+  } else {
+    message.textContent = `Błąd logowania. ${error.message}`;
+  }
+}
 
 export async function getUser(id: string) {
   const userRef: any = doc(usersRef, id);
