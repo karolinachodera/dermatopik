@@ -1,26 +1,25 @@
 import { ReactElement } from "react";
 import {
-    handleUserLogin
+    loginUser, createAccount
 } from "../../config/firebase";
 
 import "./UserForm.scss";
 
 interface UserFormProps {
-    formType: string,
-    //handleUserSubmit: FormEventHandler,
-}
-
-
+    formType: string,}
 
 export function UserForm({ formType }: UserFormProps): ReactElement {
     function handleUserSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (formType === "login") {
-            handleUserLogin(e);
+            loginUser(e);
+        }
+        if (formType === "signup") {
+            createAccount(e);
         }
     }
     return (
-        <form onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleUserSubmit(e)}>
+        <form onSubmit={(e)=>handleUserSubmit(e)}>
             {formType === "signup" && 
                 <>
                 <label htmlFor="name">Imię</label>
