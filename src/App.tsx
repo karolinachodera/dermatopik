@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements, useParams} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Route, createRoutesFromElements} from "react-router-dom";
 import { ReactElement } from "react";
 
 import "./styles/App.scss";
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
       <Route path="/scorad" element={<Scorad />} />
       <Route path="/daily" element={<DailyCheck />} />
       <Route path="/notes" element={<Notes />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/sign-in" element={<Login />} />
       <Route path="/sign-up" element={<SignUp />} />
     </Route>
   )

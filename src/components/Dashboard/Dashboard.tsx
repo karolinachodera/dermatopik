@@ -1,6 +1,6 @@
-import { ReactElement, useState, useEffect } from "react";
-import { Navigate, Link, useLocation } from 'react-router-dom';
-import { db, usersRef, getUserScoradResults, setUserScoradResults, setUserNotes } from "../../config/firebase";
+import { ReactElement, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { setUserScoradResults, setUserNotes } from "../../config/firebase";
 import { useRootContext } from '../Root/RootContext';
 
 import Section from "../Section/Section";
@@ -25,7 +25,7 @@ interface NoteType {
 }
 
 function Dashboard(): ReactElement {
-  const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes } = useRootContext();
+  const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes, userID, setUserID } = useRootContext();
 
   useEffect(() => {
     if ( todayScorad) {
@@ -44,7 +44,7 @@ function Dashboard(): ReactElement {
       newList = ([...scoradList, result]);
     }
     setScoradList(newList);
-    setUserScoradResults("tester", newList);
+    setUserScoradResults(userID, newList);
   } 
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {

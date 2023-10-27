@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, orderBy, query } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import { redirect } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 
 interface ScoradResult {
   result: number, description: string, date: Date | any,
@@ -30,76 +29,44 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const usersRef = collection(db, "users"); 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
-export async function loginUser(e: React.FormEvent<HTMLFormElement>) {
-  if (document.querySelector(".error")) {
-    document.querySelector(".error")!.classList.remove("visible");
-  }
-  const loginEmail = (e.target as HTMLFormElement).email.value;
-  const loginPassword = (e.target as HTMLFormElement).password.value;
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user);
-    return redirect("/dashboard");
-  } catch (error) {
-    console.log(error);
-    showLoginError(e, error);
-  }
-}
+// export async function createAccount(e: React.FormEvent<HTMLFormElement>) {
+//   if (document.querySelector(".error")) {
+//     document.querySelector(".error")!.classList.remove("visible");
+//   }
+//   const loginName = (e.target as HTMLFormElement).name;
+//   const loginEmail = (e.target as HTMLFormElement).email.value;
+//   const loginPassword = (e.target as HTMLFormElement).password.value;
+//   try {
+//     const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
+//     localStorage.setItem("loggedUser", JSON.stringify(userCredential.user.uid));
+//     console.log(userCredential.user);
 
-export async function createAccount(e: React.FormEvent<HTMLFormElement>) {
-  if (document.querySelector(".error")) {
-    document.querySelector(".error")!.classList.remove("visible");
-  }
-  const loginEmail = (e.target as HTMLFormElement).email.value;
-  const loginPassword = (e.target as HTMLFormElement).password.value;
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
-    console.log(userCredential.user);
-  } catch (error) {
-    console.log(error);
-    showLoginError(e, error);
-  }
-} 
+//     await getUser(userCredential.user.uid);
+
+//     await setDoc(doc(db, "users", userCredential.user.uid), {
+//             name: loginName,
+//             email: loginEmail,
+//             id: userCredential.user.uid,
+//         })
+
+//     return redirect("/dashboard");
+//   } catch (error) {
+//     console.log(error);
+//     showLoginError(e, error);
+//   }
+// } 
 
 export async function logout() {
   await signOut(auth);
-}
-
-// export function showApp() {
-
-// }
-
-export async function monitorAuthState() {
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      console.log(user);
-      //showApp();
-    } else {
-  
-    }
-  })
-}
-
-monitorAuthState();
-
-function showLoginError(e: any, error: any) {
-  const message = e.target.querySelector(".error");
-  message.classList.add("visible");
-
-  if (error.code === "auth/invalid-login-credentials") {
-    message.textContent = "Błędne hasło. Spróbuj ponownie.";
-  } else {
-    message.textContent = `Błąd logowania. ${error.message}`;
-  }
 }
 
 export async function getUser(id: string) {
   const userRef: any = doc(usersRef, id);
   const userSnap = await getDoc(userRef);
   const user = userSnap.data();
-  return user;
+  console.log(user);
 }
 
 export async function getUserScoradResults(id: string) {
