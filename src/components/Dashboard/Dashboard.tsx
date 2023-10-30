@@ -28,7 +28,7 @@ function Dashboard(): ReactElement {
   const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes, userID, setUserID } = useRootContext();
 
   useEffect(() => {
-    if ( todayScorad) {
+    if (todayScorad) {
       handleScoradFinish(todayScorad);
     } 
   }, [todayScorad]);
@@ -38,6 +38,10 @@ function Dashboard(): ReactElement {
     if (!result) {
       return;
     }
+    // if (userID === "") {
+    //   setScoradList([]);
+    //   return;
+    // }
     if (isTodayScorad(result)) {
       newList = ([...scoradList.slice(0, scoradList.length - 1), result]);
     } else {
@@ -45,6 +49,7 @@ function Dashboard(): ReactElement {
     }
     setScoradList(newList);
     setUserScoradResults(userID, newList);
+    setTodayScorad(null);
   } 
 
   function isTodayScorad(scoradResult: ScoradResult): boolean {
@@ -65,14 +70,14 @@ function Dashboard(): ReactElement {
     const newNotes: NoteType[] = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
-    setUserNotes("tester", newNotes);
+    setUserNotes(userID, newNotes);
   }
 
   return (
     <main id="dashboard">
       <Section header="SCORAD" id="scorad" style="frame">
         <Link to="/scorad">Oceń Scorad</Link>
-        {todayScorad &&
+        {todayScorad && userID &&
           <p>
             Twój dzisiejszy wynik SCORAD to {todayScorad.result} punktów.{" "}
             {todayScorad.description}.

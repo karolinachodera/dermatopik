@@ -23,7 +23,7 @@ interface FormInput {
 }
 
 export function DailyCheck(): ReactElement {
-    const { drugs, setDrugs, cares, setCares, events, setEvents } = useRootContext();
+    const { drugs, setDrugs, cares, setCares, events, setEvents, userID, setUserID } = useRootContext();
     
     function handleDrugCheck(element: FormInput, i: number) {
         const newChecked = [...element.isChecked];
@@ -67,7 +67,7 @@ export function DailyCheck(): ReactElement {
       const updatedDrugs: FormInput[] = [...drugs, newDrug];
         setDrugs(updatedDrugs);
       (e.target as HTMLFormElement).reset();
-      setUserDrugs("tester", updatedDrugs);
+      setUserDrugs(userID, updatedDrugs);
     }
 
     function handleCareAdding(e: React.FormEvent<HTMLFormElement>, newCare: FormInput): void {
@@ -75,7 +75,7 @@ export function DailyCheck(): ReactElement {
       const updatedCares: FormInput[] = [...cares, newCare];
         setCares(updatedCares);
       (e.target as HTMLFormElement).reset();
-      setUserCares("tester", updatedCares);
+      setUserCares(userID, updatedCares);
     }
 
     function handleEventAdding(e: React.FormEvent<HTMLFormElement>, newEvent: FormInput): void {
@@ -88,14 +88,14 @@ export function DailyCheck(): ReactElement {
         const newDrugs: FormInput[] = [...drugs];
         newDrugs.splice(index, 1);
       setDrugs(newDrugs);
-      setUserDrugs("tester", newDrugs);
+      setUserDrugs(userID, newDrugs);
     }
 
     function handleRemoveCare(index: number): void {
         const newCares: FormInput[] = [...cares];
         newCares.splice(index, 1);
       setCares(newCares);
-      setUserCares("tester", newCares);
+      setUserCares(userID, newCares);
     }
 
     function handleRemoveEvent(index: number): void {

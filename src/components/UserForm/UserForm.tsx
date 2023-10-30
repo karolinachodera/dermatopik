@@ -26,16 +26,18 @@ export function UserForm({ formType }: UserFormProps): ReactElement {
 
     async function createAccount(e: React.FormEvent<HTMLFormElement>) {
         document.querySelector(".error")!.classList.remove("visible");
-        const loginName = (e.target as HTMLFormElement).name;
-        const loginEmail = (e.target as HTMLFormElement).email.value;
-        const loginPassword = (e.target as HTMLFormElement).password.value;
+        const loginName: string = (e.target as HTMLFormElement).user.value;
+        const loginEmail: string = (e.target as HTMLFormElement).email.value;
+        const loginPassword: string = (e.target as HTMLFormElement).password.value;
+
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
+            console.log(userCredential.user.uid);
             await setDoc(doc(db, "users", userCredential.user.uid), {
                 name: loginName,
                 email: loginEmail,
                 id: userCredential.user.uid,
-            })
+            });
             navigate("/");
         } catch (error) {
             console.log(error);
@@ -67,8 +69,8 @@ export function UserForm({ formType }: UserFormProps): ReactElement {
         <form onSubmit={(e)=>handleUserSubmit(e)}>
             {formType === "signup" && 
                 <>
-                <label htmlFor="name">Imię</label>
-                <input type="text" name="name"></input>
+                <label htmlFor="user">Imię</label>
+                <input type="text" name="user"></input>
                 </>
             }
             <label htmlFor="email">Adres email</label>

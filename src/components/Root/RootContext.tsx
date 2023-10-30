@@ -1,20 +1,14 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { db, usersRef, auth, getUserScoradResults, setUserScoradResults, getUserNotes, getUserDrugs, getUserCares } from "../../config/firebase";
+import { auth, getUserScoradResults, getUserNotes, getUserDrugs, getUserCares } from "../../config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
-import {
-    drugsMock,
-    caresMock,
-    eventsMock,
-    notesMock,
-} from "../../constants/dashboardInputs";
+import { drugsMock, caresMock, eventsMock, notesMock, scoradMock } from "../../constants/dashboardInputs";
 
 interface FormInput {
   name: string,
-    frequency?: number,
-    isChecked: boolean[],
+  frequency?: number,
+  isChecked: boolean[],
 }
-
 
 interface ScoradResult {
   result: number, description: string, date: Date | any,
@@ -25,15 +19,15 @@ interface NoteType {
   date: Date,
 }
 interface ContextType {
-    scoradList: ScoradResult[],
-    setScoradList: (newValue: ScoradResult[]) => void,
-    todayScorad: ScoradResult | null,
-    setTodayScorad: (newValue: ScoradResult) => void,
-    drugs: FormInput[],
-    setDrugs: (newValue: FormInput[]) => void,
-    cares: FormInput[],
-    setCares: (newValue: FormInput[]) => void,
-    events: FormInput[],
+  scoradList: ScoradResult[],
+  setScoradList: (newValue: ScoradResult[]) => void,
+  todayScorad: ScoradResult | null,
+  setTodayScorad: (newValue: ScoradResult | null) => void,
+  drugs: FormInput[],
+  setDrugs: (newValue: FormInput[]) => void,
+  cares: FormInput[],
+  setCares: (newValue: FormInput[]) => void,
+  events: FormInput[],
   setEvents: (newValue: FormInput[]) => void,
   notes: NoteType[],
   setNotes: (newValue: NoteType[]) => void,
@@ -43,7 +37,7 @@ interface ContextType {
 
 const RootContext = createContext<ContextType>({
     scoradList: [], setScoradList: (newValue: ScoradResult[]) => { },
-    todayScorad: null, setTodayScorad: (newValue: ScoradResult) => { },
+    todayScorad: null, setTodayScorad: (newValue: ScoradResult | null) => { },
     drugs: [],
     setDrugs: (newValue: FormInput[]) => { },
     cares: [],
@@ -60,10 +54,8 @@ export const useRootContext = () => {
   return useContext(RootContext);
 };
 
-
-
 export const RootProvider = ({ children }: {children: any}) => {
-  const [scoradList, setScoradList] = useState<ScoradResult[]>([]);
+  const [scoradList, setScoradList] = useState<ScoradResult[]>(scoradMock);
   const [todayScorad, setTodayScorad] = useState<ScoradResult | null>(null);
   const [drugs, setDrugs] = useState<FormInput[]>(drugsMock);
   const [cares, setCares] = useState<FormInput[]>(caresMock);
@@ -76,56 +68,42 @@ export const RootProvider = ({ children }: {children: any}) => {
   async function monitorAuthState() {
     onAuthStateChanged(auth, user => {
       if (user) {
-      // if (user && userID !== user.uid) {
         const uid = user.uid;
-
         console.log("zalogowany" + user);
         if (uid !== userID) {
           setUserID(uid);
         }
-        
       } else {
         console.log("wylogowany" + user);
-        setUserID("");
+        if (userID !== "") {
+          setUserID("");
+        }
       }
     })
   }
 
   monitorAuthState();
 
-  async function fetchScoradResults(id: string) {
-    try {
-      if (id !== "") {
+  async function fetchScoradResults(id: string, ignore: boolean) {
+    if (id !== "") {
+      try {
         const userScoradResults: ScoradResult[] = await getUserScoradResults(id);
         console.log("Fetched Scorad results:", userScoradResults); 
-        //if (!ignore) {
+        if (!ignore) {
           setScoradList(userScoradResults);
-        //}
-      } else {
-        setScoradList([]);
+        }
+      } catch (error) {
+        console.error("Error fetching SCORAD results:", error);
       }
-    } catch (error) {
-      console.error("Error fetching SCORAD results:", error);
+    } else {
+      setScoradList(scoradMock);
     }
   };
-    useEffect(() => {
-      let ignore: boolean = false;
-      fetchScoradResults(userID);
-      //setScoradList(scoradResults);
-    // const fetchScoradResults = async () => {
-    //   try {
-    //     const userScoradResults: ScoradResult[] = await getUserScoradResults("tester");
-    //     console.log("Fetched Scorad results:", userScoradResults); 
-    //     if (!ignore) {
-    //       setScoradList(userScoradResults);
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching SCORAD results:", error);
-    //   }
-    // };
-      const fetchNotes = async () => {
+
+  async function fetchNotes(id: string, ignore: boolean) {
+    if (id !== "") {
       try {
-        const userNotes: NoteType[] = await getUserNotes("tester");
+        const userNotes: NoteType[] = await getUserNotes(id);
         console.log("Fetched notes:", userNotes); 
         if (!ignore) {
           setNotes(userNotes);
@@ -133,11 +111,15 @@ export const RootProvider = ({ children }: {children: any}) => {
       } catch (error) {
         console.error("Error fetching notes:", error);
       }
-      };
+    } else {
+      setNotes(notesMock);
+    }
+  };
 
-      const fetchDrugs = async () => {
+  async function fetchDrugs(id: string, ignore: boolean) {
+    if (id !== "") {
       try {
-        const userDrugs: FormInput[] = await getUserDrugs("tester");
+        const userDrugs: FormInput[] = await getUserDrugs(id);
         console.log("Fetched drugs:", userDrugs); 
         if (!ignore) {
           setDrugs(userDrugs);
@@ -145,11 +127,15 @@ export const RootProvider = ({ children }: {children: any}) => {
       } catch (error) {
         console.error("Error fetching drugs:", error);
       }
-      };
-
-      const fetchCares = async () => {
+    } else {
+      setDrugs(drugsMock);
+    }   
+  };
+  
+  async function fetchCares(id: string, ignore: boolean) {
+    if (id !== "") {
       try {
-        const userCares: FormInput[] = await getUserCares("tester");
+        const userCares: FormInput[] = await getUserCares(id);
         console.log("Fetched cares:", userCares); 
         if (!ignore) {
           setCares(userCares);
@@ -157,11 +143,18 @@ export const RootProvider = ({ children }: {children: any}) => {
       } catch (error) {
         console.error("Error fetching cares:", error);
       }
-      };
-      //fetchScoradResults();
-      fetchNotes();
-      fetchDrugs();
-      fetchCares();
+    } else {
+      setCares(caresMock);
+    }
+      
+  };
+  
+    useEffect(() => {
+      let ignore: boolean = false;
+      fetchScoradResults(userID, ignore);
+      fetchNotes(userID, ignore);
+      fetchDrugs(userID, ignore);
+      fetchCares(userID, ignore);
     return () => {ignore = true;}
     }, [userID]);
 

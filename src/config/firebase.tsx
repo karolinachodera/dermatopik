@@ -31,33 +31,6 @@ export const db = getFirestore(app);
 export const usersRef = collection(db, "users"); 
 export const auth = getAuth(app);
 
-// export async function createAccount(e: React.FormEvent<HTMLFormElement>) {
-//   if (document.querySelector(".error")) {
-//     document.querySelector(".error")!.classList.remove("visible");
-//   }
-//   const loginName = (e.target as HTMLFormElement).name;
-//   const loginEmail = (e.target as HTMLFormElement).email.value;
-//   const loginPassword = (e.target as HTMLFormElement).password.value;
-//   try {
-//     const userCredential = await createUserWithEmailAndPassword(auth, loginEmail, loginPassword);
-//     localStorage.setItem("loggedUser", JSON.stringify(userCredential.user.uid));
-//     console.log(userCredential.user);
-
-//     await getUser(userCredential.user.uid);
-
-//     await setDoc(doc(db, "users", userCredential.user.uid), {
-//             name: loginName,
-//             email: loginEmail,
-//             id: userCredential.user.uid,
-//         })
-
-//     return redirect("/dashboard");
-//   } catch (error) {
-//     console.log(error);
-//     showLoginError(e, error);
-//   }
-// } 
-
 export async function logout() {
   await signOut(auth);
 }
@@ -77,6 +50,7 @@ export async function getUserScoradResults(id: string) {
 }
 
 export async function setUserScoradResults(id: string, scoradList: ScoradResult[]) {
+  if (id === "") { return;}
   for (let i = 1; i <= scoradList.length; i++) {
     await setDoc(doc(db, "users", id, "scorad-results", i.toString()), scoradList[i-1]);
   }
@@ -90,6 +64,7 @@ export async function getUserNotes(id: string) {
 }
 
 export async function setUserNotes(id: string, notes: NoteType[]) {
+  if (id === "") { return;}
   for (let i = 1; i <= notes.length; i++) {
     await setDoc(doc(db, "users", id, "notes", i.toString()), notes[i-1]);
   }
@@ -103,6 +78,7 @@ export async function getUserDrugs(id: string) {
 }
 
 export async function setUserDrugs(id: string, drugs: FormInput[]) {
+  if (id === "") { return;}
   for (let i = 1; i <= drugs.length; i++) {
     await setDoc(doc(db, "users", id, "drugs", i.toString()), drugs[i-1]);
   }
@@ -116,6 +92,7 @@ export async function getUserCares(id: string) {
 }
 
 export async function setUserCares(id: string, cares: FormInput[]) {
+  if (id === "") { return;}
   for (let i = 1; i <= cares.length; i++) {
     await setDoc(doc(db, "users", id, "cares", i.toString()), cares[i-1]);
   }

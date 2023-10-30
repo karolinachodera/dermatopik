@@ -19,14 +19,14 @@ interface NoteType {
 }
 
 export function NotesForm(): ReactElement {
-  const { notes, setNotes } = useRootContext();
+  const { notes, setNotes, userID } = useRootContext();
   
   function handleNoteAdding(e: React.FormEvent<HTMLFormElement>, newNote: NoteType): void { 
     e.preventDefault();
     const newNotes: NoteType[] = [...notes, newNote];
     setNotes(newNotes);
     (e.target as HTMLFormElement).reset();
-    setUserNotes("tester", newNotes);
+    setUserNotes(userID, newNotes);
 
   }
 

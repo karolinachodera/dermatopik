@@ -12,13 +12,13 @@ interface NoteType {
 }
 
 export function Notes(): ReactElement {
-    const { notes, setNotes } = useRootContext();
+    const { notes, setNotes, userID } = useRootContext();
 
     function handleRemoveNote(index: number): void {
     const newNotes: NoteType[] = [...notes];
     newNotes.splice(index, 1);
         setNotes(newNotes);
-        setUserNotes("tester", newNotes);
+        setUserNotes(userID, newNotes);
   }
     const Notes: ReactElement[] = notes.map((note, index) => {
         return (

@@ -6,6 +6,10 @@ interface Input {
   required: boolean,
 }
 
+interface ScoradResult {
+  result: number, description: string, date: Date | any,
+}
+
 interface FormInput {
   name: string,
   frequency?: number,
@@ -61,6 +65,34 @@ export const notesTextarea: Input = {
   required: true,
 };
 
+export const scoradMock: ScoradResult[] = [
+  {
+    result: 12,
+    description: "",
+    date: new Date("2023-10-01"),
+  },
+  {
+    result: 6,
+    description: "",
+    date: new Date("2023-10-05"),
+  },
+  {
+    result: 10,
+    description: "",
+    date: new Date("2023-10-10"),
+  },
+  {
+    result: 8,
+    description: "",
+    date: new Date("2023-10-15"),
+  },
+  {
+    result: 14,
+    description: "",
+    date: new Date("2023-10-20"),
+  },
+]
+
 export const drugsMock: FormInput[] = [
   {
     name: "Edelan",
@@ -86,15 +118,6 @@ export const caresMock: FormInput[] = [
     isChecked: [false, false, false]
   },
 ];
-
-// export const eventsMock: string[] = [
-//   "Stres",
-//   "Jedzenie",
-//   "Kosmetyki",
-//   "Stan zapalny",
-//   "Zaburzenia snu",
-//   "Alergeny",
-// ];
 
 export const eventsMock: FormInput[] = [
   {
