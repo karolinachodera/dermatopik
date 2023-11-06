@@ -15,9 +15,9 @@ interface NoteType {
   date: Date,
 }
 interface ListProps {
-  elements: FormInput[] | NoteType[],
+  elements: (FormInput | NoteType)[],
   section: string,
-  style?: string,
+  appearance?: string,
   handleRemoveItem: (index: number) => void,
   handleCheck?: (element: FormInput, i: number) => void,
 }
@@ -26,9 +26,9 @@ function instanceOfFormInput(element: any): element is FormInput {
     return 'isChecked' in element;
 }
 
-export function List({ elements, section, style, handleRemoveItem, handleCheck }: ListProps): ReactElement {
+export function List({ elements, section, appearance, handleRemoveItem, handleCheck }: ListProps): ReactElement {
   
-  const list: ReactElement[] = elements.map((element, index) => {
+  const list: ReactElement[] = elements.map((element: FormInput | NoteType, index: number) => {
     const checkboxes = [];
     if (instanceOfFormInput(element) && handleCheck) {
       if (element.frequency) {
@@ -56,5 +56,5 @@ export function List({ elements, section, style, handleRemoveItem, handleCheck }
       </li>
     );
   });
-  return <ul className={style}>{list}</ul>;
+  return <ul className={appearance}>{list}</ul>;
 }

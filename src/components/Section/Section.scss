@@ -71,12 +71,15 @@ button:hover,
 #navigation {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     a {
         display: inline-block;
         padding: 15px;
         font-size: 1rem;
         text-decoration: none;
         color: black;
+        flex-basis: content;
+        margin-bottom: 20px;
     }
 }
 

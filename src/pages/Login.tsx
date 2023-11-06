@@ -6,7 +6,7 @@ import Section from "../components/Section/Section";
 export function Login() {
     return (
         <main>
-            <Section style="frame" id="login" header="Zaloguj się">
+            <Section appearance="frame" id="login" header="Zaloguj się">
                 <p>Nie masz konta? <Link to="/sign-up">Zarejestruj się</Link></p>
                 <UserForm formType="login"/>
             </Section>

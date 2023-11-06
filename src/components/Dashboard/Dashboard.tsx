@@ -8,13 +8,6 @@ import { NotesForm } from "../NotesForm/NotesForm";
 import { List } from "../List/List";
 import { LineChart } from "../LineChart/LineChart";
 
-interface User {
-  name: string,
-  password: string,
-  id: string,
-  email: string,
-}
-
 interface ScoradResult {
   result: number, description: string, date: Date | any,
 }
@@ -25,7 +18,7 @@ interface NoteType {
 }
 
 function Dashboard(): ReactElement {
-  const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes, userID, setUserID } = useRootContext();
+  const { scoradList, setScoradList, todayScorad, setTodayScorad, notes, setNotes, userID } = useRootContext();
 
   useEffect(() => {
     if (todayScorad) {
@@ -38,10 +31,6 @@ function Dashboard(): ReactElement {
     if (!result) {
       return;
     }
-    // if (userID === "") {
-    //   setScoradList([]);
-    //   return;
-    // }
     if (isTodayScorad(result)) {
       newList = ([...scoradList.slice(0, scoradList.length - 1), result]);
     } else {
@@ -75,7 +64,7 @@ function Dashboard(): ReactElement {
 
   return (
     <main id="dashboard">
-      <Section header="SCORAD" id="scorad" style="frame">
+      <Section header="SCORAD" id="scorad" appearance="frame">
         <Link to="/scorad">Oceń Scorad</Link>
         {todayScorad && userID &&
           <p>
@@ -84,7 +73,7 @@ function Dashboard(): ReactElement {
           </p>}
           <LineChart chartData={scoradList} />
       </Section>
-      <Section header="Ostatnie notatki" id="last-notes" style="frame">
+      <Section header="Ostatnie notatki" id="last-notes" appearance="frame">
         <Link to="/notes">Zobacz wszystkie</Link>
         <List
           elements={notes.length > 3 ? notes.slice(notes.length - 3, notes.length): notes}

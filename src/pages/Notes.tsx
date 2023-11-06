@@ -22,7 +22,7 @@ export function Notes(): ReactElement {
   }
     const Notes: ReactElement[] = notes.map((note, index) => {
         return (
-        <Section id={`note-${index}`} key={`note-${index}`} header={dateFormatting(note.date)} style="frame">
+        <Section id={`note-${index}`} key={`note-${index}`} header={dateFormatting(note.date)} appearance="frame">
                 <RemoveButton handleClick={() => handleRemoveNote(index)} />
                 <p>
                     {note.note}
@@ -33,7 +33,7 @@ export function Notes(): ReactElement {
 
     return (
         <main className="third grid" id="notes">
-            <Section id="notesForm" style="frame">
+            <Section id="notesForm" appearance="frame">
                 <NotesForm />
             </Section>
             {Notes.reverse()}

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, setDoc, orderBy, query } from "firebase/firestore";
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, orderBy, query } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth";
 
 interface ScoradResult {
@@ -39,7 +39,6 @@ export async function getUser(id: string) {
   const userRef: any = doc(usersRef, id);
   const userSnap = await getDoc(userRef);
   const user = userSnap.data();
-  console.log(user);
 }
 
 export async function getUserScoradResults(id: string) {

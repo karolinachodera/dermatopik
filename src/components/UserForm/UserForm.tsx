@@ -18,7 +18,6 @@ export function UserForm({ formType }: UserFormProps): ReactElement {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
             navigate("/");
-            // showApp(userCredential.user.uid);
         } catch (error) {
             showLoginError(e, error);
         }
@@ -66,25 +65,25 @@ export function UserForm({ formType }: UserFormProps): ReactElement {
     }
 
     return (
-        <form onSubmit={(e)=>handleUserSubmit(e)}>
+        <form onSubmit={(e)=>handleUserSubmit(e)} className="sign-user">
             {formType === "signup" && 
                 <>
                 <label htmlFor="user">Imię</label>
-                <input type="text" name="user"></input>
+                <input type="text" name="user" required></input>
                 </>
             }
             <label htmlFor="email">Adres email</label>
-            <input type="email" name="email" required></input>
+            <input type="email" name="email" required minLength={5}></input>
             <label htmlFor="password">Hasło</label>
-            <input type="password" name="password" required></input>
-            {formType === "signup" && 
+            <input type="password" name="password" required minLength={5} maxLength={15}></input>
+            {/* {formType === "signup" && 
                 <>
                 <label htmlFor="password-repeat">Powtórz hasło</label>
                 <input type="password" name="password-repeat"></input>
                 </>
-            }
+            } */}
             <p className="error"></p>
-            <input type="submit" value={formType === "signup" ? "Utwórz konto" : "Zaloguj"} ></input>
+            <input className="button" type="submit" value={formType === "signup" ? "Utwórz konto" : "Zaloguj"} ></input>
                 </form>
     )
 }

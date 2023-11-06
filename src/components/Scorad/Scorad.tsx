@@ -52,7 +52,7 @@ function Scorad(): ReactElement {
   const [bodyPartsInputs, setBodyPartsInputs] = useState < BodyPart[] >([...bodyPartsData]);
   const [symptomsInputs, setSymptomsInputs] = useState<Symptom[]>([...symptoms]);
   const [sleepAndItchInputs, setSleepAndItchInputs] = useState<Range[]>([...rangeData]);
-  const { scoradList, setScoradList, todayScorad, setTodayScorad } = useRootContext();
+  const { setTodayScorad } = useRootContext();
 
   const navigate = useNavigate();
 

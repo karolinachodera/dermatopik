@@ -27,10 +27,13 @@ main.grid {
 main.third {
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 1300px;
+    @include mixins.large {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 section {
-    @include mixins.large {
+    @include mixins.medium {
         grid-column: 1 / 3;
     }
 }

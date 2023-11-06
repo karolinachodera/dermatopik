@@ -23,7 +23,7 @@ interface FormInput {
 }
 
 export function DailyCheck(): ReactElement {
-    const { drugs, setDrugs, cares, setCares, events, setEvents, userID, setUserID } = useRootContext();
+    const { drugs, setDrugs, cares, setCares, events, setEvents, userID } = useRootContext();
     
     function handleDrugCheck(element: FormInput, i: number) {
         const newChecked = [...element.isChecked];
@@ -105,11 +105,11 @@ export function DailyCheck(): ReactElement {
     }
     return (
         <main className="third grid">
-      <Section header="Leki" id="drugs" style="frame">
+      <Section header="Leki" id="drugs" appearance="frame">
         <List
           elements={drugs}
             section="drugs"
-            style="checkbox-list"
+            appearance="checkbox-list"
         handleRemoveItem={handleRemoveDrug}
             handleCheck={handleDrugCheck}
         />
@@ -119,11 +119,11 @@ export function DailyCheck(): ReactElement {
           frequencyInput={drugsFrequencyInput}
         />
       </Section>
-      <Section header="Pielęgnacja" id="cares" style="frame">
+      <Section header="Pielęgnacja" id="cares" appearance="frame">
         <List
           elements={cares}
             section="cares"
-            style="checkbox-list"
+            appearance="checkbox-list"
             handleRemoveItem={handleRemoveCare}
             handleCheck={handleCareCheck}
         />
@@ -133,11 +133,11 @@ export function DailyCheck(): ReactElement {
           frequencyInput={caresFrequencyInput}
         />
       </Section>
-      <Section header="Zdarzenia" id="events" style="frame">
+      <Section header="Zdarzenia" id="events" appearance="frame">
         <List
           elements={events}
             section="events"
-            style="checkbox-list" 
+            appearance="checkbox-list" 
             handleRemoveItem={handleRemoveEvent}
             handleCheck={handleEventCheck}
         />

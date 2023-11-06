@@ -63,18 +63,15 @@ export const RootProvider = ({ children }: {children: any}) => {
   const [notes, setNotes] = useState<NoteType[]>(notesMock);
     
   const [userID, setUserID] = useState<string>("");
-  console.log(userID);
   
   async function monitorAuthState() {
     onAuthStateChanged(auth, user => {
       if (user) {
         const uid = user.uid;
-        console.log("zalogowany" + user);
         if (uid !== userID) {
           setUserID(uid);
         }
       } else {
-        console.log("wylogowany" + user);
         if (userID !== "") {
           setUserID("");
         }

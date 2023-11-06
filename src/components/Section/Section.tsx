@@ -5,12 +5,12 @@ interface SectionProps {
   children: ReactNode,
   header?: string,
   id: string,
-  style?: string
+  appearance?: string
 }
 
-function Section({ children, header, id, style }: SectionProps): ReactElement {
+function Section({ children, header, id, appearance }: SectionProps): ReactElement {
   return (
-    <section className={style} id={id}>
+    <section className={appearance} id={id}>
       {header &&
         <h2>{header}</h2>
        }
