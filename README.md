@@ -1,14 +1,30 @@
 # Skin Observation Journal (Dziennik Obserwacji Skóry)
 
-This is a React project with an application for patients with atopic dermatitis, making it easier to control the course of the disease, care and treatment used.
+An application that helps patients with atopic dermatitis monitor their skin condition, skin care use, and medications intake, and record their observations.
+
+## Technologies and tools
+
+- HTML
+- CSS, Sass
+- Javascript, TypeScript
+- React
+- react-chartjs-2
+- Firebase
 
 ## Features
 
-- SCORAD evaluation - assessment of the severity of the disease based on the symptoms experienced
+- logging in
+- checklists of medication intake and skin care use
+- notes
+- skin condition assessment form (SCORAD evaluation - assessment of the severity of the disease based on the symptoms experienced)
+- storing lists and history of results in a database
+- routing between views, while maintaining aesthetic appearance and good programming practices
 
 ## Features to add
 
+- tab with information and instruction
+
 ## Further improvements
 
-- add TypeScript
-- divide bodyPartsData into two arrays - for front body parts and for back body parts
+- form validation
+- testing
