@@ -69,13 +69,27 @@ export function UserForm({ formType }: UserFormProps): ReactElement {
             {formType === "signup" && 
                 <>
                 <label htmlFor="user">Imię</label>
-                <input type="text" name="user" required></input>
+                <input type="text" name="user" title="Imię o długości 2-10 znaków, może zawierać tylko małe i duże litery" required minLength={2} maxLength={10} pattern="[A-Za-z]{2,10}"></input>
                 </>
             }
             <label htmlFor="email">Adres email</label>
-            <input type="email" name="email" required minLength={5}></input>
-            <label htmlFor="password">Hasło</label>
-            <input type="password" name="password" required minLength={5} maxLength={15}></input>
+            {/* wzór: znaki@znaki.litery(min2) */}
+            <input type="email" name="email" required minLength={5} pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"></input>
+            
+            {formType === "signup" &&
+                <>
+                <label htmlFor="password">Hasło (powinno mieć długość 6-15 znaków i zawierać przynajmniej jedną cyfrę, jedną literę i jeden znak specjalny)</label>
+                <input type="password" name="password" title="Hasło o długości 6-15 znaków, w tym jedna cyfra i jedna litera" required minLength={6} maxLength={15} pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[.\-?!&%#]).{6,15}$"></input>
+                </>
+            }
+            {
+                formType === "login" &&
+                <>
+                    <label htmlFor="password">Hasło</label>
+                    <input type="password" name="password" required minLength={6} maxLength={15}></input>
+                    </>
+            }
+            
             {/* {formType === "signup" && 
                 <>
                 <label htmlFor="password-repeat">Powtórz hasło</label>
