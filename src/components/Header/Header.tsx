@@ -9,7 +9,7 @@ export default function Header(): ReactElement {
   const navigate = useNavigate();
     return (
         <header>
-        <img src={logo} alt="Dermatopik" />
+        <a href="https://dermatopik.pl/" target="_blank"><img src={logo} alt="Dermatopik" /></a>
         <h1 onClick={() => navigate("/")}>Dziennik Obserwacji Skóry</h1>
       </header>
     )
